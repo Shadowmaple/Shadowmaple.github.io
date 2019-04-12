@@ -96,16 +96,17 @@
 
 
 
-  <meta name="description" content="Shadow Zhang&apos;s blog">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Shadow">
-<meta property="og:url" content="https://Shadowmaple.github.io/index.html">
+  <meta name="description" content="为什么要用装饰器？先看一个简单的例子1234def foo():    print(&amp;quot;I&amp;apos;m foo.&amp;quot;)foo() 之后有了一个新需求，想要在其中添加时间，你可以这样直接添加：12345678import timedef foo():    t = time.strftime(&amp;apos;%H:%M:%S&amp;apos;, time.localtime())    pr">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python装饰器">
+<meta property="og:url" content="https://Shadowmaple.github.io/2019/04/13/python装饰器/index.html">
 <meta property="og:site_name" content="Shadow">
-<meta property="og:description" content="Shadow Zhang&apos;s blog">
+<meta property="og:description" content="为什么要用装饰器？先看一个简单的例子1234def foo():    print(&amp;quot;I&amp;apos;m foo.&amp;quot;)foo() 之后有了一个新需求，想要在其中添加时间，你可以这样直接添加：12345678import timedef foo():    t = time.strftime(&amp;apos;%H:%M:%S&amp;apos;, time.localtime())    pr">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-04-12T16:54:44.579Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Shadow">
-<meta name="twitter:description" content="Shadow Zhang&apos;s blog">
+<meta name="twitter:title" content="python装饰器">
+<meta name="twitter:description" content="为什么要用装饰器？先看一个简单的例子1234def foo():    print(&amp;quot;I&amp;apos;m foo.&amp;quot;)foo() 之后有了一个新需求，想要在其中添加时间，你可以这样直接添加：12345678import timedef foo():    t = time.strftime(&amp;apos;%H:%M:%S&amp;apos;, time.localtime())    pr">
 
 
 
@@ -113,7 +114,7 @@
 
   
   
-  <link rel="canonical" href="https://Shadowmaple.github.io/">
+  <link rel="canonical" href="https://Shadowmaple.github.io/2019/04/13/python装饰器/">
 
 
 
@@ -123,7 +124,7 @@
   };
 </script>
 
-  <title>Shadow</title>
+  <title>python装饰器 | Shadow</title>
   
 
 
@@ -171,8 +172,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -214,7 +214,7 @@
         
         
           
-          <li class="menu-item menu-item-home menu-item-active">
+          <li class="menu-item menu-item-home">
 
     
     
@@ -276,9 +276,9 @@
           
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -310,10 +310,8 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/04/13/python装饰器/" class="post-title-link" itemprop="url">python装饰器</a>
+          <h1 class="post-title" itemprop="name headline">python装饰器
+
               
             
           </h1>
@@ -377,9 +375,7 @@
       
 
       
-        
-          
-            <h1 id="为什么要用装饰器？"><a href="#为什么要用装饰器？" class="headerlink" title="为什么要用装饰器？"></a>为什么要用装饰器？</h1><p>先看一个简单的例子<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">def foo():</span><br><span class="line">    print(&quot;I&apos;m foo.&quot;)</span><br><span class="line"></span><br><span class="line">foo()</span><br></pre></td></tr></table></figure></p>
+        <h1 id="为什么要用装饰器？"><a href="#为什么要用装饰器？" class="headerlink" title="为什么要用装饰器？"></a>为什么要用装饰器？</h1><p>先看一个简单的例子<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">def foo():</span><br><span class="line">    print(&quot;I&apos;m foo.&quot;)</span><br><span class="line"></span><br><span class="line">foo()</span><br></pre></td></tr></table></figure></p>
 <p>之后有了一个新需求，想要在其中添加时间，你可以这样直接添加：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">import time</span><br><span class="line"></span><br><span class="line">def foo():</span><br><span class="line">    t = time.strftime(&apos;%H:%M:%S&apos;, time.localtime())</span><br><span class="line">    print(&apos;It\&apos;s &#123;&#125; now.&apos;.format(t))</span><br><span class="line">    print(&quot;I am foo.&quot;)</span><br><span class="line"></span><br><span class="line">foo()</span><br></pre></td></tr></table></figure></p>
 <p>先来看下效果<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">It&apos;s 15:15:15 now.</span><br><span class="line">I am foo.</span><br></pre></td></tr></table></figure></p>
 <p>成功达成目的，但是这样的话，我们每次都要修改函数代码，如果有多个函数的话，效率极为低下。那么这种方式呢？<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">import time</span><br><span class="line">def get_time(func):</span><br><span class="line">    t = time.strftime(&apos;%H:%M:%S&apos;, time.localtime())</span><br><span class="line">    print(&apos;It\&apos;s &#123;&#125; now.&apos;.format(t))</span><br><span class="line">    func()</span><br><span class="line"></span><br><span class="line">def foo():</span><br><span class="line">    print(&quot;I am foo.&quot;)</span><br><span class="line"></span><br><span class="line">get_time(foo)</span><br></pre></td></tr></table></figure></p>
@@ -410,8 +406,6 @@
 <p>在上述代码中，在<code>wrapper</code>中<code>lt</code>即是自由变量。从<code>lt = [&#39;abc&#39;]</code>到<code>return func</code>之间（包括）即是闭包。</p>
 <p>闭包是一种函数，它会保留定义函数时存在的自由变量的绑定，这样调用函数时，虽然定义作用域不可用了，但是仍能使用那些绑定。但是只有嵌套在其他函数中的函数才可能需要处理不在全局作用域中的外部变量。</p>
 
-          
-        
       
     </div>
 
@@ -434,159 +428,28 @@
       
 
       
-
-      
-
       
       
-        <div class="post-eof"></div>
+
       
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://Shadowmaple.github.io/2019/04/03/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Shadow Zhang">
-      <meta itemprop="description" content="Shadow Zhang's blog">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Shadow">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/04/03/hello-world/" class="post-title-link" itemprop="url">Hello World</a>
-              
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
             
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
+              <a href="/2019/04/03/hello-world/" rel="next" title="Hello World">
+                <i class="fa fa-chevron-left"></i> Hello World
+              </a>
             
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
             
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-04-03 21:13:41" itemprop="dateCreated datePublished" datetime="2019-04-03T21:13:41+08:00">2019-04-03</time>
-            
-
-            
-          </span>
-
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
+          </div>
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          
-            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -596,14 +459,15 @@
   </article>
 
 
-    
-  </section>
-
-  
+  </div>
 
 
           </div>
           
+
+  
+
+
 
         </div>
         
@@ -623,8 +487,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -670,6 +543,23 @@
         </div>
       </div>
 
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#为什么要用装饰器？"><span class="nav-number">1.</span> <span class="nav-text">为什么要用装饰器？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#什么是装饰器？"><span class="nav-number">2.</span> <span class="nav-text">什么是装饰器？</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#简单的装饰器"><span class="nav-number">2.1.</span> <span class="nav-text">简单的装饰器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#语法糖"><span class="nav-number">2.2.</span> <span class="nav-text">语法糖</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#装饰器的调用顺序"><span class="nav-number">2.3.</span> <span class="nav-text">装饰器的调用顺序</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#带参数的装饰器"><span class="nav-number">3.</span> <span class="nav-text">带参数的装饰器</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#关于-args-kwargs"><span class="nav-number">3.1.</span> <span class="nav-text">关于*args, **kwargs</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#类装饰器"><span class="nav-number">4.</span> <span class="nav-text">类装饰器</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#装饰器的弊端"><span class="nav-number">5.</span> <span class="nav-text">装饰器的弊端</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#装饰器的执行顺序"><span class="nav-number">6.</span> <span class="nav-text">装饰器的执行顺序</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#闭包"><span class="nav-number">7.</span> <span class="nav-text">闭包</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
       
 
       
@@ -801,6 +691,10 @@
 
 
   
+  <script src="/js/scrollspy.js?v=7.1.0"></script>
+<script src="/js/post-details.js?v=7.1.0"></script>
+
+
 
   
 
@@ -816,6 +710,8 @@
 
   
 
+
+  
 
 
   
