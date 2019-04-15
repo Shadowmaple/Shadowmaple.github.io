@@ -1,0 +1,1302 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.1.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.1.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.1.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="引言简单记录一些在使用vim过程中会用到的操作">
+<meta name="keywords" content="vim,linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vim操作命令">
+<meta property="og:url" content="https://Shadowmaple.github.io/2019/04/15/Vim操作命令/index.html">
+<meta property="og:site_name" content="Shadow">
+<meta property="og:description" content="引言简单记录一些在使用vim过程中会用到的操作">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-04-15T14:51:04.364Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Vim操作命令">
+<meta name="twitter:description" content="引言简单记录一些在使用vim过程中会用到的操作">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="https://Shadowmaple.github.io/2019/04/15/Vim操作命令/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Vim操作命令 | Shadow</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Shadow</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">See the world</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://Shadowmaple.github.io/2019/04/15/Vim操作命令/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Shadow Zhang">
+      <meta itemprop="description" content="Coding everyday, change everyday">
+      <meta itemprop="image" content="/uploads/shadowmaple.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Shadow">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Vim操作命令
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-04-15 22:30:46 / 修改时间：22:51:04" itemprop="dateCreated datePublished" datetime="2019-04-15T22:30:46+08:00">2019-04-15</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h1><p>简单记录一些在使用vim过程中会用到的操作<br><a id="more"></a></p>
+<h1 id="模式"><a href="#模式" class="headerlink" title="模式"></a>模式</h1><p>vim有三个模式，分别是：</p>
+<ul>
+<li>命令模式</li>
+<li>编辑模式<ul>
+<li>进入：[i,I,o,O,a,A,r,R]</li>
+<li>退出：Esc键</li>
+</ul>
+</li>
+<li>命令行模式<ul>
+<li>进入：[:, /, ?]</li>
+<li>退出：Esc键</li>
+<li>作用：查找数据，读取、保存、批量替换字符、退出、显示行号等操作</li>
+</ul>
+</li>
+</ul>
+<h1 id="基本操作"><a href="#基本操作" class="headerlink" title="基本操作"></a>基本操作</h1><h2 id="退出-amp-保存"><a href="#退出-amp-保存" class="headerlink" title="退出&amp;保存"></a>退出&amp;保存</h2><table>
+<thead>
+<tr>
+<th style="text-align:center">command</th>
+<th style="text-align:center">效果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">:q</td>
+<td style="text-align:center">退出</td>
+</tr>
+<tr>
+<td style="text-align:center">:q!</td>
+<td style="text-align:center">强制退出，不保存修改</td>
+</tr>
+<tr>
+<td style="text-align:center">:w</td>
+<td style="text-align:center">保存修改</td>
+</tr>
+<tr>
+<td style="text-align:center">:wq</td>
+<td style="text-align:center">保存并退出</td>
+</tr>
+<tr>
+<td style="text-align:center">ZZ</td>
+<td style="text-align:center">保存并退出</td>
+</tr>
+</tbody>
+</table>
+<h2 id="移动光标"><a href="#移动光标" class="headerlink" title="移动光标"></a>移动光标</h2><table>
+<thead>
+<tr>
+<th style="text-align:center">command</th>
+<th style="text-align:center">效果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><code>n&lt;space&gt;</code></td>
+<td style="text-align:center">向右移动n个字符</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>n&lt;Enter&gt;</code></td>
+<td style="text-align:center">向下移动n行</td>
+</tr>
+<tr>
+<td style="text-align:center">+</td>
+<td style="text-align:center">移动到非空格符的下一行</td>
+</tr>
+<tr>
+<td style="text-align:center">-</td>
+<td style="text-align:center">移动到非空格符的上一行</td>
+</tr>
+<tr>
+<td style="text-align:center">[ctrl]+f</td>
+<td style="text-align:center">向下移动一页</td>
+</tr>
+<tr>
+<td style="text-align:center">[ctrl]+b</td>
+<td style="text-align:center">向上移动一页</td>
+</tr>
+<tr>
+<td style="text-align:center">[ctrl]+d</td>
+<td style="text-align:center">向下移动半页</td>
+</tr>
+<tr>
+<td style="text-align:center">[ctrl]+u</td>
+<td style="text-align:center">向上移动半页</td>
+</tr>
+<tr>
+<td style="text-align:center">0</td>
+<td style="text-align:center">移动到最前面的字符处</td>
+</tr>
+<tr>
+<td style="text-align:center">$</td>
+<td style="text-align:center">移动到最后的字符</td>
+</tr>
+<tr>
+<td style="text-align:center">H</td>
+<td style="text-align:center">移动到此屏幕最上方一行的第一个字符</td>
+</tr>
+<tr>
+<td style="text-align:center">M</td>
+<td style="text-align:center">到屏幕中间一行的第一个字符</td>
+</tr>
+<tr>
+<td style="text-align:center">L</td>
+<td style="text-align:center">到屏幕最后一行的第一个字符</td>
+</tr>
+<tr>
+<td style="text-align:center">G</td>
+<td style="text-align:center">移动到此文件的最后一行</td>
+</tr>
+<tr>
+<td style="text-align:center">nG</td>
+<td style="text-align:center">移动到第n行</td>
+</tr>
+<tr>
+<td style="text-align:center">gg</td>
+<td style="text-align:center">移动到此文件的第一行</td>
+</tr>
+</tbody>
+</table>
+<h2 id="查找和替换"><a href="#查找和替换" class="headerlink" title="查找和替换"></a>查找和替换</h2><table>
+<thead>
+<tr>
+<th style="text-align:center">command</th>
+<th style="text-align:center">效果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">/word</td>
+<td style="text-align:center">向光标之下查找一个字符串</td>
+</tr>
+<tr>
+<td style="text-align:center">?word</td>
+<td style="text-align:center">向光标之上查找一个字符串</td>
+</tr>
+<tr>
+<td style="text-align:center">n</td>
+<td style="text-align:center">重复前一个查找操作</td>
+</tr>
+<tr>
+<td style="text-align:center">N</td>
+<td style="text-align:center">反向进行前一个查找操作</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>:n1,n2s/word1/word2/g</code></td>
+<td style="text-align:center">在第n1和n2行之间寻找word1字符串，并将其替换为word2</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>:1,$s/word1/word2/g</code></td>
+<td style="text-align:center">从第一行到最后一行寻找word1字符串，并将其替换为word2</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>:1,$s/word1/word2/gc</code></td>
+<td style="text-align:center">从第一行到最后一行寻找word1字符串，并将其替换为word2，且在替换前显示提示字符给用户确认是否替换</td>
+</tr>
+<tr>
+<td style="text-align:center">:nohl</td>
+<td style="text-align:center">取消反白</td>
+</tr>
+</tbody>
+</table>
+<h2 id="删除、复制和粘贴"><a href="#删除、复制和粘贴" class="headerlink" title="删除、复制和粘贴"></a>删除、复制和粘贴</h2><h3 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h3><table>
+<thead>
+<tr>
+<th style="text-align:center">command</th>
+<th style="text-align:center">效果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">nx</td>
+<td style="text-align:center">连续向后删除n个字符</td>
+</tr>
+<tr>
+<td style="text-align:center">ndd</td>
+<td style="text-align:center">剪切（删除）光标所在的向下n行</td>
+</tr>
+<tr>
+<td style="text-align:center">dd</td>
+<td style="text-align:center">剪切该行</td>
+</tr>
+<tr>
+<td style="text-align:center">d1G</td>
+<td style="text-align:center">剪切光标所在到第一行的所有数据</td>
+</tr>
+<tr>
+<td style="text-align:center">d$</td>
+<td style="text-align:center">剪切光标所在到最后一行的所有数据</td>
+</tr>
+<tr>
+<td style="text-align:center">d0</td>
+<td style="text-align:center">剪切光标所在处，到该行的最前面的一个字符</td>
+</tr>
+<tr>
+<td style="text-align:center">[n]c[k]</td>
+<td style="text-align:center">重复删除多个数据，k为方向按键，如5cj为向下删除5，5cl为向右删除5个字符</td>
+</tr>
+</tbody>
+</table>
+<h3 id="复制与粘贴"><a href="#复制与粘贴" class="headerlink" title="复制与粘贴"></a>复制与粘贴</h3><table>
+<thead>
+<tr>
+<th style="text-align:center">command</th>
+<th style="text-align:center">效果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">yy</td>
+<td style="text-align:center">复制所在一行</td>
+</tr>
+<tr>
+<td style="text-align:center">nyy</td>
+<td style="text-align:center">复制n行</td>
+</tr>
+<tr>
+<td style="text-align:center">yn</td>
+<td style="text-align:center">复制n+1行</td>
+</tr>
+<tr>
+<td style="text-align:center">y1G</td>
+<td style="text-align:center">复制所在行到第一行的数据</td>
+</tr>
+<tr>
+<td style="text-align:center">yG</td>
+<td style="text-align:center">复制所在行到最后一行的数据</td>
+</tr>
+<tr>
+<td style="text-align:center">y0</td>
+<td style="text-align:center">复制所在的字符到该行行首的数据</td>
+</tr>
+<tr>
+<td style="text-align:center">y$</td>
+<td style="text-align:center">复制所在的字符到该行行尾的数据</td>
+</tr>
+<tr>
+<td style="text-align:center">p</td>
+<td style="text-align:center">在下一行粘贴</td>
+</tr>
+<tr>
+<td style="text-align:center">P</td>
+<td style="text-align:center">在上一行粘贴</td>
+</tr>
+</tbody>
+</table>
+<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><table>
+<thead>
+<tr>
+<th style="text-align:center">command</th>
+<th style="text-align:center">效果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">u</td>
+<td style="text-align:center">恢复前一个操作，撤销</td>
+</tr>
+<tr>
+<td style="text-align:center">ctrl+r</td>
+<td style="text-align:center">重做上一个操作，对撤销操作而言的撤销</td>
+</tr>
+</tbody>
+</table>
+<h2 id="命令模式切换到编辑模式"><a href="#命令模式切换到编辑模式" class="headerlink" title="命令模式切换到编辑模式"></a>命令模式切换到编辑模式</h2><table>
+<thead>
+<tr>
+<th style="text-align:center">command</th>
+<th style="text-align:center">效果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">i与I</td>
+<td style="text-align:center">i 为从目标光标所在处插入，I 为在目前所在行的第一个非空格符处开始插入</td>
+</tr>
+<tr>
+<td style="text-align:center">a与A</td>
+<td style="text-align:center">a 为从所在的下一个字符处开始插入，A 为从所在行的最后一个字符处开始插入</td>
+</tr>
+<tr>
+<td style="text-align:center">o与O</td>
+<td style="text-align:center">o 为在所在的下一行处插入新的一行，O 为在目前所在处的上一行插入新的一行</td>
+</tr>
+<tr>
+<td style="text-align:center">r与R</td>
+<td style="text-align:center">r 只会替换光标所在的那个字符一次；R 会一直替换光标所在的文字，直到按下Esc为止</td>
+</tr>
+</tbody>
+</table>
+<h2 id="命令行模式的其它操作"><a href="#命令行模式的其它操作" class="headerlink" title="命令行模式的其它操作"></a>命令行模式的其它操作</h2><table>
+<thead>
+<tr>
+<th style="text-align:center">command</th>
+<th style="text-align:center">效果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><code>:! [command]</code></td>
+<td style="text-align:center">暂时退出vi到shell执行command的显示结果，如<code>:! ls ~</code></td>
+</tr>
+<tr>
+<td style="text-align:center"><code>:w [file]</code></td>
+<td style="text-align:center">将编辑的数据保存成另一个文件</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>:f [file]</code></td>
+<td style="text-align:center">在编辑的数据中，读入另一个文件的数据，即将此文件内容添加到光标所在行之后</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>:n1,n2 w [file]</code></td>
+<td style="text-align:center">将n1到n2的内容保存到file文件</td>
+</tr>
+</tbody>
+</table>
+<h1 id="可视区块"><a href="#可视区块" class="headerlink" title="可视区块"></a>可视区块</h1><table>
+<thead>
+<tr>
+<th style="text-align:center">command</th>
+<th style="text-align:center">效果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">v</td>
+<td style="text-align:center">字符选择，会将光标经过的地方反白选择</td>
+</tr>
+<tr>
+<td style="text-align:center">V</td>
+<td style="text-align:center">行选择， 会将光标经过的行反白选择</td>
+</tr>
+<tr>
+<td style="text-align:center">[ctrl]+v</td>
+<td style="text-align:center">可视区块，可以用矩形的方式选择数据</td>
+</tr>
+<tr>
+<td style="text-align:center">y</td>
+<td style="text-align:center">复制反白的地方</td>
+</tr>
+<tr>
+<td style="text-align:center">d</td>
+<td style="text-align:center">删除</td>
+</tr>
+<tr>
+<td style="text-align:center">p</td>
+<td style="text-align:center">将复制的区块，在光标所在处粘贴</td>
+</tr>
+<tr>
+<td style="text-align:center">[Esc]</td>
+<td style="text-align:center">退出</td>
+</tr>
+</tbody>
+</table>
+<h1 id="多文件编辑"><a href="#多文件编辑" class="headerlink" title="多文件编辑"></a>多文件编辑</h1><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:r filename     # 在光标处，读取（写入）某个文件的全部内容，</span><br></pre></td></tr></table></figure>
+<p>多文件编辑<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> vi file1 file2    # 同时打开两个文件</span><br></pre></td></tr></table></figure></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">command</th>
+<th style="text-align:center">作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">:n</td>
+<td style="text-align:center">编辑下一个文件</td>
+</tr>
+<tr>
+<td style="text-align:center">:N</td>
+<td style="text-align:center">编辑上一个文件</td>
+</tr>
+<tr>
+<td style="text-align:center">:files</td>
+<td style="text-align:center">列出目前这个vim开启的所有文件</td>
+</tr>
+</tbody>
+</table>
+<h1 id="多窗口功能"><a href="#多窗口功能" class="headerlink" title="多窗口功能"></a>多窗口功能</h1><p>多窗口同步显示：修改同步，光标移动不同步</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">command</th>
+<th style="text-align:center">作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><code>:sp [filename]</code></td>
+<td style="text-align:center">打开一个新窗口， 若有加filename，则表示在新窗口创建一个新文件，否则表示两个窗口为一个文件内容（同步显示）</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>[ctrl]+ w + j</code></td>
+<td style="text-align:center">光标移动到下方的窗口</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>[ctrl]+ w + k</code></td>
+<td style="text-align:center">光标移动到上方的窗口</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>[ctrl]+ w + q</code></td>
+<td style="text-align:center">退出，也可用<code>:q</code>或<code>:close</code></td>
+</tr>
+</tbody>
+</table>
+<h1 id="关键字补全"><a href="#关键字补全" class="headerlink" title="关键字补全"></a>关键字补全</h1><p>组合键，要在编辑模式下使用</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">command</th>
+<th style="text-align:center">作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">ctrl+x -&gt; ctrl+n</td>
+<td style="text-align:center">通过目前正在编辑的这个【文件的内容文字】作为关键字，予以补全</td>
+</tr>
+<tr>
+<td style="text-align:center">ctrl+x -&gt; ctrl+f</td>
+<td style="text-align:center">以当前目录内的【文件名】作为关键词，予以补全</td>
+</tr>
+<tr>
+<td style="text-align:center">ctrl+x -&gt; ctrl+o</td>
+<td style="text-align:center">以扩展名作为语法补充，以vim内置的关键词，予以补全</td>
+</tr>
+</tbody>
+</table>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/vim/" rel="tag"><i class="fa fa-tag"></i> vim</a>
+          
+            <a href="/tags/linux/" rel="tag"><i class="fa fa-tag"></i> linux</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/13/hello-world/" rel="next" title="Hello World">
+                <i class="fa fa-chevron-left"></i> Hello World
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/uploads/shadowmaple.jpg" alt="Shadow Zhang">
+            
+              <p class="site-author-name" itemprop="name">Shadow Zhang</p>
+              <div class="site-description motion-element" itemprop="description">Coding everyday, change everyday</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">2</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/Shadowmaple" title="GitHub &rarr; https://github.com/Shadowmaple" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:shdwzhang@gmail.com" title="E-Mail &rarr; mailto:shdwzhang@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#引言"><span class="nav-number">1.</span> <span class="nav-text">引言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#模式"><span class="nav-number">2.</span> <span class="nav-text">模式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#基本操作"><span class="nav-number">3.</span> <span class="nav-text">基本操作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#退出-amp-保存"><span class="nav-number">3.1.</span> <span class="nav-text">退出&amp;保存</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#移动光标"><span class="nav-number">3.2.</span> <span class="nav-text">移动光标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查找和替换"><span class="nav-number">3.3.</span> <span class="nav-text">查找和替换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#删除、复制和粘贴"><span class="nav-number">3.4.</span> <span class="nav-text">删除、复制和粘贴</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#删除"><span class="nav-number">3.4.1.</span> <span class="nav-text">删除</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#复制与粘贴"><span class="nav-number">3.4.2.</span> <span class="nav-text">复制与粘贴</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其他"><span class="nav-number">3.4.3.</span> <span class="nav-text">其他</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#命令模式切换到编辑模式"><span class="nav-number">3.5.</span> <span class="nav-text">命令模式切换到编辑模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#命令行模式的其它操作"><span class="nav-number">3.6.</span> <span class="nav-text">命令行模式的其它操作</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#可视区块"><span class="nav-number">4.</span> <span class="nav-text">可视区块</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#多文件编辑"><span class="nav-number">5.</span> <span class="nav-text">多文件编辑</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#多窗口功能"><span class="nav-number">6.</span> <span class="nav-text">多窗口功能</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#关键字补全"><span class="nav-number">7.</span> <span class="nav-text">关键字补全</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Shadow Zhang</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.1.0</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+    
+  
+  <script color="0,0,0" opacity="0.5" zindex="-1" count="99" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.0"></script>
+
+  <script src="/js/motion.js?v=7.1.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/affix.js?v=7.1.0"></script>
+
+  <script src="/js/schemes/pisces.js?v=7.1.0"></script>
+
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.0"></script>
+<script src="/js/post-details.js?v=7.1.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.0"></script>
+
+
+  
+  <script src="/js/js.cookie.js?v=7.1.0"></script>
+  <script src="/js/scroll-cookie.js?v=7.1.0"></script>
+
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
