@@ -107,7 +107,7 @@
 <meta name="keywords" content="linux">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Linux的文件权限">
-<meta property="og:url" content="https://Shadowmaple.github.io/2019/05/10/Linux-file-permissions-md/index.html">
+<meta property="og:url" content="https://Shadowmaple.github.io/2019/05/10/Linux-file-permissions/index.html">
 <meta property="og:site_name" content="玄著">
 <meta property="og:description" content="对于Linux文件权限部分的所做笔记与少许总结">
 <meta property="og:locale" content="zh-CN">
@@ -124,7 +124,7 @@
 
   
   
-  <link rel="canonical" href="https://Shadowmaple.github.io/2019/05/10/Linux-file-permissions-md/">
+  <link rel="canonical" href="https://Shadowmaple.github.io/2019/05/10/Linux-file-permissions/">
 
 
 
@@ -335,7 +335,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://Shadowmaple.github.io/2019/05/10/Linux-file-permissions-md/">
+    <link itemprop="mainEntityOfPage" href="https://Shadowmaple.github.io/2019/05/10/Linux-file-permissions/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Shadow Zhang">
@@ -496,14 +496,14 @@
 <li>从网络上下载一个文件时，其属性和权限会发生改变</li>
 </ol>
 <h1 id="修改文件属性和权限"><a href="#修改文件属性和权限" class="headerlink" title="修改文件属性和权限"></a>修改文件属性和权限</h1><p>chgrp： 修改文件所属用户组<br>chown： 修改文件拥有者以及用户组<br>chmod： 修改文件权限</p>
-<h2 id="chgrp"><a href="#chgrp" class="headerlink" title="chgrp"></a>chgrp</h2><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 格式</span></span><br><span class="line"><span class="variable">$ </span>chgrp [option] grouup filename</span><br><span class="line"></span><br><span class="line"><span class="comment"># -R 为递归修改</span></span><br><span class="line"><span class="variable">$ </span>chgrp -R lawler blog/</span><br></pre></td></tr></table></figure>
+<h2 id="chgrp"><a href="#chgrp" class="headerlink" title="chgrp"></a>chgrp</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 格式</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> chgrp [option] grouup filename</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> -R 为递归修改</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> chgrp -R lawler blog/</span></span><br></pre></td></tr></table></figure>
 <h2 id="chown"><a href="#chown" class="headerlink" title="chown"></a>chown</h2><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 格式</span></span><br><span class="line">$ chown [option]<span class="built_in"> user </span>filename</span><br><span class="line">$ chown [option] user:group filename    # 也可用小数点[.]来间隔</span><br><span class="line"></span><br><span class="line"><span class="comment"># 例子</span></span><br><span class="line"><span class="comment"># chown lawler:lawler test.c</span></span><br></pre></td></tr></table></figure>
 <h2 id="chmod"><a href="#chmod" class="headerlink" title="chmod"></a>chmod</h2><p>数字类型权限表示：<code>rwx</code> –&gt; 421<br>符号类型权限表示：</p>
 <ul>
 <li><code>+ - =</code> –&gt; 加入，移除，设置</li>
 <li><code>u g o a</code> –&gt; user，group，others，all</li>
 </ul>
-<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 格式</span></span><br><span class="line"><span class="variable">$ </span>chmod [option] mode filename</span><br><span class="line"></span><br><span class="line"><span class="comment"># 例子</span></span><br><span class="line"><span class="comment"># 数字类型修改</span></span><br><span class="line"><span class="variable">$ </span>chmod <span class="number">654</span> test.sh     <span class="comment"># 更改后为 -rw-r-xr--</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 符号类型修改</span></span><br><span class="line"><span class="variable">$ </span>chmod u=rwx,go=rx test.sh     <span class="comment"># 设置user为读写执行，用户组和其他为读执行</span></span><br><span class="line"><span class="variable">$ </span>chmod -R a+x blog/       <span class="comment"># 都加上可执行权限（该目录递归添加）</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 格式</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> chmod [option] mode filename</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 例子</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 数字类型修改</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> chmod 654 test.sh     <span class="comment"># 更改后为 -rw-r-xr--</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 符号类型修改</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> chmod u=rwx,go=rx test.sh     <span class="comment"># 设置user为读写执行，用户组和其他为读执行</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> chmod -R a+x blog/       <span class="comment"># 都加上可执行权限（该目录递归添加）</span></span></span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -549,6 +549,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/05/12/HomeWorks-development-summary/" rel="prev" title="HomeWorks 后端开发总结">
+                HomeWorks 后端开发总结 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -619,7 +623,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">4</span>
+                    <span class="site-state-item-count">5</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -644,7 +648,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">4</span>
+                      
+                    
+                    <span class="site-state-item-count">5</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -671,7 +677,13 @@
                     
                       
                     
-                    <span class="site-state-item-count">5</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">8</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>

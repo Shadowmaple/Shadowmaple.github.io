@@ -483,7 +483,7 @@
 <h2 id="安装-hexo-deployer-git-插件"><a href="#安装-hexo-deployer-git-插件" class="headerlink" title="安装 hexo-deployer-git 插件"></a>安装 hexo-deployer-git 插件</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo npm <span class="keyword">install</span> hexo-deployer-git <span class="comment">--save</span></span><br></pre></td></tr></table></figure>
 <h2 id="修改站点目录下的-config-yml"><a href="#修改站点目录下的-config-yml" class="headerlink" title="修改站点目录下的_config.yml"></a>修改站点目录下的<code>_config.yml</code></h2><p>在文件末尾修改为：<br><figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># Deployment</span></span><br><span class="line"><span class="meta">## Docs: https:<span class="comment">//hexo.io/docs/deployment.html</span></span></span><br><span class="line"><span class="symbol">deploy:</span></span><br><span class="line"><span class="symbol">  type:</span> git</span><br><span class="line"><span class="symbol">  repo:</span> git@github.com:<span class="params">&lt;Github账号名称&gt;</span>/<span class="params">&lt;Github账号名称&gt;</span>.github.io.git</span><br><span class="line"><span class="symbol">  branch:</span> master</span><br></pre></td></tr></table></figure></p>
 <p>注：上面的地址可以是ssh地址，也可以是https地址</p>
-<h2 id="添加SSH-key"><a href="#添加SSH-key" class="headerlink" title="添加SSH key"></a>添加SSH key</h2><h3 id="生成ssh密钥"><a href="#生成ssh密钥" class="headerlink" title="生成ssh密钥"></a>生成ssh密钥</h3><p>输入以下命令，回车三下（默认值）即可：<br><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>ssh-keygen -t rsa -C <span class="string">"邮箱地址"</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="添加SSH-key"><a href="#添加SSH-key" class="headerlink" title="添加SSH key"></a>添加SSH key</h2><h3 id="生成ssh密钥"><a href="#生成ssh密钥" class="headerlink" title="生成ssh密钥"></a>生成ssh密钥</h3><p>输入以下命令，回车三下（默认值）即可：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> ssh-keygen -t rsa -C <span class="string">"邮箱地址"</span></span></span><br></pre></td></tr></table></figure></p>
 <h3 id="将密钥添加到-github"><a href="#将密钥添加到-github" class="headerlink" title="将密钥添加到 github"></a>将密钥添加到 github</h3><ol>
 <li>打开github –&gt; Settings –&gt; SSH and GPG keys –&gt; New SSH key</li>
 <li>复制密钥文件内容（路径：<code>~/.ssh/id_rsa.pub</code>），粘贴到 New SSH Key 打开的 “Key” 之中即可，title 可随意，可不填。</li>
@@ -525,7 +525,7 @@
 <h2 id="克隆主题"><a href="#克隆主题" class="headerlink" title="克隆主题"></a>克隆主题</h2><p>进入该主题的github仓库，比如<a href="https://github.com/theme-next/hexo-theme-next" target="_blank" rel="noopener">Next</a>。不过可能会遇到一个主题有两个仓库的情况，比如next还有一个<a href="https://github.com/iissnan/hexo-theme-next" target="_blank" rel="noopener">仓库</a>，但是看它的发行版本，只有v5.14，并也宣告该仓库已停止维护。所以下载哪个，看各自的版本吧。</p>
 <p>在hexo顶级目录下，克隆到 themes 目录<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git <span class="built_in">clone</span> https://github.com/theme-next/hexo-theme-next themes/next</span></span><br></pre></td></tr></table></figure></p>
 <p>可能在克隆过程中会因为速度过慢而失败，（此坑已踩，9kb/s…），解决办法参考<a href="https://blog.csdn.net/hzwwpgmwy/article/details/79043251" target="_blank" rel="noopener">此文</a></p>
-<h2 id="启用主题"><a href="#启用主题" class="headerlink" title="启用主题"></a>启用主题</h2><p>打开站点配置文件（_config.yml）, 找到 theme 字段, 并将其值更改为 next<br><figure class="highlight autoit"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">theme: <span class="keyword">next</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="启用主题"><a href="#启用主题" class="headerlink" title="启用主题"></a>启用主题</h2><p>打开站点配置文件（_config.yml）, 找到 theme 字段, 并将其值更改为 next<br><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">theme: <span class="keyword">next</span></span><br></pre></td></tr></table></figure></p>
 <h2 id="更改样式"><a href="#更改样式" class="headerlink" title="更改样式"></a>更改样式</h2><p>NexT有四种模式（其实只有三种，第三和第四个差不太多），直接更改主题配置文件（<code>themes/next/_config.yml</code>）的 scheme 参数即可<br><figure class="highlight vala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># Schemes</span></span><br><span class="line"><span class="meta">#scheme: Muse</span></span><br><span class="line"><span class="meta">#scheme: Mist</span></span><br><span class="line"><span class="meta">#scheme: Pisces</span></span><br><span class="line">scheme: Gemini</span><br></pre></td></tr></table></figure></p>
 <p>然后<code>hexo s</code>即可预览效果</p>
 <h1 id="主题优化-基于next"><a href="#主题优化-基于next" class="headerlink" title="主题优化(基于next)"></a>主题优化(基于next)</h1><h2 id="添加「标签」和「分类」页面"><a href="#添加「标签」和「分类」页面" class="headerlink" title="添加「标签」和「分类」页面"></a>添加「标签」和「分类」页面</h2><p>（以添加标签页面为例）</p>
@@ -616,7 +616,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/05/10/Linux-file-permissions-md/" rel="prev" title="Linux的文件权限">
+              <a href="/2019/05/10/Linux-file-permissions/" rel="prev" title="Linux的文件权限">
                 Linux的文件权限 <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -689,7 +689,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">4</span>
+                    <span class="site-state-item-count">5</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -714,7 +714,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">4</span>
+                      
+                    
+                    <span class="site-state-item-count">5</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -741,7 +743,13 @@
                     
                       
                     
-                    <span class="site-state-item-count">5</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">8</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
