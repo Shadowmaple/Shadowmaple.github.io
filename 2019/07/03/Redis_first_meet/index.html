@@ -1,0 +1,1046 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.1.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.1.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.1.0',
+    sidebar: {"pdizhidizhiosition":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="简单记录redis相关">
+<meta name="keywords" content="redis">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Redis初识">
+<meta property="og:url" content="https://Shadowmaple.github.io/2019/07/03/Redis_first_meet/index.html">
+<meta property="og:site_name" content="玄著">
+<meta property="og:description" content="简单记录redis相关">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-07-04T12:20:27.099Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Redis初识">
+<meta name="twitter:description" content="简单记录redis相关">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="玄著" type="application/atom+xml">
+
+
+
+  
+  
+  <link rel="canonical" href="https://Shadowmaple.github.io/2019/07/03/Redis_first_meet/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Redis初识 | 玄著</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+
+  <div class="container page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">玄著</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">功不唐捐，玉汝于成</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://Shadowmaple.github.io/2019/07/03/Redis_first_meet/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Shadow Zhang">
+      <meta itemprop="description" content="Coding everyday, change everyday">
+      <meta itemprop="image" content="/uploads/shadow.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="玄著">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Redis初识
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-07-03 18:10:44" itemprop="dateCreated datePublished" datetime="2019-07-03T18:10:44+08:00">2019-07-03</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-07-04 20:20:27" itemprop="dateModified" datetime="2019-07-04T20:20:27+08:00">2019-07-04</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Redis/" itemprop="url" rel="index"><span itemprop="name">Redis</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+            <div class="post-description">简单记录redis相关</div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="认识"><a href="#认识" class="headerlink" title="认识"></a>认识</h1><p>redis是基于键值对的非关系型数据库</p>
+<h2 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h2><ol>
+<li>高性能<ul>
+<li>纯内存存储，数据存放于内存中</li>
+<li>单线程架构，避免竞态和线程转换</li>
+<li>I/O多路复用技术</li>
+</ul>
+</li>
+<li>基于键值对的数据结构服务器</li>
+<li>功能丰富</li>
+<li>简单稳定</li>
+<li>客户端语言多</li>
+<li>持久化</li>
+<li>主从复制</li>
+<li>支持高可用和分布式</li>
+</ol>
+<h2 id="redis可执行文件"><a href="#redis可执行文件" class="headerlink" title="redis可执行文件"></a>redis可执行文件</h2><table>
+<thead>
+<tr>
+<th style="text-align:center">可执行文件</th>
+<th style="text-align:center">作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">redis-server</td>
+<td style="text-align:center">启动redis</td>
+</tr>
+<tr>
+<td style="text-align:center">redis-cli</td>
+<td style="text-align:center">redis命令行客户端</td>
+</tr>
+<tr>
+<td style="text-align:center">redis-benchmark</td>
+<td style="text-align:center">redis基准测试工具</td>
+</tr>
+<tr>
+<td style="text-align:center">redis-check-aof</td>
+<td style="text-align:center">redis AOF持久化文件检测和修复工具</td>
+</tr>
+<tr>
+<td style="text-align:center">redis-check-dump</td>
+<td style="text-align:center">redis RDB持久化文件检测和修复工具</td>
+</tr>
+<tr>
+<td style="text-align:center">redis-sentinel</td>
+<td style="text-align:center">启动redis sentinel</td>
+</tr>
+</tbody>
+</table>
+<h1 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h1><p>三种方法启动Redis：默认配置、运行配置、配置文件启动<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 关闭、启动、重启服务</span></span><br><span class="line">redis-cli shutdown</span><br><span class="line">/etc/init.d/redis-server stop</span><br><span class="line">/etc/init.d/redis-server start</span><br><span class="line">/etc/init.d/redis-server restart</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 查看版本</span></span><br><span class="line">~$ redis-cli -v</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 启动客户端</span></span><br><span class="line">~$ redis-cli</span><br><span class="line">127.0.0.1:6379&gt;</span><br><span class="line"><span class="meta">#</span><span class="bash"> 退出</span></span><br><span class="line">127.0.0.1:6379&gt; exit</span><br></pre></td></tr></table></figure>
+<h1 id="操作命令"><a href="#操作命令" class="headerlink" title="操作命令"></a>操作命令</h1><h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">set</span> / mset      <span class="comment"># (批量)设置键值对</span></span><br><span class="line"><span class="keyword">keys</span> *          <span class="comment"># 查看所有键</span></span><br><span class="line">dbsize          <span class="comment"># 数据库内键值对个数</span></span><br><span class="line"><span class="keyword">exists</span>          <span class="comment"># 键是否存在</span></span><br><span class="line">del             <span class="comment"># 删除键</span></span><br><span class="line"><span class="keyword">expire</span>          <span class="comment"># 设置过期时间</span></span><br><span class="line">ttl / pttl      <span class="comment"># 查看过期时间</span></span><br><span class="line"><span class="keyword">type</span>            <span class="comment"># 键值对类型</span></span><br><span class="line">strlen          <span class="comment"># 值长度/元素个数</span></span><br><span class="line"><span class="keyword">get</span> / mget / getnx / getex      <span class="comment"># 获取键的值</span></span><br><span class="line">incr / decr / incrby / decrby / incrbyfloat     <span class="comment"># 值自增（整数/浮点数）</span></span><br></pre></td></tr></table></figure>
+<h2 id="简单示例"><a href="#简单示例" class="headerlink" title="简单示例"></a>简单示例</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"># 插入键值对</span><br><span class="line">127.0.0.1:6379&gt; set python hello</span><br><span class="line">OK</span><br><span class="line"># 查看所有键</span><br><span class="line">127.0.0.1:6379&gt; keys *tianjia</span><br><span class="line">1) &quot;go&quot;</span><br><span class="line">2) &quot;java&quot;</span><br><span class="line">3) &quot;redis&quot;</span><br><span class="line">4) &quot;python&quot;</span><br><span class="line"></span><br><span class="line"># 获取值</span><br><span class="line">127.0.0.1:6379&gt; get java</span><br><span class="line">&quot;no&quot;</span><br><span class="line"># 存在键</span><br><span class="line">127.0.0.1:6379&gt; exists java</span><br><span class="line">(integer) 1</span><br><span class="line"></span><br><span class="line"># 插入一个列表类型的键值对</span><br><span class="line">127.0.0.1:6379&gt; rpush mylist a b c d e f g</span><br><span class="line">(integer) 7</span><br><span class="line"># 查看键总数</span><br><span class="line">127.0.0.1:6379&gt; dbsize</span><br><span class="line">(integer) 4</span><br></pre></td></tr></table></figure>
+<h2 id="其他命令"><a href="#其他命令" class="headerlink" title="其他命令"></a>其他命令</h2><figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">append          <span class="comment"># 字符串附加</span></span><br><span class="line"><span class="keyword">rename</span>          <span class="comment"># 重命名</span></span><br><span class="line">randomkey       <span class="comment"># 随机抽取键</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 数据库命令</span></span><br><span class="line"><span class="keyword">select</span>          <span class="comment"># 选取数据库</span></span><br><span class="line">migrate         <span class="comment"># 数据库迁移</span></span><br><span class="line">flushdb / flushall  <span class="comment"># 删除(所有)数据库</span></span><br></pre></td></tr></table></figure>
+<h1 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h1><h2 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h2><p>字符串是redis中最基础的数据结构，键都是字符串类型。</p>
+<p>字符串类型的值实际可以是字符串(简单的字符串、复杂的字符串(例如JSON、XML))、数字(整数、浮点数),甚至是二进制(图片、音频、视频),但值最大不能超过512MB</p>
+<h3 id="内部编码"><a href="#内部编码" class="headerlink" title="内部编码"></a>内部编码</h3><ol>
+<li><strong>int</strong> ：8个字节的长整型。</li>
+<li><strong>embstr</strong> ：小于等于39个字节的字符串。</li>
+<li><strong>raw</strong> ：大于39个字节的字符串。</li>
+</ol>
+<h2 id="哈希"><a href="#哈希" class="headerlink" title="哈希"></a>哈希</h2><p>在Redis中,哈希类型是指键值本身又是一个键值对结构,哈希中的映射关系叫作field-value</p>
+<h3 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h3><p>哈希的全局命令基本与字符串的相同，只是在细节上以及内部实现上有一些区别<br><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">hset</span> / hmset    <span class="comment"># 设置键值对</span></span><br><span class="line">hget / hmget    <span class="comment"># 获取</span></span><br><span class="line">hdel            <span class="comment"># 删除</span></span><br><span class="line">hlen            <span class="comment"># 计算field个数</span></span><br><span class="line">hexists         <span class="comment"># 判断field是否存在</span></span><br><span class="line">hkeys           <span class="comment"># 获取所有field</span></span><br><span class="line">hvals           <span class="comment"># 获取所有value</span></span><br><span class="line">hgetall         <span class="comment"># 获取所有的field-value</span></span><br><span class="line">hstrlen         <span class="comment"># 计算value的字符串长度</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="内部编码-1"><a href="#内部编码-1" class="headerlink" title="内部编码"></a>内部编码</h3><ol>
+<li><strong>ziplist(压缩列表)</strong>：当哈希类型元素个数小于hash-max-ziplist-entries<br>配置(默认512个)、同时所有值都小于hash-max-ziplist-value配置(默认64<br>字节)时,Redis会使用ziplist作为哈希的内部实现,ziplist使用更加紧凑的<br>结构实现多个元素的连续存储,所以在节省内存方面比hashtable更加优秀。</li>
+<li><strong>hashtable(哈希表)</strong>：当哈希类型无法满足ziplist的条件时,Redis会使<br>用hashtable作为哈希的内部实现,因为此时ziplist的读写效率会下降,而<br>hashtable的读写时间复杂度为O(1)</li>
+</ol>
+<h2 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h2><p>列表中的每个字符串称为元素(element),一个列表最多可以存储 2^32-1 个元素</p>
+<p>特点:<br>有序，支持索引，支持元素重复</p>
+<h3 id="命令-1"><a href="#命令-1" class="headerlink" title="命令"></a>命令</h3><table>
+<thead>
+<tr>
+<th style="text-align:center">操作类型</th>
+<th style="text-align:center">操作</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">添加</td>
+<td style="text-align:center">lpush rpush linsert</td>
+</tr>
+<tr>
+<td style="text-align:center">删除</td>
+<td style="text-align:center">lpop rpop lrem ltrim</td>
+</tr>
+<tr>
+<td style="text-align:center">查</td>
+<td style="text-align:center">lrange lindex llen</td>
+</tr>
+<tr>
+<td style="text-align:center">更改</td>
+<td style="text-align:center">lset</td>
+</tr>
+<tr>
+<td style="text-align:center">阻塞操作</td>
+<td style="text-align:center">blpop brpop</td>
+</tr>
+</tbody>
+</table>
+<h3 id="内部编码-2"><a href="#内部编码-2" class="headerlink" title="内部编码"></a>内部编码</h3><ol>
+<li><strong>ziplist(压缩列表)</strong>:当列表的元素个数小于list-max-ziplist-entries配置<br>(默认512个),同时列表中每个元素的值都小于list-max-ziplist-value配置时<br>(默认64字节),Redis会选用ziplist来作为列表的内部实现来减少内存的使<br>用。</li>
+<li><strong>linkedlist(链表)</strong>:当列表类型无法满足ziplist的条件时,Redis会使用<br>linkedlist作为列表的内部实现</li>
+<li>quicklist: 以一个ziplist为节点的linkedlist</li>
+</ol>
+<h2 id="集合"><a href="#集合" class="headerlink" title="集合"></a>集合</h2><p>特点：<br>无序，去重</p>
+<h3 id="命令-2"><a href="#命令-2" class="headerlink" title="命令"></a>命令</h3><p>集合内部<br><figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">sadd        <span class="comment"># 添加</span></span><br><span class="line">srem        <span class="comment"># 删除</span></span><br><span class="line"><span class="keyword">scard </span>      <span class="comment"># 计算元素个数</span></span><br><span class="line">sismember   <span class="comment"># 判断元素是否在集合中</span></span><br><span class="line"><span class="keyword">srandmember </span><span class="comment"># 随机返回指定个数的元素</span></span><br><span class="line">spop        <span class="comment"># 随机弹出元素</span></span><br><span class="line">smembers    <span class="comment"># 获取所有元素</span></span><br></pre></td></tr></table></figure></p>
+<p>集合间<br><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">sinter</span>      <span class="comment"># 交集</span></span><br><span class="line">sunion      <span class="comment"># 并集</span></span><br><span class="line">sdiff       <span class="comment"># 差集</span></span><br><span class="line">sinterstore <span class="comment"># 求交集，并将结果保存，下同</span></span><br><span class="line">sunionstore</span><br><span class="line">sdiffstore</span><br></pre></td></tr></table></figure></p>
+<h3 id="内部编码-3"><a href="#内部编码-3" class="headerlink" title="内部编码"></a>内部编码</h3><ol>
+<li><strong>intset(整数集合)</strong>:当集合中的元素都是整数且元素个数小于set-max-<br>intset-entries配置(默认512个)时,Redis会选用intset来作为集合的内部实<br>现,从而减少内存的使用。</li>
+<li><strong>hashtable(哈希表)</strong>:当集合类型无法满足intset的条件时,Redis会使<br>用hashtable作为集合的内部实现</li>
+</ol>
+<h2 id="有序集合"><a href="#有序集合" class="headerlink" title="有序集合"></a>有序集合</h2><h3 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h3><p>有序，去重，通过分值实现有序，分值可重</p>
+<h3 id="操作命令-1"><a href="#操作命令-1" class="headerlink" title="操作命令"></a>操作命令</h3><p>有序集合的全局命令基本与集合相同，但还是有一些变化</p>
+<p>集合内部<br><figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">zadd</span><br><span class="line">zrem</span><br><span class="line">zcard</span><br><span class="line">zscore                  <span class="comment"># 获取成员分值</span></span><br><span class="line">zrank / zrevrank        <span class="comment"># 计算成员排名，根据分值默认从低到高</span></span><br><span class="line">zincrby                 <span class="comment"># 增加成员分值</span></span><br><span class="line">zrange / zrevrange      <span class="comment"># 返回指定排名范围的成员</span></span><br><span class="line">zrangebyscore / <span class="string">...</span></span><br><span class="line">zcount                  <span class="comment"># 返回指定分数范围成员个数</span></span><br><span class="line">zremrangebyrank         <span class="comment"># 删除指定排名内的升序元素</span></span><br><span class="line">zremrangebyscore</span><br></pre></td></tr></table></figure></p>
+<p>集合间<br><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">zinterstore</span>     <span class="comment"># 交集</span></span><br><span class="line">zunionstore     <span class="comment"># 并集</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="内部编码-4"><a href="#内部编码-4" class="headerlink" title="内部编码"></a>内部编码</h3><ol>
+<li><strong>ziplist(压缩列表)</strong>:当有序集合的元素个数小于zset-max-ziplist-<br>entries配置(默认128个),同时每个元素的值都小于zset-max-ziplist-value配<br>置(默认64字节)时,Redis会用ziplist来作为有序集合的内部实现,ziplist<br>可以有效减少内存的使用。</li>
+<li><strong>skiplist(跳跃表)</strong>:当ziplist条件不满足时,有序集合会使用skiplist作<br>为内部实现,因为此时ziplist的读写效率会下降</li>
+</ol>
+<h1 id="python中的redis"><a href="#python中的redis" class="headerlink" title="python中的redis"></a>python中的redis</h1><p>以python3为例</p>
+<h2 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h2><p>首先要安装redis-py库<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> pip3 install redis</span></span><br></pre></td></tr></table></figure></p>
+<p>其次还要将 redis 服务器开启，开启方式可以不一样<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> /etc/init.d/redis-server start</span></span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>redis 提供 Redis 和 StrictRedis两个类，StrictRedis用于实现大部分官方的命令，并使用官方的语法和命令，Redis是StrictRedis的子类，用于向后兼容旧版本的redis-py。官方推荐使用<code>StrictRedis</code>类。</p>
+</blockquote>
+<h2 id="redis连接"><a href="#redis连接" class="headerlink" title="redis连接"></a>redis连接</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> redis</span><br><span class="line"></span><br><span class="line"><span class="comment"># 连接本地的redis客户端，6479端口，默认为第一个数据库(0)，密码可设置</span></span><br><span class="line">r = redis.StrictRedis(host = <span class="string">'localhost'</span>, port = <span class="number">6379</span>, db = <span class="number">0</span>, password = <span class="literal">None</span>)</span><br><span class="line">r.set(<span class="string">'python'</span>, <span class="string">'hello'</span>)</span><br><span class="line">print(r.get(<span class="string">'python'</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 显示结果为 b'hello'</span></span><br></pre></td></tr></table></figure>
+<p>还可以用连接池 connection_pool</p>
+<blockquote>
+<p>redis-py使用connection pool来管理对一个redis server的所有连接，避免每次建立、释放连接的开销。默认，每个Redis实例都会维护一个自己的连接池。<br>可以直接建立一个连接池，然后作为参数Redis，这样就可以实现多个Redis实例共享一个连接池</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> redis</span><br><span class="line">&gt;&gt;&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>pool = redis.ConnectionPool(host=<span class="string">'localhost'</span>, port=<span class="number">6379</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>r = redis.Redis(connetion_pool = pool)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>r = redis.StrictRedis(connection_pool = pool)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>r.set(<span class="string">'c#'</span>, <span class="string">'bu'</span>)</span><br><span class="line"><span class="literal">True</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>r.get(<span class="string">'c#'</span>)</span><br><span class="line"><span class="string">b'bu'</span></span><br></pre></td></tr></table></figure>
+<p>在python中 redis 的应用方法基本就是一般的redis应用方式，照着用就是了</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/redis/" rel="tag"><i class="fa fa-tag"></i> redis</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/05/12/HomeWorks-development-summary/" rel="next" title="HomeWorks 后端开发总结">
+                <i class="fa fa-chevron-left"></i> HomeWorks 后端开发总结
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/uploads/shadow.jpeg" alt="Shadow Zhang">
+            
+              <p class="site-author-name" itemprop="name">Shadow Zhang</p>
+              <div class="site-description motion-element" itemprop="description">Coding everyday, change everyday</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">6</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">6</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">9</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/Shadowmaple" title="GitHub &rarr; https://github.com/Shadowmaple" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:shdwzhang@gmail.com" title="E-Mail &rarr; mailto:shdwzhang@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#认识"><span class="nav-number">1.</span> <span class="nav-text">认识</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#特性"><span class="nav-number">1.1.</span> <span class="nav-text">特性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#redis可执行文件"><span class="nav-number">1.2.</span> <span class="nav-text">redis可执行文件</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#运行"><span class="nav-number">2.</span> <span class="nav-text">运行</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#操作命令"><span class="nav-number">3.</span> <span class="nav-text">操作命令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#常用命令"><span class="nav-number">3.1.</span> <span class="nav-text">常用命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#简单示例"><span class="nav-number">3.2.</span> <span class="nav-text">简单示例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他命令"><span class="nav-number">3.3.</span> <span class="nav-text">其他命令</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数据结构"><span class="nav-number">4.</span> <span class="nav-text">数据结构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#字符串"><span class="nav-number">4.1.</span> <span class="nav-text">字符串</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#内部编码"><span class="nav-number">4.1.1.</span> <span class="nav-text">内部编码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#哈希"><span class="nav-number">4.2.</span> <span class="nav-text">哈希</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#命令"><span class="nav-number">4.2.1.</span> <span class="nav-text">命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内部编码-1"><span class="nav-number">4.2.2.</span> <span class="nav-text">内部编码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#列表"><span class="nav-number">4.3.</span> <span class="nav-text">列表</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#命令-1"><span class="nav-number">4.3.1.</span> <span class="nav-text">命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内部编码-2"><span class="nav-number">4.3.2.</span> <span class="nav-text">内部编码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#集合"><span class="nav-number">4.4.</span> <span class="nav-text">集合</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#命令-2"><span class="nav-number">4.4.1.</span> <span class="nav-text">命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内部编码-3"><span class="nav-number">4.4.2.</span> <span class="nav-text">内部编码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#有序集合"><span class="nav-number">4.5.</span> <span class="nav-text">有序集合</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#特点"><span class="nav-number">4.5.1.</span> <span class="nav-text">特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#操作命令-1"><span class="nav-number">4.5.2.</span> <span class="nav-text">操作命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内部编码-4"><span class="nav-number">4.5.3.</span> <span class="nav-text">内部编码</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#python中的redis"><span class="nav-number">5.</span> <span class="nav-text">python中的redis</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#准备"><span class="nav-number">5.1.</span> <span class="nav-text">准备</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#redis连接"><span class="nav-number">5.2.</span> <span class="nav-text">redis连接</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Shadow Zhang</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.1.0</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+    
+  
+  <script color="0,0,0" opacity="0.8" zindex="-1" count="99" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.0"></script>
+
+  <script src="/js/motion.js?v=7.1.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/affix.js?v=7.1.0"></script>
+
+  <script src="/js/schemes/pisces.js?v=7.1.0"></script>
+
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.0"></script>
+<script src="/js/post-details.js?v=7.1.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.0"></script>
+
+
+  
+  <script src="/js/js.cookie.js?v=7.1.0"></script>
+  <script src="/js/scroll-cookie.js?v=7.1.0"></script>
+
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
