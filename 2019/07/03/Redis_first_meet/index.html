@@ -499,8 +499,8 @@
 </tr>
 </tbody>
 </table>
-<h1 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h1><p>三种方法启动Redis：默认配置、运行配置、配置文件启动<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 关闭、启动、重启服务</span><br><span class="line">redis-cli shutdown</span><br><span class="line">/etc/init.d/redis-server stop</span><br><span class="line">/etc/init.d/redis-server start</span><br><span class="line">/etc/init.d/redis-server restart</span><br></pre></td></tr></table></figure></p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 查看版本</span><br><span class="line">~$ redis-cli -v</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 启动客户端</span><br><span class="line">~$ redis-cli</span><br><span class="line">127.0.0.1:6379&gt;</span><br><span class="line"><span class="meta">#</span> 退出</span><br><span class="line">127.0.0.1:6379&gt; exit</span><br></pre></td></tr></table></figure>
+<h1 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h1><p>三种方法启动Redis：默认配置、运行配置、配置文件启动<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 关闭、启动、重启服务</span></span><br><span class="line">redis-cli shutdown</span><br><span class="line">/etc/init.d/redis-server stop</span><br><span class="line">/etc/init.d/redis-server start</span><br><span class="line">/etc/init.d/redis-server restart</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 查看版本</span></span><br><span class="line">~$ redis-cli -v</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 启动客户端</span></span><br><span class="line">~$ redis-cli</span><br><span class="line">127.0.0.1:6379&gt;</span><br><span class="line"><span class="meta">#</span><span class="bash"> 退出</span></span><br><span class="line">127.0.0.1:6379&gt; exit</span><br></pre></td></tr></table></figure>
 <h1 id="操作命令"><a href="#操作命令" class="headerlink" title="操作命令"></a>操作命令</h1><h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">set</span> / mset      <span class="comment"># (批量)设置键值对</span></span><br><span class="line"><span class="keyword">keys</span> *          <span class="comment"># 查看所有键</span></span><br><span class="line">dbsize          <span class="comment"># 数据库内键值对个数</span></span><br><span class="line"><span class="keyword">exists</span>          <span class="comment"># 键是否存在</span></span><br><span class="line">del             <span class="comment"># 删除键</span></span><br><span class="line"><span class="keyword">expire</span>          <span class="comment"># 设置过期时间</span></span><br><span class="line">ttl / pttl      <span class="comment"># 查看过期时间</span></span><br><span class="line"><span class="keyword">type</span>            <span class="comment"># 键值对类型</span></span><br><span class="line">strlen          <span class="comment"># 值长度/元素个数</span></span><br><span class="line"><span class="keyword">get</span> / mget / getnx / getex      <span class="comment"># 获取键的值</span></span><br><span class="line">incr / decr / incrby / decrby / incrbyfloat     <span class="comment"># 值自增（整数/浮点数）</span></span><br></pre></td></tr></table></figure>
 <h2 id="简单示例"><a href="#简单示例" class="headerlink" title="简单示例"></a>简单示例</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"># 插入键值对</span><br><span class="line">127.0.0.1:6379&gt; set python hello</span><br><span class="line">OK</span><br><span class="line"># 查看所有键</span><br><span class="line">127.0.0.1:6379&gt; keys *tianjia</span><br><span class="line">1) &quot;go&quot;</span><br><span class="line">2) &quot;java&quot;</span><br><span class="line">3) &quot;redis&quot;</span><br><span class="line">4) &quot;python&quot;</span><br><span class="line"></span><br><span class="line"># 获取值</span><br><span class="line">127.0.0.1:6379&gt; get java</span><br><span class="line">&quot;no&quot;</span><br><span class="line"># 存在键</span><br><span class="line">127.0.0.1:6379&gt; exists java</span><br><span class="line">(integer) 1</span><br><span class="line"></span><br><span class="line"># 插入一个列表类型的键值对</span><br><span class="line">127.0.0.1:6379&gt; rpush mylist a b c d e f g</span><br><span class="line">(integer) 7</span><br><span class="line"># 查看键总数</span><br><span class="line">127.0.0.1:6379&gt; dbsize</span><br><span class="line">(integer) 4</span><br></pre></td></tr></table></figure>
 <h2 id="其他命令"><a href="#其他命令" class="headerlink" title="其他命令"></a>其他命令</h2><figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">append          <span class="comment"># 字符串附加</span></span><br><span class="line"><span class="keyword">rename</span>          <span class="comment"># 重命名</span></span><br><span class="line">randomkey       <span class="comment"># 随机抽取键</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 数据库命令</span></span><br><span class="line"><span class="keyword">select</span>          <span class="comment"># 选取数据库</span></span><br><span class="line">migrate         <span class="comment"># 数据库迁移</span></span><br><span class="line">flushdb / flushall  <span class="comment"># 删除(所有)数据库</span></span><br></pre></td></tr></table></figure>
@@ -630,6 +630,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2019/07/13/muxi-project-star/" rel="prev" title="木犀2019星计划">
+                木犀2019星计划 <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -699,7 +703,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">6</span>
+                    <span class="site-state-item-count">7</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -728,7 +732,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">6</span>
+                      
+                    
+                    <span class="site-state-item-count">7</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -763,7 +769,11 @@
                     
                       
                     
-                    <span class="site-state-item-count">9</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">11</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
