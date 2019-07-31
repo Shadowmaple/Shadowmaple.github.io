@@ -111,7 +111,7 @@
 <meta property="og:site_name" content="玄著">
 <meta property="og:description" content="对于Linux文件权限部分的所做笔记与许些总结">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-06-29T03:35:10.267Z">
+<meta property="og:updated_time" content="2019-07-31T00:41:53.961Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux的文件权限">
 <meta name="twitter:description" content="对于Linux文件权限部分的所做笔记与许些总结">
@@ -395,7 +395,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-06-29 11:35:10" itemprop="dateModified" datetime="2019-06-29T11:35:10+08:00">2019-06-29</time>
+                <time title="修改时间：2019-07-31 08:41:53" itemprop="dateModified" datetime="2019-07-31T08:41:53+08:00">2019-07-31</time>
               
             
           </span>
@@ -496,14 +496,52 @@
 <li>从网络上下载一个文件时，其属性和权限会发生改变</li>
 </ol>
 <h1 id="修改文件属性和权限"><a href="#修改文件属性和权限" class="headerlink" title="修改文件属性和权限"></a>修改文件属性和权限</h1><p>chgrp： 修改文件所属用户组<br>chown： 修改文件拥有者以及用户组<br>chmod： 修改文件权限</p>
-<h2 id="chgrp"><a href="#chgrp" class="headerlink" title="chgrp"></a>chgrp</h2><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 格式</span></span><br><span class="line"><span class="variable">$ </span>chgrp [option] grouup filename</span><br><span class="line"></span><br><span class="line"><span class="comment"># -R 为递归修改</span></span><br><span class="line"><span class="variable">$ </span>chgrp -R lawler blog/</span><br></pre></td></tr></table></figure>
+<h2 id="chgrp"><a href="#chgrp" class="headerlink" title="chgrp"></a>chgrp</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 格式</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> chgrp [option] grouup filename</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> -R 为递归修改</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> chgrp -R lawler blog/</span></span><br></pre></td></tr></table></figure>
 <h2 id="chown"><a href="#chown" class="headerlink" title="chown"></a>chown</h2><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 格式</span></span><br><span class="line">$ chown [option]<span class="built_in"> user </span>filename</span><br><span class="line">$ chown [option] user:group filename    # 也可用小数点[.]来间隔</span><br><span class="line"></span><br><span class="line"><span class="comment"># 例子</span></span><br><span class="line"><span class="comment"># chown lawler:lawler test.c</span></span><br></pre></td></tr></table></figure>
 <h2 id="chmod"><a href="#chmod" class="headerlink" title="chmod"></a>chmod</h2><p>数字类型权限表示：<code>rwx</code> –&gt; 421<br>符号类型权限表示：</p>
 <ul>
 <li><code>+ - =</code> –&gt; 加入，移除，设置</li>
 <li><code>u g o a</code> –&gt; user，group，others，all</li>
 </ul>
-<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 格式</span></span><br><span class="line"><span class="variable">$ </span>chmod [option] mode filename</span><br><span class="line"></span><br><span class="line"><span class="comment"># 例子</span></span><br><span class="line"><span class="comment"># 数字类型修改</span></span><br><span class="line"><span class="variable">$ </span>chmod <span class="number">654</span> test.sh     <span class="comment"># 更改后为 -rw-r-xr--</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 符号类型修改</span></span><br><span class="line"><span class="variable">$ </span>chmod u=rwx,go=rx test.sh     <span class="comment"># 设置user为读写执行，用户组和其他为读执行</span></span><br><span class="line"><span class="variable">$ </span>chmod -R a+x blog/       <span class="comment"># 都加上可执行权限（该目录递归添加）</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 格式</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> chmod [option] mode filename</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 例子</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 数字类型修改</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> chmod 654 test.sh     <span class="comment"># 更改后为 -rw-r-xr--</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 符号类型修改</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> chmod u=rwx,go=rx test.sh     <span class="comment"># 设置user为读写执行，用户组和其他为读执行</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> chmod -R a+x blog/       <span class="comment"># 都加上可执行权限（该目录递归添加）</span></span></span><br></pre></td></tr></table></figure>
+<h1 id="默认权限"><a href="#默认权限" class="headerlink" title="默认权限"></a>默认权限</h1><p>在一个文件或目录建立的时候，所使用的是系统提供的默认权限。umask 就是指定用户的默认权限值。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 一般权限显示的是数字</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">umask</span></span></span><br><span class="line">002</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 符号类型显示</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">umask</span> -S</span></span><br><span class="line">u=rwx,g=rwx,o=rx</span><br></pre></td></tr></table></figure>
+<p>但要注意，umask 显示的权限值所代表的是该默认值需要减去的权限。用户建立一个文件的默认最大权限为666，而目录默认最大权限为777，则各自减去默认权限值则分别为：<code>-rw-rw-r--</code>，<code>drwxrwxr-x</code>。</p>
+<h1 id="特殊权限"><a href="#特殊权限" class="headerlink" title="特殊权限"></a>特殊权限</h1><h2 id="SUID"><a href="#SUID" class="headerlink" title="SUID"></a>SUID</h2><p>Set UiD，简称为SUID，是出现在用户上的一个特殊权限（s），代表在执行特定命令中，不具有该文件所有权的该用户可以暂时获得权限。</p>
+<p>SUID的限制与功能：</p>
+<ul>
+<li>SUID权限仅对二进制程序有效</li>
+<li>执行者对于改程序需要有可执行权限</li>
+<li>本权限仅在执行该程序的过程中有效</li>
+<li>执行者将具有改程序拥有者的权限</li>
+</ul>
+<p>例如二进制可执行程序 passwd（<code>/usr/bin/passwd</code>）具有s权限，所以可以修改root用户的<code>/etc/shadow</code>，但cat（<code>/bin/cat</code>）不具有SUID权限，所以不能读取<code>/etc/shadow</code>。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> ll /usr/bin/passwd</span></span><br><span class="line">-rwsr-xr-x 1 root root 59K 1月  25  2018 /usr/bin/passwd</span><br><span class="line"></span><br><span class="line"><span class="meta">$</span><span class="bash"> ll /bin/cat</span></span><br><span class="line">-rwxr-xr-x 1 root root 35K 1月  18  2018 /bin/cat</span><br></pre></td></tr></table></figure>
+<p>另外要注意，SUID仅对二进制（可执行）程序有效，对shell脚本和目录无效。</p>
+<h2 id="SGID"><a href="#SGID" class="headerlink" title="SGID"></a>SGID</h2><p>Set GID，简称为SGID，是出现在用户组上的一个特殊权限（s），它与SUID类似，但可以针对二进制可执行文件和目录设置。</p>
+<p>对文件的限制功能：</p>
+<ul>
+<li>SGID对二进制程序有效</li>
+<li>程序执行者对于改程序需具备x权限</li>
+<li>执行者在执行过程中能够短暂获得程序用户组的支持</li>
+</ul>
+<p>对目录的限制与功能：</p>
+<ul>
+<li>用户若对于此目录具有r和x的权限时，该用户可进入此目录</li>
+<li>用户在此目录下的有效用户组将会变成该目录的用户组</li>
+<li>若用户在此目录下具有w的权限（可新建文件），则用户所建立的新文件所属的用户组与此用户组相同</li>
+</ul>
+<p>在目录下的功能，就是我将短暂具有该目录用户组的身份，并在此新建的东西都会变成这个用户组的，而不是我本身所属的用户组。</p>
+<h2 id="SBIT"><a href="#SBIT" class="headerlink" title="SBIT"></a>SBIT</h2><p>Sticky Bit，简称为SBIT，是一个在其他权限组上的一个特殊权限（t），它只针对目录有效，它表示</p>
+<p>SBIT的限制与功能：</p>
+<ul>
+<li>当用户对于该目录具有w和x权限，即具有写入的权限</li>
+<li>当用户在该目录下建立文件或目录时，仅有自己和root才有权利删除该文件</li>
+</ul>
+<p>就是说我在这个目录建立了一个文件，我和root可以对它进行删除、更名、移动等一系列操作，但是他人不可删除我这个文件，我也不可以删除他人建立的文件</p>
+<h2 id="权限设置"><a href="#权限设置" class="headerlink" title="权限设置"></a>权限设置</h2><p>设置SUID、SGID、SBIT权限的方式也是数字形式，但是原有的三位数字权限将会变为四位数字权限，第一位为特殊权限，其中SUID为4，SGID为2，SBIT为1。例如 4664 则为具有SUID权限。</p>
+<p>用chmod设置即可，数字法设置的区别只是多了一位代表特殊权限的数字而已。也可以通过符号法来设置，SUID为 u+s，SGID为 g+s，SBIT为 o+t，这是加，减去则为-，大体相同。</p>
+<p>但是当user、group、others不既有x的可执行权限时，设置了特设权限，这个特殊权限会变成大写（S和T），代表这个权限是空的。</p>
 
       
     </div>
@@ -764,7 +802,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#权限身份"><span class="nav-number">1.</span> <span class="nav-text">权限身份</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#文件属性"><span class="nav-number">2.</span> <span class="nav-text">文件属性</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#权限意义"><span class="nav-number">3.</span> <span class="nav-text">权限意义</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#修改文件属性和权限"><span class="nav-number">4.</span> <span class="nav-text">修改文件属性和权限</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#chgrp"><span class="nav-number">4.1.</span> <span class="nav-text">chgrp</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#chown"><span class="nav-number">4.2.</span> <span class="nav-text">chown</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#chmod"><span class="nav-number">4.3.</span> <span class="nav-text">chmod</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#权限身份"><span class="nav-number">1.</span> <span class="nav-text">权限身份</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#文件属性"><span class="nav-number">2.</span> <span class="nav-text">文件属性</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#权限意义"><span class="nav-number">3.</span> <span class="nav-text">权限意义</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#修改文件属性和权限"><span class="nav-number">4.</span> <span class="nav-text">修改文件属性和权限</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#chgrp"><span class="nav-number">4.1.</span> <span class="nav-text">chgrp</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#chown"><span class="nav-number">4.2.</span> <span class="nav-text">chown</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#chmod"><span class="nav-number">4.3.</span> <span class="nav-text">chmod</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#默认权限"><span class="nav-number">5.</span> <span class="nav-text">默认权限</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#特殊权限"><span class="nav-number">6.</span> <span class="nav-text">特殊权限</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#SUID"><span class="nav-number">6.1.</span> <span class="nav-text">SUID</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SGID"><span class="nav-number">6.2.</span> <span class="nav-text">SGID</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SBIT"><span class="nav-number">6.3.</span> <span class="nav-text">SBIT</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#权限设置"><span class="nav-number">6.4.</span> <span class="nav-text">权限设置</span></a></li></ol></li></ol></div>
             
 
           </div>
