@@ -103,18 +103,22 @@
 
 
 
-  <meta name="description" content="简单总结第一个项目，Mini Project——HomeWorks的大致开发流程和一些问题">
-<meta name="keywords" content="项目开发,后端,HomeWorks,随笔">
+  <meta name="description" content="记录 apt 丢失及挽救过程……">
+<meta name="keywords" content="apt,problem,随笔">
 <meta property="og:type" content="article">
-<meta property="og:title" content="HomeWorks 后端开发总结">
-<meta property="og:url" content="https://Shadowmaple.github.io/2019/05/12/HomeWorks-development-summary/index.html">
+<meta property="og:title" content="“apt” not found —— 寻踪记">
+<meta property="og:url" content="https://Shadowmaple.github.io/2019/08/19/apt-lose-problem/index.html">
 <meta property="og:site_name" content="玄著">
-<meta property="og:description" content="简单总结第一个项目，Mini Project——HomeWorks的大致开发流程和一些问题">
+<meta property="og:description" content="记录 apt 丢失及挽救过程……">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-08-20T02:04:06.191Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/Shadowmaple/mydocuments/master/images/Screenshot/001.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Shadowmaple/mydocuments/master/images/Screenshot/003.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Shadowmaple/myDocuments/master/images/Screenshot/from_phone/001.jpg">
+<meta property="og:updated_time" content="2019-08-20T02:06:39.831Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="HomeWorks 后端开发总结">
-<meta name="twitter:description" content="简单总结第一个项目，Mini Project——HomeWorks的大致开发流程和一些问题">
+<meta name="twitter:title" content="“apt” not found —— 寻踪记">
+<meta name="twitter:description" content="记录 apt 丢失及挽救过程……">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/Shadowmaple/mydocuments/master/images/Screenshot/001.png">
 
 
 
@@ -124,7 +128,7 @@
 
   
   
-  <link rel="canonical" href="https://Shadowmaple.github.io/2019/05/12/HomeWorks-development-summary/">
+  <link rel="canonical" href="https://Shadowmaple.github.io/2019/08/19/apt-lose-problem/">
 
 
 
@@ -134,7 +138,7 @@
   };
 </script>
 
-  <title>HomeWorks 后端开发总结 | 玄著</title>
+  <title>“apt” not found —— 寻踪记 | 玄著</title>
   
 
 
@@ -335,7 +339,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://Shadowmaple.github.io/2019/05/12/HomeWorks-development-summary/">
+    <link itemprop="mainEntityOfPage" href="https://Shadowmaple.github.io/2019/08/19/apt-lose-problem/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Shadow Zhang">
@@ -352,7 +356,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">HomeWorks 后端开发总结
+          <h1 class="post-title" itemprop="name headline">“apt” not found —— 寻踪记
 
               
             
@@ -378,7 +382,7 @@
                 
               
 
-              <time title="创建时间：2019-05-12 08:18:38" itemprop="dateCreated datePublished" datetime="2019-05-12T08:18:38+08:00">2019-05-12</time>
+              <time title="创建时间：2019-08-19 21:00:00" itemprop="dateCreated datePublished" datetime="2019-08-19T21:00:00+08:00">2019-08-19</time>
             
 
             
@@ -395,7 +399,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-08-20 10:04:06" itemprop="dateModified" datetime="2019-08-20T10:04:06+08:00">2019-08-20</time>
+                <time title="修改时间：2019-08-20 10:06:39" itemprop="dateModified" datetime="2019-08-20T10:06:39+08:00">2019-08-20</time>
               
             
           </span>
@@ -433,7 +437,7 @@
           
 
           
-            <div class="post-description">简单总结第一个项目，Mini Project——HomeWorks的大致开发流程和一些问题</div>
+            <div class="post-description">记录 apt 丢失及挽救过程……</div>
           
 
         </div>
@@ -449,37 +453,45 @@
       
 
       
-        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>一月底诞世，二月孵化，三月正式启动，直到5月11日完成并迎来小型产品发布会，前后历时约三个半月，开发历时约两个半月，在课余时间抽出零零散散的时间来写这个小项目，磕磕绊绊的。不过总算是结束了，不过听产品说可能要出2.0……（瑟瑟发抖）<br>说起来算是小项目，但实际上对于新手来说，涉及的东西还是需要花许些时间去学习的。<br>目前该版本涉及的技术：</p>
-<ul>
-<li>Python3.7</li>
-<li>Flask框架</li>
-<li>ORM</li>
-<li>celery</li>
-</ul>
-<p>这些是比较大的部分，另外flask下面也还有flask-mail等包有使用到<br>后期若进行重构和2.0升级，要用到 Redis 和 Mysql</p>
-<h1 id="这个项目"><a href="#这个项目" class="headerlink" title="这个项目"></a>这个项目</h1><p>先简单介绍一下这个项目吧。<br>老师在云课堂上的布置作业，学生时常会因为这样那样的原因错过ddl，于是期望云课堂作业提醒功能的出现。因此，针对这一需求，HomeWorks适时出世，提供云课堂作业查看、定时提醒，以及小组任务发布、管理这两大主要功能模块。但是后来产品组的负责人将小组任务这一模块移到了2.0迭代版，所以该项目的功能主要就是云课堂作业查看以及定时提醒。</p>
-<h1 id="开发过程"><a href="#开发过程" class="headerlink" title="开发过程"></a>开发过程</h1><p>一开始听说要做 mini project 的时候，还在初步接触 Flask，感到一丝恐慌，觉得自己目前的能力还不足以完成项目的开发。什么是 API？怎么设计和应用数据库？如何和安卓合作对接？完全是一片茫然。所幸，伴随着开发时间的接近，开发流程的推进，伴随着学长们的指导以及自己的学习探索，这些未知都变为了已知。经过此次开发，已基本明白项目开发的大致流程以及一些基本的技术和方法。</p>
-<p>二月放寒假，要说进度的话，只能说得上是学flask了，再加上被学长催着写的数据库ER图和UML图，就这样了。（果然在家学不进去），自我检讨。</p>
-<p>三月正式开发。</p>
-<h2 id="API文档"><a href="#API文档" class="headerlink" title="API文档"></a>API文档</h2><p>写API文档，写了Markdown和YAML两个版本的文档。学习Markdown版的还好，模仿前人的便可；但是YAML版的确实是花了许些时间，要学最基本的语法，然后模仿官方的例子来写。</p>
-<h2 id="模拟登陆-amp-爬虫"><a href="#模拟登陆-amp-爬虫" class="headerlink" title="模拟登陆&amp;爬虫"></a>模拟登陆&amp;爬虫</h2><p>第三方查看云课堂作业，没有学校支持的我们，拿不到云课堂数据库，只能爬虫。所以作为后端，这个项目主要就是爬虫。爬虫有两种，一种是网页爬取，另一种是API获取，当时是后者效率高啊，用API获取相关数据。</p>
-<p>在这个过程中，我学会了使用API爬虫的正确姿势，学会了通过分析js代码得到准确的数据。</p>
-<p>爬取数据的前提是要模拟登陆，云课堂的登录需要验证码，这一点会比较麻烦。但是云课堂的验证码比较简单，很容易识别，即能简单地被OCR文字识别。不过后来发现验证码可以跳过。</p>
-<h2 id="API"><a href="#API" class="headerlink" title="API"></a>API</h2><p>写API基本是按照书上flask的结构写的，照猫画虎，其实也还好。刚开始确实会有点懵，但之后就会非常熟练了。不过刚开始自己设想会用到的API肯定会和实际有出入的，需求也会改变，细节也会改善，之后便会有删减，正常2333。</p>
-<h2 id="邮件提醒"><a href="#邮件提醒" class="headerlink" title="邮件提醒"></a>邮件提醒</h2><p>首先进行邮箱的验证，即发送验证码。这里的验证我使用username+验证码+时间戳生成一个token字符串，发送给前台，验证的时候利用该字符串、邮箱和用户输入的验证码进行验证。这一方法不太好，应该用Redis来处理。后期如果重构的话会用Redis更改。</p>
-<p>定时提醒功能使用celery，用celery异步发送邮件的困难主要在于用于发送的邮件问题，这一点上花了比较长的时间，刚开始用的邮箱因为之前测试时候发送邮件太频繁了，导致经常被服务器标志为垃圾文件……曾用多个邮箱进行测试（gmail，qq，163，189），在发送邮件上还是用qq比较好，gmail在国内受到的阻力有点大。</p>
-<p>然后就是调整对应时间节点的定时邮件发送了，这也花了一定的时间进行测试、调整。</p>
-<p>呃，现在来看好像也没什么的，但在之前似乎就是花了比较长的时间。</p>
-<h2 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h2><p>在阿里云学生机上部署，不知道用git克隆就行了，还在网上琢磨了好久的FTP……</p>
-<p>用nohup使得程序在后台持续运行，不会因为终端的退出之类的事件导致进程终止。</p>
-<p>在部署期间，get到了ps进程、nohup等新的技能，并对服务器的部署有了大致的了解。</p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ul>
-<li>要和产品沟通好，明确需求，不要动不动就改动API</li>
-<li>在命名上面花的时间有点长了</li>
-<li>代码块要加注释，方便他人了解以及后期的修改与维护</li>
-<li>学到的东西还是蛮多的，起码知道了具体的项目开发流程，但是也有些遗憾，数据库用到的比较少，因而并没有得到什么锻炼</li>
-</ul>
-<p>希望之后做其他项目能吸取教训</p>
+        <h1 id="迷雾"><a href="#迷雾" class="headerlink" title="迷雾"></a>迷雾</h1><p>在安装Docker的时候，用apt安装输入<code>sudo apt-get install apt-transport-https</code>，安装成功<code>apt-transport-https</code>后执行下一步才惊觉—— apt 没了！怎么回事？！</p>
+<p>查看 apt 的 log 文件，才发现竟然在<code>apt-transport-https</code>的安装过程中，把 apt 给移除了！并且还有apt的一些相关依赖，以及 vscode —— 这什么鬼？</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Start-Date: <span class="number">2019</span>-<span class="number">08</span>-<span class="number">19</span>  <span class="number">14</span>:<span class="number">09</span>:<span class="number">20</span></span><br><span class="line">Commandline: apt-get install apt-transport-https ca-certificates curl software-properties-common</span><br><span class="line">Requested-By: lawler (<span class="number">1000</span>)</span><br><span class="line">Install: apt-transport-https:amd64 (<span class="number">1</span><span class="variable">.2</span><span class="variable">.32</span>)</span><br><span class="line">Remove: update-notifier-common:amd64 (<span class="number">3</span><span class="variable">.192</span><span class="variable">.1</span><span class="variable">.5</span>), apt:amd64 (<span class="number">1</span><span class="variable">.6</span><span class="variable">.10</span>), update-manager:amd64 (<span class="number">1</span>:<span class="number">18</span><span class="variable">.04</span><span class="variable">.11</span><span class="variable">.9</span>), ubuntu-desktop:amd64 (<span class="number">1</span><span class="variable">.417</span>), flashplugin-installer:amd64 (<span class="number">32</span><span class="variable">.0</span><span class="variable">.0</span><span class="variable">.223ubuntu0</span><span class="variable">.16</span><span class="variable">.04</span><span class="variable">.1</span>), ttf-mscorefonts-installer:amd64 (<span class="number">3</span><span class="variable">.6ubuntu2</span>), ubuntu-minimal:amd64 (<span class="number">1</span><span class="variable">.417</span>), apt-utils:amd64 (<span class="number">1</span><span class="variable">.6</span><span class="variable">.10</span>), code:amd64 (<span class="number">1</span><span class="variable">.37</span><span class="variable">.0</span>-<span class="number">1565227985</span>), ubuntu-<span class="keyword">release</span>-upgrader-gtk:amd64 (<span class="number">1</span>:<span class="number">18</span><span class="variable">.04</span><span class="variable">.30</span>), update-notifier:amd64 (<span class="number">3</span><span class="variable">.192</span><span class="variable">.1</span><span class="variable">.5</span>)</span><br><span class="line">End-Date: <span class="number">2019</span>-<span class="number">08</span>-<span class="number">19</span>  <span class="number">14</span>:<span class="number">10</span>:<span class="number">11</span></span><br></pre></td></tr></table></figure>
+<p>有点心态爆炸，难怪无论怎么查找，都找不到 apt 的 可执行文件，所幸一些配置文件、log文件等都还有保留。既然知道了问题所在，那么就要想办法解决——把 apt 给装回来喽！还好，apt 还是能装回来的，否则只能重装系统了。。。</p>
+<h1 id="出路"><a href="#出路" class="headerlink" title="出路"></a>出路</h1><h2 id="获取镜像"><a href="#获取镜像" class="headerlink" title="获取镜像"></a>获取镜像</h2><p>进入<a href="https://opsx.alibaba.com/mirror/search?q=apt&amp;lang=zh-CN" target="_blank" rel="noopener">阿里开源镜像网站</a>，根据当前系统版本和架构选择合适的 apt 镜像文件（格式为：apt_xxx_xxx.deb），我的计算机是ubuntu 18.04，x86架构，因而选择 ubuntu bionic 的<code>apt_1.6.1_amd64.deb</code>的镜像文件下载。</p>
+<p>使用如下命令可以查看当前 Linux 系统的版本信息</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> cat /etc/os-release</span><br></pre></td></tr></table></figure>
+<p>不过 1.6 版本的 apt 算是比较老的了，阿里上面没有更新的版本，可以去网易或搜狐上面找，根据系统的不同将网址更改下即可。</p>
+<blockquote>
+<p>网易开源镜像：<a href="http://mirrors.163.com/ubuntu/pool/main/a/apt/" target="_blank" rel="noopener">http://mirrors.163.com/ubuntu/pool/main/a/apt/</a></p>
+<p>搜狐开源镜像：<a href="http://mirrors.sohu.com/ubuntu/pool/main/a/apt/" target="_blank" rel="noopener">http://mirrors.sohu.com/ubuntu/pool/main/a/apt/</a></p>
+</blockquote>
+<p>不过要注意，不是下载的镜像越新越好，因为 apt 的安装运行也是有很多依赖的，版本的差异会导致一些比较大的问题。就比如下载了一个很新1.9.0 的 apt 版本，但在安装的时候会报错。</p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>使用 dpkg 进行安装，一定要用 root 权限。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> sudo dpkg -i apt_1.6.1_amd64.deb</span><br></pre></td></tr></table></figure>
+<p>如果没什么问题，就表示 apt 重新归来了。可以 dpkg 查看下</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> dpkg -l apt</span><br></pre></td></tr></table></figure>
+<h2 id="重装-apt-transport-https"><a href="#重装-apt-transport-https" class="headerlink" title="重装 apt-transport-https"></a>重装 apt-transport-https</h2><p>之前为了合 apt 的版本，将 <code>apt-transport-https</code>给卸载了，现在我要重新安装。</p>
+<p>还是之前的操作：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> sudo apt-get install apt-transport-https</span><br></pre></td></tr></table></figure>
+<p>发现原来安装的时候已经有提示了……不看安装说明真不是一个好习惯，尤其是让你输入什么确认的时候……</p>
+<p><img src="https://raw.githubusercontent.com/Shadowmaple/mydocuments/master/images/Screenshot/001.png" alt></p>
+<p>既然这样用 apt 安装<code>apt-transport-https</code>会把 apt 给移除掉，那么该如何安装 呢？apt 怎么安装，它就怎么安装。在之前的镜像网站中也可以看到有 <code>apt-transport-https</code> 的镜像文件，选择合适的下载下来即可，dpkg 安装</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> sudo dpkg -i apt-transport-https_1.8.3_all.deb</span><br></pre></td></tr></table></figure>
+<p>如果有什么问题，比如版本的问题，那就再下载其它版本的试试。年轻人就要多折腾～</p>
+<h2 id="apt-相关软件包"><a href="#apt-相关软件包" class="headerlink" title="apt 相关软件包"></a>apt 相关软件包</h2><p>虽然 apt已经重新安装好了，但是并不代表它是完整的，从之前的log文件中可以看到随 apt 移除的还有 <code>update-manager</code>，<code>flashplugin-installer</code> 等等，这些东西的缺失会使你在安装其它一些软件的时候受到阻碍，那么该如何恢复？现在就不用从镜像网站一个个下载了，直接一条指令便足以解决：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> sudo apt --fix-broken install</span><br></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/Shadowmaple/mydocuments/master/images/Screenshot/003.png" alt></p>
+<p>还有之前也同样被移除的 vscode ，就要自己去官网下重新下载了</p>
+<p>这样 apt 完全修复了</p>
+<h1 id="寻踪启示"><a href="#寻踪启示" class="headerlink" title="寻踪启示"></a>寻踪启示</h1><p>引以为鉴，在安装什么东西的时候稍微看下安装的说明，尤其是要确认什么的时候</p>
+<p>附上一些有用的参考链接：</p>
+<blockquote>
+<p><a href="https://bbs.aliyun.com/simple/t345645.html" target="_blank" rel="noopener">中国Linux开源镜像站大全</a></p>
+<p><a href="https://www.bbsmax.com/A/gVdnYx2X5W/" target="_blank" rel="noopener">https://www.bbsmax.com/A/gVdnYx2X5W/</a></p>
+<p><a href="https://blog.csdn.net/qq_38417808/article/details/85602476" target="_blank" rel="noopener">https://blog.csdn.net/qq_38417808/article/details/85602476</a></p>
+</blockquote>
+<p>最后附上一张某些人嘲笑我的证明：</p>
+<p><img src="https://raw.githubusercontent.com/Shadowmaple/myDocuments/master/images/Screenshot/from_phone/001.jpg" alt></p>
 
       
     </div>
@@ -503,11 +515,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/项目开发/" rel="tag"><i class="fa fa-tag"></i> 项目开发</a>
+            <a href="/tags/apt/" rel="tag"><i class="fa fa-tag"></i> apt</a>
           
-            <a href="/tags/后端/" rel="tag"><i class="fa fa-tag"></i> 后端</a>
-          
-            <a href="/tags/HomeWorks/" rel="tag"><i class="fa fa-tag"></i> HomeWorks</a>
+            <a href="/tags/problem/" rel="tag"><i class="fa fa-tag"></i> problem</a>
           
             <a href="/tags/随笔/" rel="tag"><i class="fa fa-tag"></i> 随笔</a>
           
@@ -522,8 +532,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/05/10/Linux-file-permissions/" rel="next" title="Linux的文件属性与权限">
-                <i class="fa fa-chevron-left"></i> Linux的文件属性与权限
+              <a href="/2019/08/13/Mongo-go/" rel="next" title="Mongo-go的驱动使用">
+                <i class="fa fa-chevron-left"></i> Mongo-go的驱动使用
               </a>
             
           </div>
@@ -531,10 +541,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/07/01/Linux-file-search/" rel="prev" title="Linux的文件查找">
-                Linux的文件查找 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -764,7 +770,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#这个项目"><span class="nav-number">2.</span> <span class="nav-text">这个项目</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#开发过程"><span class="nav-number">3.</span> <span class="nav-text">开发过程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#API文档"><span class="nav-number">3.1.</span> <span class="nav-text">API文档</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模拟登陆-amp-爬虫"><span class="nav-number">3.2.</span> <span class="nav-text">模拟登陆&amp;爬虫</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#API"><span class="nav-number">3.3.</span> <span class="nav-text">API</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#邮件提醒"><span class="nav-number">3.4.</span> <span class="nav-text">邮件提醒</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#部署"><span class="nav-number">3.5.</span> <span class="nav-text">部署</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#迷雾"><span class="nav-number">1.</span> <span class="nav-text">迷雾</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#出路"><span class="nav-number">2.</span> <span class="nav-text">出路</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#获取镜像"><span class="nav-number">2.1.</span> <span class="nav-text">获取镜像</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装"><span class="nav-number">2.2.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#重装-apt-transport-https"><span class="nav-number">2.3.</span> <span class="nav-text">重装 apt-transport-https</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#apt-相关软件包"><span class="nav-number">2.4.</span> <span class="nav-text">apt 相关软件包</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#寻踪启示"><span class="nav-number">3.</span> <span class="nav-text">寻踪启示</span></a></li></ol></div>
             
 
           </div>
