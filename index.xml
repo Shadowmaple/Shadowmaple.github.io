@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Shadow&#39;s blog</title>
+    <link>https://Shadowmaple.github.io/</link>
+    <description>Recent content on Shadow&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Thu, 22 Aug 2019 14:59:02 +0800</lastBuildDate>
+    
+	<atom:link href="https://Shadowmaple.github.io/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>About</title>
+      <link>https://Shadowmaple.github.io/about/</link>
+      <pubDate>Thu, 22 Aug 2019 14:59:02 +0800</pubDate>
+      
+      <guid>https://Shadowmaple.github.io/about/</guid>
+      <description> Hello, world!  </description>
+    </item>
+    
+    <item>
+      <title>系统重装日记</title>
+      <link>https://Shadowmaple.github.io/posts/system-reinstallation/</link>
+      <pubDate>Thu, 22 Aug 2019 11:27:58 +0800</pubDate>
+      
+      <guid>https://Shadowmaple.github.io/posts/system-reinstallation/</guid>
+      <description>大致记录一下重装ubuntu系统的过程</description>
+    </item>
+    
+    <item>
+      <title>apt not found —— 寻踪记</title>
+      <link>https://Shadowmaple.github.io/posts/apt-lose-problem/</link>
+      <pubDate>Mon, 19 Aug 2019 14:00:00 +0800</pubDate>
+      
+      <guid>https://Shadowmaple.github.io/posts/apt-lose-problem/</guid>
+      <description>记录 apt 丢失及挽救过程</description>
+    </item>
+    
+    <item>
+      <title>Mongo-go驱动的使用</title>
+      <link>https://Shadowmaple.github.io/posts/mongo-go/</link>
+      <pubDate>Tue, 13 Aug 2019 15:46:15 +0800</pubDate>
+      
+      <guid>https://Shadowmaple.github.io/posts/mongo-go/</guid>
+      <description>关于Mongo-go-driver在go程序开发过程中的一些使用心得体会，简作笔记，以待查阅</description>
+    </item>
+    
+    <item>
+      <title> Linux的压缩命令</title>
+      <link>https://Shadowmaple.github.io/posts/linux-compress/</link>
+      <pubDate>Wed, 31 Jul 2019 18:53:58 +0800</pubDate>
+      
+      <guid>https://Shadowmaple.github.io/posts/linux-compress/</guid>
+      <description>Linux下文件压缩命令的汇总</description>
+    </item>
+    
+    <item>
+      <title>Redis初识</title>
+      <link>https://Shadowmaple.github.io/posts/redis_first_meet/</link>
+      <pubDate>Wed, 03 Jul 2019 18:10:44 +0800</pubDate>
+      
+      <guid>https://Shadowmaple.github.io/posts/redis_first_meet/</guid>
+      <description>简单记录redis相关的基础知识</description>
+    </item>
+    
+    <item>
+      <title>Linux的文件查找</title>
+      <link>https://Shadowmaple.github.io/posts/linux-file-search/</link>
+      <pubDate>Mon, 01 Jul 2019 11:57:18 +0800</pubDate>
+      
+      <guid>https://Shadowmaple.github.io/posts/linux-file-search/</guid>
+      <description>Linux下文件查找命令的总结</description>
+    </item>
+    
+    <item>
+      <title>HomeWorks 后端开发总结</title>
+      <link>https://Shadowmaple.github.io/posts/homeworks-development-summary/</link>
+      <pubDate>Sun, 12 May 2019 08:18:38 +0800</pubDate>
+      
+      <guid>https://Shadowmaple.github.io/posts/homeworks-development-summary/</guid>
+      <description>简单总结第一个项目，Mini Project——HomeWorks的大致开发流程和一些问题</description>
+    </item>
+    
+    <item>
+      <title>Linux的文件属性与权限</title>
+      <link>https://Shadowmaple.github.io/posts/linux-file-permissions/</link>
+      <pubDate>Fri, 10 May 2019 00:14:29 +0800</pubDate>
+      
+      <guid>https://Shadowmaple.github.io/posts/linux-file-permissions/</guid>
+      <description>对于Linux文件权限部分的所做笔记与许些总结</description>
+    </item>
+    
+    <item>
+      <title>Hexo搭建博客</title>
+      <link>https://Shadowmaple.github.io/posts/hexo-build-blog/</link>
+      <pubDate>Tue, 16 Apr 2019 21:52:21 +0800</pubDate>
+      
+      <guid>https://Shadowmaple.github.io/posts/hexo-build-blog/</guid>
+      <description>简单记录一下用Hexo搭建博客的基本过程以及遇到的一些问题</description>
+    </item>
+    
+    <item>
+      <title>Python装饰器</title>
+      <link>https://Shadowmaple.github.io/posts/python-decorator/</link>
+      <pubDate>Sat, 13 Apr 2019 00:49:40 +0800</pubDate>
+      
+      <guid>https://Shadowmaple.github.io/posts/python-decorator/</guid>
+      <description>简单介绍一下python的装饰器</description>
+    </item>
+    
+    <item>
+      <title>Vim操作命令</title>
+      <link>https://Shadowmaple.github.io/posts/vim-command/</link>
+      <pubDate>Sat, 15 Dec 2018 22:30:46 +0800</pubDate>
+      
+      <guid>https://Shadowmaple.github.io/posts/vim-command/</guid>
+      <description>简单记录一些在使用vim过程中会用到的操作</description>
+    </item>
+    
+  </channel>
+</rss>

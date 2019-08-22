@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="zh-cn" >
+<head>
+  <meta charset="utf-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+  
+  <meta name="author"
+        content="Shadow"/>
+
+  
+  <meta name="description" content="记录 apt 丢失及挽救过程"/>
+  
+
+  
+  
+  <meta name="keywords" content="Hugo, Shadow"/>
+  
+
+  
+  <link rel="canonical" href="https://Shadowmaple.github.io/posts/apt-lose-problem/"/>
+
+  
+
+  <title>apt not found —— 寻踪记 &middot; Shadow&#39;s blog</title>
+
+  <link rel="shortcut icon" href="https://Shadowmaple.github.io/images/favicon.ico"/>
+  <link rel="stylesheet" href="https://Shadowmaple.github.io/css/animate.min.css"/>
+  <link rel="stylesheet" href="https://Shadowmaple.github.io/css/remixicon.css"/>
+  <link rel="stylesheet" href="https://Shadowmaple.github.io/css/zozo.css"/>
+  <link rel="stylesheet" href="https://Shadowmaple.github.io/css/highlight.css"/>
+
+  
+  
+</head>
+
+<body>
+<div class="main animated">
+  <div class="nav_container animated fadeInDown">
+  <div class="site_nav" id="site_nav">
+    <ul>
+      
+      <li>
+        <a href="/">主页</a>
+      </li>
+      
+      <li>
+        <a href="/posts/">归档</a>
+      </li>
+      
+      <li>
+        <a href="/categories/">分类</a>
+      </li>
+      
+      <li>
+        <a href="/tags/">标签</a>
+      </li>
+      
+      <li>
+        <a href="/about/">关于</a>
+      </li>
+      
+    </ul>
+  </div>
+  <div class="menu_icon">
+    <a id="menu_icon"><i class="remixicon-links-line"></i></a>
+  </div>
+</div>
+
+  <div class="header animated fadeInDown">
+  <div class="site_title_container">
+    <div class="site_title">
+      <h1>
+        <a href="https://Shadowmaple.github.io">
+          <span>Shadow&#39;s blog</span>
+          <img src="https://Shadowmaple.github.io/images/logo.svg"/>
+        </a>
+      </h1>
+    </div>
+    <div class="description">
+      <p class="sub_title">不辜负每一天</p>
+      <div class="my_socials">
+        
+        
+        <a href="https://www.github.com/Shadowmaple" title="github" target="_blank"><i class="remixicon-github-fill"></i></a>
+        
+        
+        <a href="https://Shadowmaple.github.io/index.xml" type="application/rss+xml" title="rss" target="_blank"><i class="remixicon-rss-fill"></i></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <div class="content">
+    <div class="post_page">
+      <div class="post animated fadeInDown">
+        <div class="post_title post_detail_title">
+          <h2><a href='/posts/apt-lose-problem/'>apt not found —— 寻踪记</a></h2>
+          <span class="date">2019.08.19</span>
+        </div>
+        <div class="post_content markdown">
+
+<h1 id="迷雾">迷雾</h1>
+
+<p>在安装Docker的时候，用apt安装输入<code>sudo apt-get install apt-transport-https</code>，安装成功<code>apt-transport-https</code>后执行下一步才惊觉—— apt 没了！怎么回事？！</p>
+
+<p>查看 apt 的 log 文件，才发现竟然在<code>apt-transport-https</code>的安装过程中，把 apt 给移除了！并且还有apt的一些相关依赖，以及 vscode —— 这什么鬼？</p>
+
+<pre><code class="language-verilog">Start-Date: 2019-08-19  14:09:20
+Commandline: apt-get install apt-transport-https ca-certificates curl software-properties-common
+Requested-By: lawler (1000)
+Install: apt-transport-https:amd64 (1.2.32)
+Remove: update-notifier-common:amd64 (3.192.1.5), apt:amd64 (1.6.10), update-manager:amd64 (1:18.04.11.9), ubuntu-desktop:amd64 (1.417), flashplugin-installer:amd64 (32.0.0.223ubuntu0.16.04.1), ttf-mscorefonts-installer:amd64 (3.6ubuntu2), ubuntu-minimal:amd64 (1.417), apt-utils:amd64 (1.6.10), code:amd64 (1.37.0-1565227985), ubuntu-release-upgrader-gtk:amd64 (1:18.04.30), update-notifier:amd64 (3.192.1.5)
+End-Date: 2019-08-19  14:10:11
+</code></pre>
+
+<p>有点心态爆炸，难怪无论怎么查找，都找不到 apt 的 可执行文件，所幸一些配置文件、log文件等都还有保留。既然知道了问题所在，那么就要想办法解决——把 apt 给装回来喽！还好，apt 还是能装回来的，否则只能重装系统了。。。</p>
+
+<h1 id="出路">出路</h1>
+
+<h2 id="获取镜像">获取镜像</h2>
+
+<p>进入<a href="https://opsx.alibaba.com/mirror/search?q=apt&amp;lang=zh-CN">阿里开源镜像网站</a>，根据当前系统版本和架构选择合适的 apt 镜像文件（格式为：apt_xxx_xxx.deb），我的计算机是ubuntu 18.04，x86架构，因而选择 ubuntu bionic 的<code>apt_1.6.1_amd64.deb</code>的镜像文件下载。</p>
+
+<p>使用如下命令可以查看当前 Linux 系统的版本信息</p>
+
+<pre><code class="language-shell">$ cat /etc/os-release
+</code></pre>
+
+<p>不过 1.6 版本的 apt 算是比较老的了，阿里上面没有更新的版本，可以去网易或搜狐上面找，根据系统的不同将网址更改下即可。</p>
+
+<blockquote>
+<p>网易开源镜像：<a href="http://mirrors.163.com/ubuntu/pool/main/a/apt/">http://mirrors.163.com/ubuntu/pool/main/a/apt/</a></p>
+
+<p>搜狐开源镜像：<a href="http://mirrors.sohu.com/ubuntu/pool/main/a/apt/">http://mirrors.sohu.com/ubuntu/pool/main/a/apt/</a></p>
+</blockquote>
+
+<p>不过要注意，不是下载的镜像越新越好，因为 apt 的安装运行也是有很多依赖的，版本的差异会导致一些比较大的问题。就比如下载了一个很新1.9.0 的 apt 版本，但在安装的时候会报错。</p>
+
+<h2 id="安装">安装</h2>
+
+<p>使用 dpkg 进行安装，一定要用 root 权限。</p>
+
+<pre><code class="language-shell">$ sudo dpkg -i apt_1.6.1_amd64.deb
+</code></pre>
+
+<p>如果没什么问题，就表示 apt 重新归来了。可以 dpkg 查看下</p>
+
+<pre><code class="language-shell">$ dpkg -l apt
+</code></pre>
+
+<h2 id="重装-apt-transport-https">重装 apt-transport-https</h2>
+
+<p>之前为了合 apt 的版本，将 <code>apt-transport-https</code>给卸载了，现在我要重新安装。</p>
+
+<p>还是之前的操作：</p>
+
+<pre><code class="language-shell">$ sudo apt-get install apt-transport-https
+</code></pre>
+
+<p>发现原来安装的时候已经有提示了……不看安装说明真不是一个好习惯，尤其是让你输入什么确认的时候……</p>
+
+<p><img src="https://raw.githubusercontent.com/Shadowmaple/mydocuments/master/images/Screenshot/001.png" alt="" /></p>
+
+<p>既然这样用 apt 安装<code>apt-transport-https</code>会把 apt 给移除掉，那么该如何安装 呢？apt 怎么安装，它就怎么安装。在之前的镜像网站中也可以看到有 <code>apt-transport-https</code> 的镜像文件，选择合适的下载下来即可，dpkg 安装</p>
+
+<pre><code class="language-shell">$ sudo dpkg -i apt-transport-https_1.8.3_all.deb
+</code></pre>
+
+<p>如果有什么问题，比如版本的问题，那就再下载其它版本的试试。年轻人就要多折腾～</p>
+
+<h2 id="apt-相关软件包">apt 相关软件包</h2>
+
+<p>虽然 apt已经重新安装好了，但是并不代表它是完整的，从之前的log文件中可以看到随 apt 移除的还有 <code>update-manager</code>，<code>flashplugin-installer</code> 等等，这些东西的缺失会使你在安装其它一些软件的时候受到阻碍，那么该如何恢复？现在就不用从镜像网站一个个下载了，直接一条指令便足以解决：</p>
+
+<pre><code class="language-shell">$ sudo apt --fix-broken install
+</code></pre>
+
+<p><img src="https://raw.githubusercontent.com/Shadowmaple/mydocuments/master/images/Screenshot/003.png" alt="" /></p>
+
+<p>还有之前也同样被移除的 vscode ，就要自己去官网下重新下载了</p>
+
+<p>这样 apt 完全修复了</p>
+
+<h1 id="寻踪启示">寻踪启示</h1>
+
+<p>引以为鉴，在安装什么东西的时候稍微看下安装的说明，尤其是要确认什么的时候</p>
+
+<p>附上一些有用的参考链接：</p>
+
+<blockquote>
+<p><a href="https://bbs.aliyun.com/simple/t345645.html">中国Linux开源镜像站大全</a></p>
+
+<p><a href="https://www.bbsmax.com/A/gVdnYx2X5W/">https://www.bbsmax.com/A/gVdnYx2X5W/</a></p>
+
+<p><a href="https://blog.csdn.net/qq_38417808/article/details/85602476">https://blog.csdn.net/qq_38417808/article/details/85602476</a></p>
+</blockquote>
+
+<p>最后附上一张某些人嘲笑我的证明：</p>
+
+<p><img src="https://raw.githubusercontent.com/Shadowmaple/myDocuments/master/images/Screenshot/from_phone/001.jpg" alt="" /></p>
+</div>
+        <div class="post_footer">
+          
+          <div class="meta">
+            <div class="info">
+              <span class="field tags">
+                <i class="remixicon-stack-line"></i>
+                
+                <a href="https://Shadowmaple.github.io/tags/apt/">apt</a>
+                
+                <a href="https://Shadowmaple.github.io/tags/%E9%9A%8F%E7%AC%94/">随笔</a>
+                
+              </span>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+      
+      
+    </div>
+  </div>
+  <a id="back_to_top" href="#" class="back_to_top"><span>△</span></a>
+</div>
+<footer class="footer">
+  <div class="Since">
+      &copy;
+    <span itemprop="copyrightYear">2018 - 2019</span>
+    <span>| Shadow Zhang</span>
+  </div>
+
+  <div class="Powered">
+    <span><span>Powered by Hugo</span></span>
+  </div>
+
+  <div class="footer_slogan">
+    <span>功不唐捐  玉汝于成</span>
+  </div>
+</footer>
+
+
+
+<script src="https://Shadowmaple.github.io/js/jquery-3.3.1.min.js"></script>
+<script src="https://Shadowmaple.github.io/js/zozo.js"></script>
+<script src="https://Shadowmaple.github.io/js/highlight.pack.js"></script>
+<link  href="https://Shadowmaple.github.io/css/fancybox.min.css" rel="stylesheet">
+<script src="https://Shadowmaple.github.io/js/fancybox.min.js"></script>
+
+<script>hljs.initHighlightingOnLoad()</script>
+
+
+  <script type="text/javascript" async src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$'], ['\[\[','\]\]']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+});
+
+MathJax.Hub.Queue(function() {
+    
+    
+    
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<style>
+code.has-jax {
+    font: inherit;
+    font-size: 100%;
+    background: inherit;
+    border: inherit;
+    color: #515151;
+}
+</style>
+
+
+
+
+
+
+</body>
+</html>

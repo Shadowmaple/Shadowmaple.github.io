@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="zh-cn" >
+<head>
+  <meta charset="utf-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+  
+  <meta name="author"
+        content="Shadow"/>
+
+  
+  <meta name="description" content="Linux下文件查找命令的总结"/>
+  
+
+  
+  
+  <meta name="keywords" content="Hugo, Shadow"/>
+  
+
+  
+  <link rel="canonical" href="https://Shadowmaple.github.io/posts/linux-file-search/"/>
+
+  
+
+  <title>Linux的文件查找 &middot; Shadow&#39;s blog</title>
+
+  <link rel="shortcut icon" href="https://Shadowmaple.github.io/images/favicon.ico"/>
+  <link rel="stylesheet" href="https://Shadowmaple.github.io/css/animate.min.css"/>
+  <link rel="stylesheet" href="https://Shadowmaple.github.io/css/remixicon.css"/>
+  <link rel="stylesheet" href="https://Shadowmaple.github.io/css/zozo.css"/>
+  <link rel="stylesheet" href="https://Shadowmaple.github.io/css/highlight.css"/>
+
+  
+  
+</head>
+
+<body>
+<div class="main animated">
+  <div class="nav_container animated fadeInDown">
+  <div class="site_nav" id="site_nav">
+    <ul>
+      
+      <li>
+        <a href="/">主页</a>
+      </li>
+      
+      <li>
+        <a href="/posts/">归档</a>
+      </li>
+      
+      <li>
+        <a href="/categories/">分类</a>
+      </li>
+      
+      <li>
+        <a href="/tags/">标签</a>
+      </li>
+      
+      <li>
+        <a href="/about/">关于</a>
+      </li>
+      
+    </ul>
+  </div>
+  <div class="menu_icon">
+    <a id="menu_icon"><i class="remixicon-links-line"></i></a>
+  </div>
+</div>
+
+  <div class="header animated fadeInDown">
+  <div class="site_title_container">
+    <div class="site_title">
+      <h1>
+        <a href="https://Shadowmaple.github.io">
+          <span>Shadow&#39;s blog</span>
+          <img src="https://Shadowmaple.github.io/images/logo.svg"/>
+        </a>
+      </h1>
+    </div>
+    <div class="description">
+      <p class="sub_title">不辜负每一天</p>
+      <div class="my_socials">
+        
+        
+        <a href="https://www.github.com/Shadowmaple" title="github" target="_blank"><i class="remixicon-github-fill"></i></a>
+        
+        
+        <a href="https://Shadowmaple.github.io/index.xml" type="application/rss+xml" title="rss" target="_blank"><i class="remixicon-rss-fill"></i></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <div class="content">
+    <div class="post_page">
+      <div class="post animated fadeInDown">
+        <div class="post_title post_detail_title">
+          <h2><a href='/posts/linux-file-search/'>Linux的文件查找</a></h2>
+          <span class="date">2019.07.01</span>
+        </div>
+        <div class="post_content markdown">
+
+<h1 id="脚本文件的查找">脚本文件的查找</h1>
+
+<h2 id="whcih">whcih</h2>
+
+<p>which 用于查找可执行文件，它是根据PATH的环境变量所规定的路径来查找文件</p>
+
+<pre><code class="language-shell"># 用法
+$ whcih [-a] command
+
+# 选项与参数
+-a 	: 列出所有的结果
+
+# 查找which的文件名
+$ which -a which
+which: shell built-in command
+/usr/bin/which
+/bin/which
+</code></pre>
+
+<h1 id="文件的查找">文件的查找</h1>
+
+<p>在linux中，有三个命令可用于文件查找：whereis, locate, find，三者有一定的区别，各有其优劣。</p>
+
+<h2 id="whereis">whereis</h2>
+
+<p>whereis 只是查找系统中某些特定目录下的文件，如 /bin/sbin 下面的执行文件和 /usrshare/man 下面的 <code>man page</code> 文件，所以查找的速度非常快。但它只是查找几个特定目录下的文件，查找范围十分有限。</p>
+
+<p>可以利用 <code>whereis -l</code> 来查看 whereis 究竟查找了多少目录</p>
+
+<p>whereis 的用法</p>
+
+<pre><code class="language-shell">$ whereis [-bmsu] &lt;filename&gt;
+
+# 选项与参数
+-b	: 只查找二进制文件
+-m	: 只找在说明文件manuals路径下的文件
+-s	: 只找源文件
+-u	: 只找不在上述三个项目中的其他特殊文件
+</code></pre>
+
+<h2 id="locate">locate</h2>
+
+<p>locate 是从数据库（<code>/var/lib/mlocate/</code>）中查找数据，查找速度也非常快。但由于linux中的数据库默认是每天更新一次，所以当要查找在数据库更新之后才新建立的文件时，它会告诉你此文件不存在。这是一个不好的地方，但还有补救措施，可以手动更新数据库</p>
+
+<pre><code class="language-shell">$ updatedb
+</code></pre>
+
+<p>updatedb 会根据 <code>/etc/updatedb.conf</code> 的设置取查找系统硬盘内的文件，并更新 <code>/var/lib/mlocate</code>内的数据库文件。由于它是将数据写入数据库文件，所以需要root权限。并且因为 updatedb 是查找硬盘文件，所以可能执行速度较慢。</p>
+
+<p>还有一点，locate 是根据用户输入的关键字与数据库的记录进行匹配，所以可以不像 whereis 一样必须输入完整的文件名，只需输入关键字即可。</p>
+
+<pre><code class="language-shell"># 用法
+$ locate [-ir] &lt;keyword&gt;
+
+# 选项与参数
+-i	: 忽略大小写差异
+-r	: 后面可接正则表达式的匹配方式
+-c	: 只显示文件数量
+-l	: 仅输出几行
+-S	: 输出locate所使用的数据库文件的相关信息，包括文件目录数量
+
+# 查找关键字api，并仅显示10行
+$ locate -l 10 api
+
+# 显示查询的数据库文件信息
+$ locate -S
+</code></pre>
+
+<h2 id="find">find</h2>
+
+<p>find 的功能十分强大，不但能根据文件名查找文件，还能根据时间、用户、权限、文件大小等条件查找文件，并且还可以指定查找的目录（连同子目录）进行查找。但由于它是针对硬盘进行查找，十分消耗硬盘资源，速度很慢，不推荐使用，显然whereis和locate是优先选择。</p>
+
+<h3 id="选项与参数">选项与参数</h3>
+
+<table>
+<thead>
+<tr>
+<th align="center">选项与参数</th>
+<th align="center">含义</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td align="center">-name filename</td>
+<td align="center">根据文件名查找文件</td>
+</tr>
+
+<tr>
+<td align="center">-size [+-]SIZE[ck]</td>
+<td align="center">查找大于(+)或小于(-)SIZE大小的文件，c为bytes，k为kb</td>
+</tr>
+
+<tr>
+<td align="center">-mtime [+-]n</td>
+<td align="center">在n天之前(+)，第n天中，n天之内(-)修改过内容的文件</td>
+</tr>
+
+<tr>
+<td align="center">-type TYPE</td>
+<td align="center">根据文件类型查找，类型有<strong>f, d</strong>, b, c, l, s, p</td>
+</tr>
+
+<tr>
+<td align="center">-perm [-/]mode</td>
+<td align="center">查找刚好等于mode，全部囊括mode（-）和包含任一mode权限（/）的文件，mode为数字形式</td>
+</tr>
+
+<tr>
+<td align="center">-atime [+-]n</td>
+<td align="center">同上，被读取过的文件</td>
+</tr>
+
+<tr>
+<td align="center">-ctime [+-]n</td>
+<td align="center">同上，修改过状态的文件</td>
+</tr>
+
+<tr>
+<td align="center">-newer file</td>
+<td align="center">列出比 file 还要新的文件，file 必须包含路径（绝对相对均可）</td>
+</tr>
+
+<tr>
+<td align="center">-user name</td>
+<td align="center">根据用户名查找该用户的文件</td>
+</tr>
+
+<tr>
+<td align="center">-uid n</td>
+<td align="center">根据用户ID（为数字）查找该用户的文件</td>
+</tr>
+
+<tr>
+<td align="center">-groud name</td>
+<td align="center">同上</td>
+</tr>
+
+<tr>
+<td align="center">-gid n</td>
+<td align="center">同上</td>
+</tr>
+
+<tr>
+<td align="center">-nouser</td>
+<td align="center">查找文件的拥有者不在 /etc/passed 中</td>
+</tr>
+
+<tr>
+<td align="center">-nogroup</td>
+<td align="center">同上</td>
+</tr>
+
+<tr>
+<td align="center">-exec cmd</td>
+<td align="center">可接其他命令来处理查找到的结果</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="用法示例">用法示例</h3>
+
+<pre><code class="language-shell">$ find [PATH] [option] [action]
+
+# 在系统下查找api.md文件
+$ find / -name api.md
+
+# 在当前目录下查找大于20b的文件
+$ find . -size +20c
+
+# 在当前目录下查找类型为目录的文件
+$ find . -type d
+
+# 在家目录下查找三天内修改过内容的文件
+$ find /home -mtime -3
+
+# 查找属于lawler的文件
+$ find . -user lawler
+
+# 查找权限等于0664的文件
+$ find . -perm 0664
+
+# 在上一层目录下查找比x.md新的文件且列出详细信息，并将结果输出到a.md文件中
+$ find ../ -newer ./x.md -exec ls -l {} &gt; a.md \;
+</code></pre>
+
+<p><code>-exec</code> 参数中，<code>{}</code> 代表的是 find 查找到的结果，最后的 <code>\;</code> 代表命令的结束</p>
+</div>
+        <div class="post_footer">
+          
+          <div class="meta">
+            <div class="info">
+              <span class="field tags">
+                <i class="remixicon-stack-line"></i>
+                
+                <a href="https://Shadowmaple.github.io/tags/linux/">linux</a>
+                
+              </span>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+      
+      
+    </div>
+  </div>
+  <a id="back_to_top" href="#" class="back_to_top"><span>△</span></a>
+</div>
+<footer class="footer">
+  <div class="Since">
+      &copy;
+    <span itemprop="copyrightYear">2018 - 2019</span>
+    <span>| Shadow Zhang</span>
+  </div>
+
+  <div class="Powered">
+    <span><span>Powered by Hugo</span></span>
+  </div>
+
+  <div class="footer_slogan">
+    <span>功不唐捐  玉汝于成</span>
+  </div>
+</footer>
+
+
+
+<script src="https://Shadowmaple.github.io/js/jquery-3.3.1.min.js"></script>
+<script src="https://Shadowmaple.github.io/js/zozo.js"></script>
+<script src="https://Shadowmaple.github.io/js/highlight.pack.js"></script>
+<link  href="https://Shadowmaple.github.io/css/fancybox.min.css" rel="stylesheet">
+<script src="https://Shadowmaple.github.io/js/fancybox.min.js"></script>
+
+<script>hljs.initHighlightingOnLoad()</script>
+
+
+  <script type="text/javascript" async src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$'], ['\[\[','\]\]']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+});
+
+MathJax.Hub.Queue(function() {
+    
+    
+    
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<style>
+code.has-jax {
+    font: inherit;
+    font-size: 100%;
+    background: inherit;
+    border: inherit;
+    color: #515151;
+}
+</style>
+
+
+
+
+
+
+</body>
+</html>

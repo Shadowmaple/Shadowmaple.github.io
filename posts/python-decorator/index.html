@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="zh-cn" >
+<head>
+  <meta charset="utf-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+  
+  <meta name="author"
+        content="Shadow"/>
+
+  
+  <meta name="description" content="简单介绍一下python的装饰器"/>
+  
+
+  
+  
+  <meta name="keywords" content="Hugo, Shadow"/>
+  
+
+  
+  <link rel="canonical" href="https://Shadowmaple.github.io/posts/python-decorator/"/>
+
+  
+
+  <title>Python装饰器 &middot; Shadow&#39;s blog</title>
+
+  <link rel="shortcut icon" href="https://Shadowmaple.github.io/images/favicon.ico"/>
+  <link rel="stylesheet" href="https://Shadowmaple.github.io/css/animate.min.css"/>
+  <link rel="stylesheet" href="https://Shadowmaple.github.io/css/remixicon.css"/>
+  <link rel="stylesheet" href="https://Shadowmaple.github.io/css/zozo.css"/>
+  <link rel="stylesheet" href="https://Shadowmaple.github.io/css/highlight.css"/>
+
+  
+  
+</head>
+
+<body>
+<div class="main animated">
+  <div class="nav_container animated fadeInDown">
+  <div class="site_nav" id="site_nav">
+    <ul>
+      
+      <li>
+        <a href="/">主页</a>
+      </li>
+      
+      <li>
+        <a href="/posts/">归档</a>
+      </li>
+      
+      <li>
+        <a href="/categories/">分类</a>
+      </li>
+      
+      <li>
+        <a href="/tags/">标签</a>
+      </li>
+      
+      <li>
+        <a href="/about/">关于</a>
+      </li>
+      
+    </ul>
+  </div>
+  <div class="menu_icon">
+    <a id="menu_icon"><i class="remixicon-links-line"></i></a>
+  </div>
+</div>
+
+  <div class="header animated fadeInDown">
+  <div class="site_title_container">
+    <div class="site_title">
+      <h1>
+        <a href="https://Shadowmaple.github.io">
+          <span>Shadow&#39;s blog</span>
+          <img src="https://Shadowmaple.github.io/images/logo.svg"/>
+        </a>
+      </h1>
+    </div>
+    <div class="description">
+      <p class="sub_title">不辜负每一天</p>
+      <div class="my_socials">
+        
+        
+        <a href="https://www.github.com/Shadowmaple" title="github" target="_blank"><i class="remixicon-github-fill"></i></a>
+        
+        
+        <a href="https://Shadowmaple.github.io/index.xml" type="application/rss+xml" title="rss" target="_blank"><i class="remixicon-rss-fill"></i></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <div class="content">
+    <div class="post_page">
+      <div class="post animated fadeInDown">
+        <div class="post_title post_detail_title">
+          <h2><a href='/posts/python-decorator/'>Python装饰器</a></h2>
+          <span class="date">2019.04.13</span>
+        </div>
+        <div class="post_content markdown">
+
+<h1 id="为什么要用装饰器">为什么要用装饰器？</h1>
+
+<p>先看一个简单的例子</p>
+
+<pre><code class="language-Python">def foo():
+    print(&quot;I'm foo.&quot;)
+
+foo()
+</code></pre>
+
+<p>之后有了一个新需求，想要在其中添加时间，你可以这样直接添加：</p>
+
+<pre><code class="language-Python">import time
+
+def foo():
+    t = time.strftime('%H:%M:%S', time.localtime())
+    print('It\'s {} now.'.format(t))
+    print(&quot;I am foo.&quot;)
+
+foo()
+</code></pre>
+
+<p>先来看下效果</p>
+
+<pre><code>It's 15:15:15 now.
+I am foo.
+</code></pre>
+
+<p>成功达成目的，但是这样的话，我们每次都要修改函数代码，如果有多个函数的话，效率极为低下。那么这种方式呢？</p>
+
+<pre><code class="language-python">import time
+def get_time(func):
+    t = time.strftime('%H:%M:%S', time.localtime())
+    print('It\'s {} now.'.format(t))
+    func()
+
+def foo():
+    print(&quot;I am foo.&quot;)
+
+get_time(foo)
+</code></pre>
+
+<p>当然可以。但是这种代码已经破坏了原有的代码逻辑，执行方式改变了，之前是执行运行foo()，而现在却只能运行get_time(foo)。那么有没有更好的方式呢？答案是装饰器。</p>
+
+<h1 id="什么是装饰器">什么是装饰器？</h1>
+
+<p>简单来讲，装饰器就是一个在不破坏原有代码逻辑、结构的情况下对既有函数方法进行附加功能的函数或类。它的本质就是函数或类。</p>
+
+<h2 id="简单的装饰器">简单的装饰器</h2>
+
+<p>首先要认识到在python中函数是一等公民，即函数也是对象，也是可以作为参数进行传递</p>
+
+<pre><code class="language-python">def get_time(func):
+    def wrapper():
+        t = time.strftime('%H:%M:%S', time.localtime())
+        print('It\'s {} now.'.format(t))
+        return foo()
+    return wrapper
+
+def foo():
+    print(&quot;I am foo.&quot;)
+
+foo = get_time(foo)
+foo()
+</code></pre>
+
+<p>函数<code>get_time</code>就是装饰器，它把执行真正业务方法的func包裹在函数里面，看起来像foo被<code>get_time</code>装饰了。</p>
+
+<h2 id="语法糖">语法糖</h2>
+
+<p>@符号是装饰器的语法糖，在定义函数的时候使用，避免再一次赋值操作</p>
+
+<pre><code class="language-python">def get_time(func):
+    def wrapper():
+        t = time.strftime('%H:%M:%S', time.localtime())
+        print('It\'s {} now.'.format(t))
+        return foo()
+    return wrapper
+
+@get_time               #加上语法糖，=&gt; foo = get_time(foo)
+def foo():
+    print(&quot;I am foo.&quot;)
+</code></pre>
+
+<h2 id="装饰器的调用顺序">装饰器的调用顺序</h2>
+
+<pre><code class="language-python">@a
+@b
+@c
+def foo():
+    pass
+</code></pre>
+
+<p>装饰器的调用顺序是从下到上的，即<code>foo = a(b(c(foo)))</code></p>
+
+<h1 id="带参数的装饰器">带参数的装饰器</h1>
+
+<p>装饰器的语法允许我们在调用时，提供其它参数。这样，就为装饰器的编写和使用提供了更大的灵活性。</p>
+
+<h2 id="关于-args-kwargs">关于*args, **kwargs</h2>
+
+<p>我们所要装饰的函数有很多是需要参数的，所以说我们可能会想到在wrapper()直接添加参数，但是如果函数所需要的参数个数是不确定的，那如果每次都修改所定义的装饰器，那么装饰器便失去了其普适性。所以引入了<code>*args</code> 和<code>**kwargs</code>支持接受动态参数。</p>
+
+<ul>
+<li><code>*args</code>表示任何多个无名参数，它是一个tuple</li>
+
+<li><p><code>**kwargs</code>表示关键字参数，它是一个dict.</p>
+
+<pre><code class="language-python">def get_time(name):
+def decorator(func):
+    def wrapper(*args, **kwargs):
+        t = time.strftime('%H:%M:%S', time.localtime())
+        print('It\'s {} now.'.format(t))
+        print('I am {}.'.format(name))
+        return func(*args, **kwargs)
+    return wrapper
+return decorator
+
+@get_time(name='Shadow')
+def foo(name='Nick'):
+print(&quot;Hello, I'm %s.&quot; %name)
+
+foo('Mark')
+</code></pre></li>
+</ul>
+
+<h1 id="类装饰器">类装饰器</h1>
+
+<p>相比函数装饰器，类装饰器具有灵活度大、高内聚、封装性等优点。使用类装饰器主要依靠类的<code>__call__</code>方法，当使用@形式将装饰器附加到函数上时，就会调用此方法。</p>
+
+<pre><code class="language-python">class Foo(object):
+    def __init__(self, func):
+        self._func = func
+
+    def __call__(self):
+        print ('class decorator runing')
+        self._func()
+        print ('class decorator ending')
+
+@Foo
+def bar():
+    print ('bar')
+
+bar()
+</code></pre>
+
+<h1 id="装饰器的弊端">装饰器的弊端</h1>
+
+<p>虽然装饰器实现了我们的功能，但是借助这个<a href="http://www.pythontutor.com/visualize.html#mode=edit">网站</a>来观察返回的函数foo，我们会发现其名称将不会再是原函数的名称,即它的原信息发生了改变，这说明装饰器对原函数造成了影响，这是我们不愿意见到的。所以我们使用python的<code>functools</code>包中一个装饰器<code>wraps</code>来消除这个副作用。</p>
+
+<pre><code class="language-python">from functools import wraps
+import time
+
+def get_time(name):
+    def decorator(func):
+        @wraps(func)
+        def wrapper(*args, **kwargs):
+            t = time.strftime('%H:%M:%S', time.localtime())
+            print('It\'s {} now.'.format(t))
+            print('I am {}.'.format(name))
+            return func(*args, **kwargs)
+        return wrapper
+    return decorator
+
+@get_time(name='Shadow')
+def foo(name='Nick'):
+    print(&quot;Hello, I'm %s.&quot; %name)
+
+foo('Mark')
+</code></pre>
+
+<h1 id="装饰器的执行顺序">装饰器的执行顺序</h1>
+
+<p>装饰器的一个关键特性是，它们在被装饰的函数定义之后立即运行。</p>
+
+<pre><code class="language-python">def decorator(func):
+    print(&quot;running decorator&quot;)
+    return func
+
+@decorator
+def foo():
+    print(&quot;running foo&quot;)
+
+foo()
+</code></pre>
+
+<p>这就有运行和导入之分。导入时：</p>
+
+<pre><code>&gt;&gt;&gt; import decorator
+running decorator
+</code></pre>
+
+<p><code>foo()</code>只有在运行时才会运行</p>
+
+<h1 id="闭包">闭包</h1>
+
+<p>明确三个变量：全局变量，局部变量和自由变量。</p>
+
+<p>自由变量，指未在本地作用域中绑定的变量</p>
+
+<pre><code class="language-python">def decorator(func):
+    lt = ['abc']
+    def wrapper():
+        print(lt)
+        return func
+    return wrapper
+</code></pre>
+
+<p>在上述代码中，在<code>wrapper</code>中<code>lt</code>即是自由变量。从<code>lt = ['abc']</code>到<code>return func</code>之间（包括）即是闭包。</p>
+
+<p>闭包是一种函数，它会保留定义函数时存在的自由变量的绑定，这样调用函数时，虽然定义作用域不可用了，但是仍能使用那些绑定。但是只有嵌套在其他函数中的函数才可能需要处理不在全局作用域中的外部变量。</p>
+</div>
+        <div class="post_footer">
+          
+          <div class="meta">
+            <div class="info">
+              <span class="field tags">
+                <i class="remixicon-stack-line"></i>
+                
+                <a href="https://Shadowmaple.github.io/tags/python/">python</a>
+                
+              </span>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+      
+      
+    </div>
+  </div>
+  <a id="back_to_top" href="#" class="back_to_top"><span>△</span></a>
+</div>
+<footer class="footer">
+  <div class="Since">
+      &copy;
+    <span itemprop="copyrightYear">2018 - 2019</span>
+    <span>| Shadow Zhang</span>
+  </div>
+
+  <div class="Powered">
+    <span><span>Powered by Hugo</span></span>
+  </div>
+
+  <div class="footer_slogan">
+    <span>功不唐捐  玉汝于成</span>
+  </div>
+</footer>
+
+
+
+<script src="https://Shadowmaple.github.io/js/jquery-3.3.1.min.js"></script>
+<script src="https://Shadowmaple.github.io/js/zozo.js"></script>
+<script src="https://Shadowmaple.github.io/js/highlight.pack.js"></script>
+<link  href="https://Shadowmaple.github.io/css/fancybox.min.css" rel="stylesheet">
+<script src="https://Shadowmaple.github.io/js/fancybox.min.js"></script>
+
+<script>hljs.initHighlightingOnLoad()</script>
+
+
+  <script type="text/javascript" async src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$'], ['\[\[','\]\]']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+});
+
+MathJax.Hub.Queue(function() {
+    
+    
+    
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<style>
+code.has-jax {
+    font: inherit;
+    font-size: 100%;
+    background: inherit;
+    border: inherit;
+    color: #515151;
+}
+</style>
+
+
+
+
+
+
+</body>
+</html>

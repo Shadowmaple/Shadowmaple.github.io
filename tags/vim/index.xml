@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>vim on Shadow&#39;s blog</title>
+    <link>https://Shadowmaple.github.io/tags/vim/</link>
+    <description>Recent content in vim on Shadow&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sat, 15 Dec 2018 22:30:46 +0800</lastBuildDate>
+    
+	<atom:link href="https://Shadowmaple.github.io/tags/vim/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Vim操作命令</title>
+      <link>https://Shadowmaple.github.io/posts/vim-command/</link>
+      <pubDate>Sat, 15 Dec 2018 22:30:46 +0800</pubDate>
+      
+      <guid>https://Shadowmaple.github.io/posts/vim-command/</guid>
+      <description>简单记录一些在使用vim过程中会用到的操作</description>
+    </item>
+    
+  </channel>
+</rss>

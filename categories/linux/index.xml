@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Linux on Shadow&#39;s blog</title>
+    <link>https://Shadowmaple.github.io/categories/linux/</link>
+    <description>Recent content in Linux on Shadow&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Wed, 31 Jul 2019 18:53:58 +0800</lastBuildDate>
+    
+	<atom:link href="https://Shadowmaple.github.io/categories/linux/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title> Linux的压缩命令</title>
+      <link>https://Shadowmaple.github.io/posts/linux-compress/</link>
+      <pubDate>Wed, 31 Jul 2019 18:53:58 +0800</pubDate>
+      
+      <guid>https://Shadowmaple.github.io/posts/linux-compress/</guid>
+      <description>Linux下文件压缩命令的汇总</description>
+    </item>
+    
+    <item>
+      <title>Linux的文件查找</title>
+      <link>https://Shadowmaple.github.io/posts/linux-file-search/</link>
+      <pubDate>Mon, 01 Jul 2019 11:57:18 +0800</pubDate>
+      
+      <guid>https://Shadowmaple.github.io/posts/linux-file-search/</guid>
+      <description>Linux下文件查找命令的总结</description>
+    </item>
+    
+    <item>
+      <title>Linux的文件属性与权限</title>
+      <link>https://Shadowmaple.github.io/posts/linux-file-permissions/</link>
+      <pubDate>Fri, 10 May 2019 00:14:29 +0800</pubDate>
+      
+      <guid>https://Shadowmaple.github.io/posts/linux-file-permissions/</guid>
+      <description>对于Linux文件权限部分的所做笔记与许些总结</description>
+    </item>
+    
+  </channel>
+</rss>
