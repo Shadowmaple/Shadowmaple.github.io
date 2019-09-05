@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>database on Shadow&#39;s blog</title>
+    <link>https://Shadowmaple.github.io/tags/database/</link>
+    <description>Recent content in database on Shadow&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Fri, 30 Aug 2019 19:46:31 +0800</lastBuildDate>
+    
+	<atom:link href="https://Shadowmaple.github.io/tags/database/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Mysql</title>
+      <link>https://Shadowmaple.github.io/posts/mysql/</link>
+      <pubDate>Fri, 30 Aug 2019 19:46:31 +0800</pubDate>
+      
+      <guid>https://Shadowmaple.github.io/posts/mysql/</guid>
+      <description>Mysql笔记</description>
+    </item>
+    
+  </channel>
+</rss>

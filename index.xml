@@ -6,10 +6,19 @@
     <description>Recent content on Shadow&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Thu, 22 Aug 2019 14:59:02 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 30 Aug 2019 19:46:31 +0800</lastBuildDate>
     
 	<atom:link href="https://Shadowmaple.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Mysql</title>
+      <link>https://Shadowmaple.github.io/posts/mysql/</link>
+      <pubDate>Fri, 30 Aug 2019 19:46:31 +0800</pubDate>
+      
+      <guid>https://Shadowmaple.github.io/posts/mysql/</guid>
+      <description>Mysql笔记</description>
+    </item>
     
     <item>
       <title>About</title>

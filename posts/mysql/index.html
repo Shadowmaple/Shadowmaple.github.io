@@ -1,0 +1,1552 @@
+<!DOCTYPE html>
+<html lang="zh-cn" >
+<head>
+  <meta charset="utf-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+  
+  <meta name="author"
+        content="Shadow"/>
+
+  
+  <meta name="description" content="Mysql笔记"/>
+  
+
+  
+  
+  <meta name="keywords" content="Hugo, Shadow"/>
+  
+
+  
+  <link rel="canonical" href="https://Shadowmaple.github.io/posts/mysql/"/>
+
+  
+
+  <title>Mysql &middot; Shadow&#39;s blog</title>
+
+  <link rel="shortcut icon" href="https://Shadowmaple.github.io/images/favicon.ico"/>
+  <link rel="stylesheet" href="https://Shadowmaple.github.io/css/animate.min.css"/>
+  <link rel="stylesheet" href="https://Shadowmaple.github.io/css/remixicon.css"/>
+  <link rel="stylesheet" href="https://Shadowmaple.github.io/css/zozo.css"/>
+  <link rel="stylesheet" href="https://Shadowmaple.github.io/css/highlight.css"/>
+
+  
+  
+  
+  
+  
+</head>
+
+<body>
+<div class="main animated">
+  <div class="nav_container animated fadeInDown">
+  <div class="site_nav" id="site_nav">
+    <ul>
+      
+      <li>
+        <a href="/">主页</a>
+      </li>
+      
+      <li>
+        <a href="/posts/">归档</a>
+      </li>
+      
+      <li>
+        <a href="/categories/">分类</a>
+      </li>
+      
+      <li>
+        <a href="/tags/">标签</a>
+      </li>
+      
+      <li>
+        <a href="/about/">关于</a>
+      </li>
+      
+    </ul>
+  </div>
+  <div class="menu_icon">
+    <a id="menu_icon"><i class="remixicon-links-line"></i></a>
+  </div>
+</div>
+
+  <div class="header animated fadeInDown">
+  <div class="site_title_container">
+    <div class="site_title">
+      <h1>
+        <a href="https://Shadowmaple.github.io">
+          <span>Shadow&#39;s blog</span>
+          <img src="https://Shadowmaple.github.io/images/logo.svg"/>
+        </a>
+      </h1>
+
+    </div>
+    <div class="description">
+      <p class="sub_title">不辜负每一天</p>
+      <div class="my_socials">
+        
+        
+        <a href="https://www.github.com/Shadowmaple" title="github" target="_blank"><i class="remixicon-github-fill"></i></a>
+        
+        
+        <a href="https://Shadowmaple.github.io/index.xml" type="application/rss+xml" title="rss" target="_blank"><i class="remixicon-rss-fill"></i></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <div class="content">
+    <div class="post_page">
+      <div class="post animated fadeInDown">
+        <div class="post_title post_detail_title">
+          <h2><a href='/posts/mysql/'>Mysql</a></h2>
+          <span class="date">2019-08-30</span>
+        </div>
+        <div class="post_content markdown">
+
+<h1 id="了解数据库">了解数据库</h1>
+
+<p>数据库(database)是一个以某种有组织的方式存储的数据集合，是保存有组织的数据的容器，通常是一个文件或一组文件</p>
+
+<p>表(table)是某种特定类型数据的结构化清单</p>
+
+<p>模式(schema)是关于数据库和表的布局以及特性的信息</p>
+
+<p>列(column)是表中的一个字段，存储着表中某部分的信息。所有表都是由一个或多个列组成的</p>
+
+<p>行(row)是表中的一个记录</p>
+
+<p>主键(primary key) 是唯一标识表中每行的一列或一组列，用来表示一个特定的行</p>
+
+<p>字句(clause) 用于构成sql语句</p>
+
+<p>SQL ：结构化查询语言(Structured Query Language)，是一种专门用来与数据库通信的语言</p>
+
+<p>MySQL：是一种数据库软件(DBMS)</p>
+
+<h1 id="安装">安装</h1>
+
+<blockquote>
+<p><a href="https://dev.mysql.com/downloads/">官网下载</a></p>
+
+<p><a href="https://github.com/Shadowmaple/notes/blob/master/Mysql/install.md">安装步骤</a></p>
+</blockquote>
+
+<h1 id="基本操作">基本操作</h1>
+
+<h2 id="启动-停止服务">启动&amp;停止服务</h2>
+
+<pre><code class="language-shell">shell&gt; sudo service mysql status
+shell&gt; sudo service mysql stop
+shell&gt; sudo service mysql start
+</code></pre>
+
+<h2 id="连接">连接</h2>
+
+<p>进入mysql命令行模式</p>
+
+<pre><code class="language-shell">$ sudo mysql
+# 或
+$ mysql -uroot -p
+</code></pre>
+
+<p>ps：关键字都是大写，但因为大小写不敏感，所以可以用小写代替</p>
+
+<p>结束： <code>;</code> 或<code>\g</code></p>
+
+<p>退出： <code>quit</code>或 <code>exit</code></p>
+
+<p>帮助： <code>help</code> 或<code>\h</code></p>
+
+<p><strong>注意：结尾要加分号( ; )！</strong></p>
+
+<pre><code class="language-mysql">show databases;
+use &lt;db_name&gt;;
+show tables;
+show columns from &lt;table_name&gt;;
+
+select * from &lt;table_name&gt;;
+select &lt;column_name&gt; from &lt;table_name&gt;;
+</code></pre>
+
+<pre><code class="language-mysql">help show;  #显示可用的show命令
+</code></pre>
+
+<h2 id="创建数据库">创建数据库</h2>
+
+<pre><code class="language-mysql">Syntax:
+CREATE {DATABASE | SCHEMA} [IF NOT EXISTS] db_name [create_specification] ...
+</code></pre>
+
+<p>例子</p>
+
+<pre><code class="language-mysql">mysql&gt; create database mytest;
+Query OK, 1 row affected (0.01 sec)
+
+mysql&gt; show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| mytest             |
+| performance_schema |
+| sample             |
+| sys                |
++--------------------+
+5 rows in set (0.00 sec)
+</code></pre>
+
+<h2 id="创建表">创建表</h2>
+
+<pre><code class="language-mysql">Syntax:
+CREATE [TEMPORARY] TABLE [IF NOT EXISTS] tbl_name
+    (create_definition,...)
+    [table_options]
+    [partition_options]
+    
+CREATE TABLE &lt;表名&gt;
+(
+    &lt;列名1&gt; &lt;数据类型&gt; &lt;该列所需约束&gt; ,
+	&lt;列名2&gt; &lt;数据类型&gt; &lt;该列所需约束&gt; ,
+	&lt;列名3&gt; &lt;数据类型&gt; &lt;该列所需约束&gt;
+);  
+</code></pre>
+
+<p>数据类型有 INTEGER, CHAR, DATE 等，约束条件有 NOT NULL, PRIMARY KEY (主键)，DEFAULT 0  等。</p>
+
+<p>例如：</p>
+
+<pre><code class="language-mysql">create table Addressbook(
+    regist_no	 integer 	  not null,
+    name		 varchar(128) not null,
+    address		 varchar(256) not null,
+    tel_no 		 char(10),
+    mail_address char(20), 
+    primary key (regist_no)
+);
+</code></pre>
+
+<h2 id="删除表">删除表</h2>
+
+<pre><code class="language-mysql">DROP TABLE  &lt;表名&gt;;
+</code></pre>
+
+<h2 id="更新表的定义">更新表的定义</h2>
+
+<p>在表创建完成之后才发现字段多了或者少了，这时候无需删表重新创建，只要对表更新定义即可。</p>
+
+<pre><code class="language-mysql"># 添加字段
+ALTER TABLE &lt; 表名 &gt; ADD COLUMN &lt; 列的定义 &gt; ;
+
+# 删除字段
+ALTER TABLE &lt; 表名 &gt; DROP COLUMN &lt; 列名 &gt; ;
+</code></pre>
+
+<p>如：</p>
+
+<pre><code class="language-mysql">alter table Addressbook add column (postal_code char(8) not null);
+</code></pre>
+
+<h2 id="更改表名">更改表名</h2>
+
+<pre><code class="language-mysql">RENAME TABLE &lt;原始表名&gt; to &lt;新表名&gt;;
+</code></pre>
+
+<h2 id="注释">注释</h2>
+
+<ol>
+<li>单行注释： <code>--</code>。要注意后面要空一格，否则不会认为是注释</li>
+<li>多行注释：<code>/*</code> 和 <code>*/</code>。</li>
+</ol>
+
+<h2 id="导入样例数据">导入样例数据</h2>
+
+<blockquote>
+<p><a href="https://blog.csdn.net/duhena0384/article/details/80396542">https://blog.csdn.net/duhena0384/article/details/80396542</a></p>
+</blockquote>
+
+<h1 id="新用户">新用户</h1>
+
+<h2 id="添加用户">添加用户</h2>
+
+<pre><code class="language-mysql"># 无密码登录
+create user 'lawler'@'localhost' identified by &quot;&quot;;
+# 密码登录
+create user 'lawler'@'localhost' identified by &quot;12345&quot;;
+</code></pre>
+
+<h2 id="赋予权限">赋予权限</h2>
+
+<pre><code class="language-mysql"># 所有权限
+grant all privileges on *.* to 'lawler'@'localhost';
+
+# 某项数据库所有权限
+GRANT privileges ON databasename.* TO 'username'@'host'
+
+# 数据库的某个表的查找和插入权限
+GRANT SELECT, INSERT ON databasename.tablename TO 'username'@'host'
+</code></pre>
+
+<p>注意：</p>
+
+<p>privileges - 用户的操作权限，如SELECT , INSERT , UPDATE 等。</p>
+
+<p>如果要授予所的权限则使用<code>ALL</code>；如果要授予该用户对所有数据库和表的相应操作权限则可用表示，如 <code>*.*.</code>。</p>
+
+<h2 id="查看权限">查看权限</h2>
+
+<pre><code class="language-mysql">show grants for 'lawler'@'localhost'; 
+</code></pre>
+
+<h2 id="删除用户">删除用户</h2>
+
+<pre><code class="language-mysql">drop user 'lawler'@'localhost'; 
+</code></pre>
+
+<ol>
+<li></li>
+</ol>
+
+<h1 id="检索数据">检索数据</h1>
+
+<h2 id="检索列">检索列</h2>
+
+<pre><code class="language-mysql"># 所有列
+select * from &lt;table_name&gt;;
+# 单个列
+select &lt;column_name&gt; from &lt;table_name&gt;;
+# 多个列
+select &lt;column1&gt;, &lt;column2&gt;, &lt;column3&gt; from &lt;table_name&gt;;
+</code></pre>
+
+<p>注意：使用<code>*</code>返回的列的顺序是定义时的顺序。</p>
+
+<h2 id="检索不同行">检索不同行</h2>
+
+<p>使用 DISINCT 关键字，返回无重复的该列数据，即对该列数据进行去重操作</p>
+
+<pre><code class="language-mysql">mysql&gt; SELECT DISTINCT &lt;column&gt; FROM &lt;table&gt;;
+
+mysql&gt; select distinct vend_id from products;
+</code></pre>
+
+<p>注意：</p>
+
+<ul>
+<li><p>在使用 DISTINCT 时, NULL 也被视为一类数据。 NULL 存在于多行中时 , 也会被合并为一条 NULL 数据。</p></li>
+
+<li><p>多条列名时，DISTINCT 关键字只能用在第一个列名之前。</p></li>
+</ul>
+
+<h2 id="限制结果">限制结果</h2>
+
+<p>使用 LIMIT 子句</p>
+
+<pre><code class="language-mysql"># 返回不多于6行
+mysql&gt; select prod_name from products limit 6;
+
+# 指定要检索的开始行和行数，从行6开始的3行
+mysql&gt; select prod_name from products limit 6, 3;
+
+# 上同，即为从行6取3行
+mysql&gt; select prod_name from products limit 3 offset 6;
+</code></pre>
+
+<p>注：</p>
+
+<ul>
+<li>从 0 行开始！第一行为行0，因此 LIMIT 1,1 将检索出第二行而不是第一行</li>
+</ul>
+
+<h2 id="完全限定的列明和表名">完全限定的列明和表名</h2>
+
+<pre><code class="language-mysql">mysql&gt; select products.prod_name from sample.products;
+</code></pre>
+
+<h2 id="排序">排序</h2>
+
+<p>使用 ORDER BY 子句。ORDER BY 子句取一个或多个列的名字，据此对输出进行排序。ORDER BY 子句中书写的列名称为排序键。</p>
+
+<pre><code class="language-mysql"># 子句使用检索的列，对该列以字母顺序排序，默认升序
+mysql&gt; select prod_name from products order by prod_name;
+# 子句可用非检索的列排序
+mysql&gt; select prod_name from products order by prod_price;
+
+# 降序，使用 DESC 关键字
+mysql&gt; select prod_name from products order by prod_name DESC;
+
+# 多个排序键，首先价格排列，对相同的再进行字母排列
+mysql&gt; select prod_id, prod_id, prod_name from products
+    -&gt; order by prod_price, prod_name;
+</code></pre>
+
+<p>注：</p>
+
+<ul>
+<li><p>DESC 关键字只应用到直接位于其前面的列名，对多个列进行降序，则需对每个列指定DESC关键字。</p></li>
+
+<li><p>ASC 关键字为升序，默认升序。</p></li>
+
+<li><p>由于 ASC 和 DESC 这两个关键字是以列为单位指定的，因此可以同时指定一个列为升序，指定其他列为降序。</p></li>
+
+<li><p>排序键中包含 NULL 时，会在开头或末尾进行汇总。</p></li>
+
+<li><p>在 ORDER BY 子句中可以使用 SELECT 子句中定义的别名。</p></li>
+
+<li><p>在 ORDER BY 子句中可以使用 SELECT 子句中未使用的列和聚合函数。</p></li>
+</ul>
+
+<h1 id="过滤数据-where语句">过滤数据 —— WHERE语句</h1>
+
+<h2 id="条件操作符过滤">条件操作符过滤</h2>
+
+<pre><code class="language-mysql"># 相等匹配
+mysql&gt; select prod_name, prod_price from products 
+    -&gt; where prod_price = 2.5;
+
+# between, where 和 order by
+mysql&gt; select prod_name, prod_price from products 
+    -&gt; where prod_price between 5 and 10
+    -&gt; order by prod_price;
+
+# 若含有空值的列，则返回，否则不返回数据
+mysql&gt; select cust_id
+    -&gt; from customers
+    -&gt; where cust_email IS NULL;
+</code></pre>
+
+<p>操作符：用来联结或改变WHERE子句中的子句的关键字</p>
+
+<table>
+<thead>
+<tr>
+<th align="center">条件操作符</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td align="center">=</td>
+<td align="center">等于</td>
+</tr>
+
+<tr>
+<td align="center">&lt;&gt;</td>
+<td align="center">不等于</td>
+</tr>
+
+<tr>
+<td align="center">!=</td>
+<td align="center">不等于</td>
+</tr>
+
+<tr>
+<td align="center">BETWEEN</td>
+<td align="center">两者之间</td>
+</tr>
+
+<tr>
+<td align="center">&lt;,&lt;=,&gt;,&gt;=</td>
+<td align="center">...(不必多说)</td>
+</tr>
+</tbody>
+</table>
+
+<p>注意：</p>
+
+<ol>
+<li>使用 WHERE 子句，不区分大小写</li>
+<li>同时使用 WHERE 和 ORDER BY 时，WHERE 应在前，否则会报错</li>
+<li>使用 BETWEEN 时注意左低位，右高位，否则返回的是无数据</li>
+</ol>
+
+<h2 id="逻辑操作符过滤">逻辑操作符过滤</h2>
+
+<pre><code class="language-mysql"># OR操作符
+mysql&gt; select prod_name, prod_price from products
+    -&gt; where prod_price = 10 or prod_price = 8.99;
+
+# IN操作符
+mysql&gt; select prod_name, prod_price from products
+    -&gt; where prod_price in (10, 8.99);
+    
+# NOT
+mysql&gt; select prod_name, prod_price from products
+    -&gt; where not prod_price &gt; 5;
+</code></pre>
+
+<table>
+<thead>
+<tr>
+<th align="center">逻辑操作符</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td align="center">IN</td>
+<td align="center">指定范围，范围中每个条件都可以匹配；在圆括号中用逗号分隔</td>
+</tr>
+
+<tr>
+<td align="center">AND</td>
+<td align="center"></td>
+</tr>
+
+<tr>
+<td align="center">OR</td>
+<td align="center"></td>
+</tr>
+
+<tr>
+<td align="center">NOT</td>
+<td align="center"></td>
+</tr>
+</tbody>
+</table>
+
+<p>注意：</p>
+
+<ul>
+<li>IN 不等于 BETWEEN ，而是相当于多个 OR！<code>x IN (a, b)</code> 相当于 <code>x = a OR x = b</code>。</li>
+<li>AND 运算符优先于 OR 运算符，可以使用括号。</li>
+</ul>
+
+<h2 id="通配符过滤">通配符过滤</h2>
+
+<p>通配符：用来匹配一部分的特殊字符</p>
+
+<p>搜索模式：由字面值、通配符或两者组合构成的搜索条件</p>
+
+<table>
+<thead>
+<tr>
+<th align="center">通配符</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td align="center">%</td>
+<td align="center">匹配任意个字符，包括0个字符</td>
+</tr>
+
+<tr>
+<td align="center">_</td>
+<td align="center">只匹配单个字符，不包括0个字符</td>
+</tr>
+</tbody>
+</table>
+
+<p>LIKE 操作符：</p>
+
+<p>为在搜索子句中使用通配符，必须使用<strong>LIKE</strong>操作符。LIKE指示MYSQL，后跟的搜索模式利用通配符匹配而不是直接相等匹配进行比较。</p>
+
+<pre><code class="language-mysql"># (%)匹配符
+mysql&gt; select prod_id, prod_name from products
+    -&gt; where prod_name like 'jet%';
+    
+# (_)匹配符
+mysql&gt; select prod_id, prod_name from products
+    -&gt; where prod_name like '_ ton anvil';
+</code></pre>
+
+<p>注意：
+1. 匹配默认不区分大小写
+2. 注意尾空格的存在
+3. % 不能匹配 NULL
+4. 使用通配符的搜索效率较低，因此不要过度使用通配符
+5. 尽量不要将其用在搜索模式的开始处，将通配符置于开始处，搜索效率是最低的
+6. 注意通配符的放置位置</p>
+
+<h2 id="正则表达式过滤">正则表达式过滤</h2>
+
+<p>使用 REGEXP 关键字</p>
+
+<p>LIKE 与 REGEXP 的区别：</p>
+
+<p>LIKE 匹配整个列， REGEXP则在列值内进行匹配。</p>
+
+<pre><code class="language-mysql">mysql&gt; select prod_id, prod_name from products
+    -&gt; where prod_name regexp '[123] Ton';
+</code></pre>
+
+<p>在 Mysql 中，转义特殊字符需要两个反斜杠<code>（\\）</code>。因为一个由 Mysql 解释，另一个由正则表达式库解释。
+( ^ )有两种用法。在集合中，用它来否定该集合（<code>'[^123]'</code>），在集合外，表示串的开始处（<code>'^[123]'</code>）。</p>
+
+<p>正则表达式的特性，只要匹配到相应的字段，那么这个列的值就匹配。如下，简单的正则表达式测试：</p>
+
+<pre><code class="language-mysql">mysql&gt; SELECT 'hello' REGEXP '[0-9]';
++----------------------------+
+| 'hello' REGEXP '[0-9]' |
++----------------------------+
+|                      0 					 |
++----------------------------+
+1 row in set (0.00 sec)
+# 返回0表示未匹配
+
+mysql&gt; SELECT 'hello4' REGEXP '[0-9]';
++------------------------------+
+| 'hello4' REGEXP '[0-9]' |
++------------------------------+
+|                       1 						|
++------------------------------+
+1 row in set (0.00 sec)
+# 返回1表示匹配
+</code></pre>
+
+<blockquote>
+<p>更多姿势详见正则表达式规则</p>
+
+<p><a href="https://github.com/ziishaned/learn-regex/blob/master/translations/README-cn.md">学习文档</a></p>
+</blockquote>
+
+<h1 id="计算字段">计算字段</h1>
+
+<h2 id="拼接字段">拼接字段</h2>
+
+<p>字段(field)：基本与列的意思相同，经常互换使用，但字段通常用在计算字段的连接上</p>
+
+<p>拼接(concatenate)：将值联结到一起构成单个值</p>
+
+<p>使用 <code>Concat()</code> 函数来拼接两个列。</p>
+
+<p><code>Concat()</code> 拼接串，即把多个串连接起来形成一个较长的串。其需要一个或多个指定的串，各个串之间的用逗号分隔。</p>
+
+<pre><code class="language-mysql">mysql&gt; select concat(vend_name, ' (', vend_country, ')')
+    -&gt; from vendors order by vend_name;
++--------------------------------------------+
+| concat(vend_name, ' (', vend_country, ')') |
++--------------------------------------------+
+| ACME (USA)                                 |
+| Anvils R Us (USA)                          |
+| Furball Inc. (USA)                         |
+| Jet Set (England)                          |
+| Jouets Et Ours (France)                    |
+| LT Supplies (USA)                          |
++--------------------------------------------+
+6 rows in set (0.00 sec)
+</code></pre>
+
+<p>赋予别名—— AS 关键字</p>
+
+<pre><code class="language-mysql">mysql&gt; select concat(vend_name, ' (', vend_country, ')')
+    -&gt; as vend_title
+    -&gt; from vendors order by vend_name;
++-------------------------+
+| vend_title              |
++-------------------------+
+| ACME (USA)              |
+| Anvils R Us (USA)       |
+| Furball Inc. (USA)      |
+| Jet Set (England)       |
+| Jouets Et Ours (France) |
+| LT Supplies (USA)       |
++-------------------------+
+6 rows in set (0.00 sec)
+</code></pre>
+
+<h2 id="执行算数计算">执行算数计算</h2>
+
+<p>算术操作符：+,  -,  *,  /</p>
+
+<p>测试计算</p>
+
+<pre><code class="language-mysql">mysql&gt; select 6/2;
++--------+
+| 6/2    |
++--------+
+| 3.0000 |
++--------+
+1 row in set (0.00 sec)
+</code></pre>
+
+<p>实际应用</p>
+
+<pre><code class="language-mysql">mysql&gt; select quantity*item_price as expanded_price
+    -&gt; from orderitems where order_num = 20005;
++----------------+
+| expanded_price |
++----------------+
+|          59.90 |
+|          29.97 |
+|          50.00 |
+|          10.00 |
++----------------+
+4 rows in set (0.00 sec)
+# 输出的 expanded_price 列为一个计算字段
+</code></pre>
+
+<h1 id="数据处理函数">数据处理函数</h1>
+
+<p>函数的可移植性不强</p>
+
+<h2 id="字符串处理函数">字符串处理函数</h2>
+
+<table>
+<thead>
+<tr>
+<th align="center">函数</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td align="center">Left()</td>
+<td align="center">返回串左边的字符</td>
+</tr>
+
+<tr>
+<td align="center">Length()</td>
+<td align="center">返回串的长度</td>
+</tr>
+
+<tr>
+<td align="center">Locate()</td>
+<td align="center">找出串的一个子串</td>
+</tr>
+
+<tr>
+<td align="center">Lower()</td>
+<td align="center">转换为小写</td>
+</tr>
+
+<tr>
+<td align="center">LTrim()</td>
+<td align="center">去掉左边的空格</td>
+</tr>
+
+<tr>
+<td align="center">RTrim()</td>
+<td align="center">去掉右边的空格</td>
+</tr>
+
+<tr>
+<td align="center">Right()</td>
+<td align="center">返回串右边的字符</td>
+</tr>
+
+<tr>
+<td align="center">Soundex()</td>
+<td align="center">返回串的SOUNDEX值</td>
+</tr>
+
+<tr>
+<td align="center">SubString()</td>
+<td align="center">返回子串的字符</td>
+</tr>
+
+<tr>
+<td align="center">Upper()</td>
+<td align="center">转换为大写</td>
+</tr>
+
+<tr>
+<td align="center">Concat()</td>
+<td align="center">字符串拼接</td>
+</tr>
+</tbody>
+</table>
+
+<p>注：</p>
+
+<p>Soundex() 是一个将任何文本串替换为描述其语音表示的字母数字模式的算法，即根据发音确定是否符合。</p>
+
+<p>Length() 函数是根据字符串的字节数来判断的，即对于中文字符的结果在 utf-8下是一个汉字返回3，而在一些中文字节编码下返回的是2。</p>
+
+<p>Substring函数用法：</p>
+
+<pre><code class="language-mysql">SUBSTRING (对象字符串 FROM 截取的起始位置 FOR 截取的字符数)
+</code></pre>
+
+<h2 id="时间日期处理函数">时间日期处理函数</h2>
+
+<table>
+<thead>
+<tr>
+<th align="center">函数</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td align="center">AddDate()</td>
+<td align="center">增加一个日期</td>
+</tr>
+
+<tr>
+<td align="center">AddTime()</td>
+<td align="center">增加一个时间</td>
+</tr>
+
+<tr>
+<td align="center">CurDate()</td>
+<td align="center">返回当前日期</td>
+</tr>
+
+<tr>
+<td align="center">CurTime()</td>
+<td align="center">返回当前时间</td>
+</tr>
+
+<tr>
+<td align="center">Date()</td>
+<td align="center">返回日期时间的日期部分</td>
+</tr>
+
+<tr>
+<td align="center">DateDiff()</td>
+<td align="center">计算两个日期之差</td>
+</tr>
+
+<tr>
+<td align="center">Date_Add()</td>
+<td align="center">高度灵活的日期运算函数</td>
+</tr>
+
+<tr>
+<td align="center">Date_Format()</td>
+<td align="center">返回一个格式化的日期或时间串</td>
+</tr>
+
+<tr>
+<td align="center">Day()</td>
+<td align="center">返回一个日期的天数部分</td>
+</tr>
+
+<tr>
+<td align="center">DayOfWeek()</td>
+<td align="center">返回一个对应日期的星期几</td>
+</tr>
+
+<tr>
+<td align="center">Hour()</td>
+<td align="center">返回小时部分</td>
+</tr>
+
+<tr>
+<td align="center">Minute()</td>
+<td align="center">返回分钟部分</td>
+</tr>
+
+<tr>
+<td align="center">Month()</td>
+<td align="center">返回月份</td>
+</tr>
+
+<tr>
+<td align="center">Now()</td>
+<td align="center">返回当前日期和时间</td>
+</tr>
+
+<tr>
+<td align="center">Second()</td>
+<td align="center">返回秒部分</td>
+</tr>
+
+<tr>
+<td align="center">Time()</td>
+<td align="center">返回一个日期时间的时间部分</td>
+</tr>
+
+<tr>
+<td align="center">Year()</td>
+<td align="center">返回年份</td>
+</tr>
+
+<tr>
+<td align="center">TO_DAYS(date)</td>
+<td align="center">返回一个天数(从公元0年的天数)</td>
+</tr>
+</tbody>
+</table>
+
+<pre><code class="language-mysql"># 返回当前日期和时间
+mysql&gt; select now();
++---------------------------+
+| now()              		 		 |
++---------------------------+
+| 2019-04-29 23:12:33 |
++---------------------------+
+1 row in set (0.00 sec)
+
+# 两个日期之差
+select DateDiff('2019-02-03', '2019-02-04')
+# 返回-1
+
+# 返回天数，用在计算两个日期之差
+select to_days('2019-08-27')
+# 返回737663
+</code></pre>
+
+<h2 id="数值处理函数">数值处理函数</h2>
+
+<table>
+<thead>
+<tr>
+<th align="center">函数</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td align="center">Abs()</td>
+<td align="center">绝对值</td>
+</tr>
+
+<tr>
+<td align="center">Cos()</td>
+<td align="center">余弦</td>
+</tr>
+
+<tr>
+<td align="center">Exp()</td>
+<td align="center">返回指数值</td>
+</tr>
+
+<tr>
+<td align="center">Mod( 被除数,除数 )</td>
+<td align="center">求余</td>
+</tr>
+
+<tr>
+<td align="center">Round(对象数值,保留小数的位数)</td>
+<td align="center">四舍五入</td>
+</tr>
+
+<tr>
+<td align="center">Pi()</td>
+<td align="center">圆周率</td>
+</tr>
+
+<tr>
+<td align="center">Rand()</td>
+<td align="center">返回一个随机数</td>
+</tr>
+
+<tr>
+<td align="center">Sin()</td>
+<td align="center">正弦</td>
+</tr>
+
+<tr>
+<td align="center">Sqrt()</td>
+<td align="center">平方根</td>
+</tr>
+
+<tr>
+<td align="center">Tan()</td>
+<td align="center">正切</td>
+</tr>
+
+<tr>
+<td align="center">Numeric(全体位数,小数位数)</td>
+<td align="center">浮点数数据类型</td>
+</tr>
+</tbody>
+</table>
+
+<p>NUMERIC 是大多数 DBMS 都支持的一种数据类型，通过 <code>NUMBERIC(全体位数 , 小数位数)</code> 的形式来指定数值的大小，支持小数，应用在创建表的时候。</p>
+
+<h1 id="数据汇总">数据汇总</h1>
+
+<h2 id="聚集函数">聚集函数</h2>
+
+<p>聚集函数：运行在行组上，计算和返回单个值的函数</p>
+
+<table>
+<thead>
+<tr>
+<th align="center">聚集函数</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td align="center">AVG()</td>
+<td align="center">返回某列的平均值</td>
+</tr>
+
+<tr>
+<td align="center">COUNT()</td>
+<td align="center">返回某列的行数</td>
+</tr>
+
+<tr>
+<td align="center">MAX()</td>
+<td align="center">返回某列的最大值</td>
+</tr>
+
+<tr>
+<td align="center">MIN()</td>
+<td align="center">返回最小值</td>
+</tr>
+
+<tr>
+<td align="center">SUM()</td>
+<td align="center">返回某列值之和</td>
+</tr>
+</tbody>
+</table>
+
+<p>例：</p>
+
+<pre><code class="language-mysql"># 该列的平均值
+mysql&gt; select avg(prod_price) as avg_price from products;
+</code></pre>
+
+<p>注：</p>
+
+<ul>
+<li>除了 COUNT() 函数，其它函数都不能将 * 作为参数。</li>
+
+<li><p>MAX / MIN 函数几乎适用于所有数据类型的列。 SUM / AVG 函数只适用于数值类型的列。</p></li>
+
+<li><p>对于列值为 NULL 的情况：</p>
+
+<p>一般都忽略，但是 <code>COUNT()</code> 函数有点区别。<code>COUNT(*)</code> 时不忽略列值为 NULL 的行，而 <code>COUNT(Column)</code> 对某一列进行计算时，会忽略 NULL 的行。</p></li>
+
+<li><p>所有的聚合函数都可以使用 DISTINCT 来去除重复数据。</p></li>
+
+<li><p>只有 SELECT 子句和 HAVING 子句(以及 ORDER BY 子句)中能够使用聚合函数，WHERE 不能使用聚合函数。</p></li>
+</ul>
+
+<h2 id="聚集不同值">聚集不同值</h2>
+
+<p>使用 DISTINCT 参数，默认为 ALL 参数</p>
+
+<pre><code class="language-mysql">mysql&gt; select avg(distinct prod_price) from products;
+</code></pre>
+
+<p>注意：</p>
+
+<p>若指定列明，则 DISTINCT 只能用于 COUNT(Column)。DISTINCT 不能用于 COUNT(*)，也不允许使用 COUNT(DISTINCT)，否则会产生错误。</p>
+
+<h1 id="数据分组">数据分组</h1>
+
+<h2 id="分组">分组</h2>
+
+<p>分组允许把数据分为多个逻辑组，以便能对每个组进行聚集计算。</p>
+
+<p>使用 <code>GROUP BY</code> 语句进行分组，且可以通过逗号分隔指定多列。在 GROUP BY 子句中指定的列称为聚合键或者分组列。</p>
+
+<p>使用 <code>WITH ROLLUP</code> 关键字，可以得到每个分组以及每个分组汇总级别的值（针对每个分组）</p>
+
+<pre><code class="language-mysql">mysql&gt; select vend_id, count(*) from products group by vend_id;
++---------+----------+
+| vend_id | count(*) |
++---------+----------+
+|    1001 |        3 |
+|    1002 |        2 |
+|    1003 |        7 |
+|    1005 |        2 |
++---------+----------+
+4 rows in set (0.04 sec)
+# 实际上就是分类汇总
+
+# 加上 WITH ROLLUP 关键字
+mysql&gt; select vend_id, count(*) from products group by vend_id with rollup;
++---------+----------+
+| vend_id | count(*) |
++---------+----------+
+|    1001 |        3 |
+|    1002 |        2 |
+|    1003 |        7 |
+|    1005 |        2 |
+|    NULL |       14 |
++---------+----------+
+5 rows in set (0.00 sec)
+</code></pre>
+
+<p>注意：
+1. GROUP BY 子句可以包含任意数目的列。这使得能对分组进行嵌套，为数据分组提供更细致的控制。
+2. 若嵌套了分组，数据将在最后规定的分组上进行汇总。即在建立分组时，指定的所有列都一起计算，所以不能从个别的列取回数据。
+3. GROUP BY子句中列出的每个列都必须是检索列或有效的表达式，但不能是聚集函数。若在SELECT中时候用表达式，则必须在GROUP BY子句中指定相同的表达式，不能使用别名。
+4. 除聚集计算语句外，不能把聚合键之外的列名书写在 SELECT 子句之中，否则会报错。
+5. 若分组列中具有 NULL 值，则NULL将作为一个分组返回；若有多行NULL值，则将它们分为一组。
+6. 使用 WHERE 子句进行汇总处理时，会先根据 WHERE 子句指定的条件进行过滤,然后再进行汇总处理。</p>
+
+<h2 id="过滤分组">过滤分组</h2>
+
+<p>使用 HAVING 关键字进行过滤分组。</p>
+
+<p>由于 WHERE 过滤指定的是行而不是分组，所以不能完成过滤分组的任务。</p>
+
+<p>HACING 支持所有 WHERE 的操作符，即句法相同，只是关键字有差别。</p>
+
+<p>两者差别：</p>
+
+<p>WHERE在数据分组前进行过滤，而HAVING在数据分组后进行过滤。WHERE排除的行不包括在分组中，这可能会改变计算值，从而影响 HAVING 子句中基于这些值过滤掉的分组。</p>
+
+<pre><code class="language-mysql">mysql&gt; select cust_id, count(*) as orders from orders 
+    -&gt; group by cust_id
+    -&gt; having count(*) &gt;= 2;
+</code></pre>
+
+<p>注：</p>
+
+<p>聚合键所对应的条件不应该书写在 HAVING 子句当中，而应该书写在 WHERE 子句当中。</p>
+
+<h2 id="分组和排序">分组和排序</h2>
+
+<p>GROUP BY 输出的可能不是分组的顺序，所以不一定是有序的，因此要想保证有序，就要使用 ORDER BY 子句。</p>
+
+<p>注意子句的顺序：</p>
+
+<pre><code class="language-mysql">SELECT -&gt; FROM -&gt; WHERE -&gt; GROUP BY -&gt; HAVING -&gt; ORDER BY -&gt; LIMIT
+</code></pre>
+
+<p>执行顺序：</p>
+
+<pre><code class="language-mysql">FROM → WHERE → GROUP BY → HAVING → SELECT → ORDER BY → LIMIT
+</code></pre>
+
+<h1 id="子查询">子查询</h1>
+
+<h2 id="子查询-1">子查询</h2>
+
+<p>子查询， 即嵌套在其他查询中的查询</p>
+
+<p>相关子查询：涉及外部查询的子查询</p>
+
+<pre><code class="language-mysql"># 在WHERE子句中使用子查询，利用子查询实现过滤
+select cust_id from orders
+    where order_num in (
+        select order_num
+    	from orderitems
+    	where prod_id = 'TNT2'
+    );
+
+# 作为计算字段使用子查询
+select cust_name, cust_state, 
+(
+    select count(*)
+	from orders
+	where orders.cust_id = customers.cust_id
+) as orders
+from customers
+order by cust_name;
+</code></pre>
+
+<p>注意：</p>
+
+<p>列必须匹配。在WHERE子句中使用子查询，应保证 SELECT 语句具有与 WHERE 子句中相同数目的列。子查询可以单列与单列匹配，也可以多列与多列匹配。</p>
+
+<p>子查询可以多层嵌套，但是随着子查询嵌套层数的增加，SQL 语句会变得越来越难读懂，性能也会越来越差，因此尽量避免使用多层嵌套的子查询。</p>
+
+<h2 id="标量子查询">标量子查询</h2>
+
+<p>标量子查询就是返回单一值的子查询，即只返回 1 行 1列的结果。</p>
+
+<p>它可以用在能够使用常数或者列名的地 方，无论是 SELECT 子句、 GROUP BY 子句、 HAVING 子句，还是ORDER BY 子句，几乎所有的地方都可以使用。包括 WHERE 子句，可以规避 WHREE 子句不能使用聚合函数的情况。</p>
+
+<p>如：</p>
+
+<pre><code class="language-mysql">SELECT product_id, product_name, sale_price
+FROM Product
+WHERE sale_price &gt; (SELECT AVG(sale_price)
+	FROM Product);
+</code></pre>
+
+<p>注意：</p>
+
+<p>绝对不能返回多行结果。</p>
+
+<h2 id="关联子查询">关联子查询</h2>
+
+<p>由于标量子查询只能返回单行数据，所以在细分的组内进行比较时，标量子查询并不使用，而需要使用关联子查询。</p>
+
+<p>关联子查询就是在子查询中多了一条WHERE语句的条件。</p>
+
+<p>如下：</p>
+
+<pre><code class="language-mysql">SELECT product_type, product_name, sale_price
+FROM Product AS P1
+WHERE sale_price &gt; (
+    SELECT AVG(sale_price)
+	FROM Product AS P2
+	WHERE P1.product_type = P2.product_type
+	GROUP BY product_type
+);
+</code></pre>
+
+<h1 id="集合运算">集合运算</h1>
+
+<p>集合最重要的性质之一就是去重，使用 UNION 可以实现多张表的并集（加法）运算。而 Mysql 目前还并不支持差集和补集的运算。</p>
+
+<p>如：</p>
+
+<pre><code class="language-mysql">select prod_id from productnotes 
+union 
+select prod_id from products;
+</code></pre>
+
+<p>注：</p>
+
+<ul>
+<li>作为运算对象的记录的列数必须相同</li>
+<li>作为运算对象的记录中列的类型必须一致</li>
+<li>可以使用任何 SELECT 语句,但 ORDER BY 子句只能在最后使用一次</li>
+<li>在集合运算符中使用 ALL 选项,可以保留重复行。(<code>Union All</code>)</li>
+</ul>
+
+<h1 id="表联结">表联结</h1>
+
+<h2 id="where-表联结">Where 表联结</h2>
+
+<p>集合运算是添加行的运算，而联结就是添加列的运算。联结就是讲根据多张表的字段进行整合和关联，合到一张表中。</p>
+
+<pre><code class="language-mysql"># 创建联结，规定要联结的所有表以及他们如何关联即可
+mysql&gt; select vend_name, prod_name, prod_price
+    -&gt; from vendors, products
+    -&gt; where vendors.vend_id = products.vend_id
+    -&gt; order by vend_name, prod_name;
+    
+# 联结多个表
+mysql&gt; select prod_name, vend_name, prod_price, quantity
+    -&gt; from orderitems, products, vendors
+    -&gt; where products.vend_id = vendors.vend_id
+    -&gt; and orderitems.prod_id = products.prod_id
+    -&gt; and order_num = 20005;
+</code></pre>
+
+<p>注意：
+1. 应使用完全限定列名（&lt; 表的别名 &gt; . &lt; 列名 &gt;）
+2. 应保证所有联结都有 WHERE 子句
+3. 要注意考虑性能。不要联结不必要的表，联结的表越多，性能下降越厉害。
+5. 表别名只在查询执行中使用，与列别名不一样，表别名不返回到客户机。</p>
+
+<h2 id="内联结-inner-join">内联结 - INNER JOIN</h2>
+
+<p>实际上WHERE的联结也就是内联结，还有另一种使用 inner join 的内联结方式。</p>
+
+<p>该方式必须使用 ON 子句，并且要书写在 FROM 和 WHERE 之间。</p>
+
+<pre><code class="language-mysql"># 明确内部联结
+select v.vend_name, p.prod_name, p.prod_price
+from vendors as v inner join products as p
+on v.vend_id = p.vend_id;
+</code></pre>
+
+<p>相比较使用where的联结，内联结明确使用的联结条件，但有时候会影响性能。</p>
+
+<h2 id="外联结-outer-join">外联结- OUTER JOIN</h2>
+
+<p>内联结只能选取出同时存在于两张表中的数据，相反，对于外联结来说，只要数据存在于某一张表当中，就能够读取出来。</p>
+
+<p>外联结中使用 LEFT 、 RIGHT 来指定主表。使用 LEFT 时 FROM 子句中写在左侧的表是主表，使用 RIGHT 时右侧的表是主表。</p>
+
+<h1 id="数据更新">数据更新</h1>
+
+<h2 id="插入">插入</h2>
+
+<p>INSERT 语法如下：</p>
+
+<pre><code class="language-mysql">INSERT INTO &lt;表名&gt; (列1, 列2, ...) VALUES (值1, 值2, ...);
+</code></pre>
+
+<p>字段数和值数必须保持一致，但是使用默认值时列数无需完全一致。</p>
+
+<p>如：</p>
+
+<pre><code class="language-mysql">INSERT INTO ProductIns 
+(product_id, product_name, product_type, sale_price, purchase_price, regist_date)
+VALUES ('0001', 'T 恤衫 ', ' 衣服 ', 1000, 500);
+</code></pre>
+
+<p>注：</p>
+
+<ul>
+<li><p>对表进行全列 INSERT 时,可以省略表名后的列清单。这时 VALUES 子句的值会默认按照从左到右的顺序赋给每一列。</p></li>
+
+<li><p>想给某一列赋予 NULL 值时,可以直接在 VALUES子句的值清单中写入 NULL 。</p></li>
+
+<li><p>省略 INSERT 语句中的列名,就会自动设定为该列的默认值(没有默认值时会设定为 NULL )。</p></li>
+</ul>
+
+<h2 id="删除">删除</h2>
+
+<p>DROP TABLE 语句可以将表完全删除，而 DELETE 语句则会保留表的结构（容器），只是删除全部数据。</p>
+
+<pre><code class="language-mysql">DELETE FROM &lt;表名&gt;;
+
+# 指定删除对象的 DELETE 语句(搜索型DELETE)
+DELETE FROM &lt;表名&gt; WHERE &lt;条件&gt;;
+</code></pre>
+
+<p>注：</p>
+
+<ul>
+<li><p>DELETE 语句的删除对象并不是表或者列，而是记录(行)。</p></li>
+
+<li><p>DELETE 语句中不能使用 GROUP BY 、HAVING 和 ORDER BY 三类子句,而只能使用 WHERE 子句。</p></li>
+</ul>
+
+<p>除了 DELETE 以外，Mysql 还有一个 TRUNCATE 语句用来删除。</p>
+
+<pre><code class="language-mysql">TRUNCATE &lt;表名&gt;;
+</code></pre>
+
+<p>它只能删除全部数据，而不能通过WHERE 子句指定条件来删除部分数据，但是也正因为如此，其处理速度要快得多。</p>
+
+<h2 id="更新">更新</h2>
+
+<p>使用 UPDATE 语句来更新已有的数据。</p>
+
+<pre><code class="language-mysql">UPDATE &lt;表名&gt; SET &lt;列名&gt; = &lt;表达式&gt;;
+
+# 指定条件的 UPDATE 语句(搜索型 UPDATE )
+UPDATE &lt;表名&gt; SET &lt;列名&gt; = &lt;表达式&gt; WHERE &lt;条件&gt;;
+</code></pre>
+
+<p>使用 UPDATE 语句可以将值清空为 NULL (但只限于未设置 NOT NULL 约束的列)。</p>
+
+<h1 id="事务">事务</h1>
+
+<p>事务是需要在同一个处理单元中执行的一系列更新处理的集合。</p>
+
+<p>使用事务开始语句和事务结束语句,将一系列 DML 语句( INSERT/UPDATE/DELETE 语句)括起来,就实现了一个事务处理。</p>
+
+<pre><code class="language-mysql">START TRANSACTION;
+	DML 语句1 ;
+	DML 语句2 ;
+	DML 语句3 ;
+事务结束语句(COMMIT 或者 ROLLBACK) ;
+</code></pre>
+
+<p>COMMIT 是提交事务包含的全部更新处理的结束指令，相当于文件处理中的覆盖保存。一旦提交，就无法恢复到事务开始前的状态了。</p>
+
+<p>ROLLBACK 是取消事务包含的全部更新处理的结束指令，相当于文件处理中的放弃保存。一旦回滚，数据库就会恢复到事务开始之前的状态。通常回滚并不会像提交那样造成大规模的数据损失。</p>
+
+<h1 id="条件判断">条件判断</h1>
+
+<h2 id="if-语句">IF 语句</h2>
+
+<p>语法格式如下：</p>
+
+<pre><code class="language-mysq">IF(expr1,expr2,expr3)
+</code></pre>
+
+<p>若 expr1 为真(expr1 &lt;&gt; 0 且 expr1 &lt;&gt; NULL)，那么返回 expr2，否则返回 xpr3</p>
+
+<p>例如：</p>
+
+<pre><code class="language-mysql">select if(id, 1, null) from customers;
+</code></pre>
+
+<p>还有个 IFNULL() 函数用来替换 NULL 值，若 value1 不为null ，则返回 value1，否则返回value2</p>
+
+<pre><code class="language-mysql">IFNULL(value1,value2)
+</code></pre>
+
+<h2 id="if-else">IF..ELSE...</h2>
+
+<p>IF...ELSE...做为流程控制语句使用，语法格式如下：</p>
+
+<pre><code class="language-mysql">IF search_condition THEN 
+    statement_list  
+[ELSEIF search_condition THEN]  
+    statement_list ...  
+[ELSE 
+    statement_list]  
+END IF
+</code></pre>
+
+<p>search_condition是一个条件表达式，可以由“=、&lt;、&lt;=、&gt;、&gt;=、!=”等条件运算符组成，并且可以使用AND、OR、NOT对多个表达式进行组合。</p>
+
+<h2 id="case-when">CASE..WHEN..</h2>
+
+<p>句法一：</p>
+
+<pre><code class="language-mysql">CASE expression
+WHEN value1 THEN returnvalue1
+WHEN value2 THEN returnvalue2
+WHEN value3 THEN returnvalue3
+……
+ELSE defaultreturnvalue
+END
+</code></pre>
+
+<p>句法二：</p>
+
+<pre><code class="language-mysql">CASE
+WHEN condition1 THEN returnvalue1
+WHEN condition 2 THEN returnvalue2
+WHEN condition 3 THEN returnvalue3
+……
+ELSE defaultreturnvalue
+END
+</code></pre>
+
+<h1 id="存储过程">存储过程</h1>
+
+<p>存储过程的定义包含 in、out 和 inout 三种参数。IN 声明的是外界传递给存储过程的参数，OUT 声明的是传递给外界的参数，INOUT 的则对过程的传入和传出。</p>
+
+<p>给变量赋值都需要用 select into 语句。</p>
+
+<p>mysql 中的变量要以 @ 开头。</p>
+
+<pre><code class="language-mysql"># 创建存储过程，无参数
+create procedure procedure_1()
+	begin
+		select now();
+	end
+
+# 创建存储过程，有参数
+create procedure procedure_2( in time date, out num int)
+    begin
+        select count(*) from orders
+        where order_date &lt; time
+        into num;
+    end
+    
+
+# 调用存储过程
+call procedure_1();
+call procedure_2(&quot;2018-01-01&quot;, @num);
+select @num;
+</code></pre>
+
+<p>注：</p>
+
+<ul>
+<li><p>每次只能给一个变量赋值，不支持集合的操作。</p></li>
+
+<li><p>命令行中创建存储过程需要自定义分隔符，因为命令行是以 ; 为结束符，而存储过程中也包含了分号，因此会错误把这部分分号当成是结束符，造成语法错误。</p></li>
+</ul>
+
+<p>在命令行定义存储过程：</p>
+
+<pre><code class="language-mysql">delimiter //
+
+create procedure procedure_1()
+	begin
+		select now();
+    end //
+    
+delimiter ;  
+</code></pre>
+
+<p>delimiter 用于声明语句的分隔符，第一个声明 <code>//</code> 作为新的分隔符，第二个则恢复分隔符 <code>;</code> 。</p>
+
+<pre><code class="language-mysql"># 删除存储过程
+drop procedure procedure_1;
+</code></pre>
+
+<h1 id="其它">其它</h1>
+
+<ul>
+<li>使用字符串或者日期常数时，必须使用单引号 ( ' ) 将其括起来</li>
+<li>用 AS 可以设定别名，设定中文名时要用双引号，而非单引号，而中文作为单元的数据要用单引号</li>
+<li>条件运算符对 NULL 无效，应该用 <code>is null</code> 和 <code>is not null</code>。</li>
+<li>逻辑运算符对 NULL 会产生 不确定(UNKNOWN) ，所以尽量不用 NULL 进行任何运算，即尽量讲 NOT NULL 包含进字段的约束条件</li>
+</ul>
+</div>
+        <div class="post_footer">
+          
+          <div class="meta">
+            <div class="info">
+              <span class="field tags">
+                <i class="remixicon-stack-line"></i>
+                
+                <a href="https://Shadowmaple.github.io/tags/mysql/">mysql</a>
+                
+                <a href="https://Shadowmaple.github.io/tags/database/">database</a>
+                
+              </span>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+
+
+      
+
+
+      
+      
+    </div>
+  </div>
+  <a id="back_to_top" href="#" class="back_to_top"><span>△</span></a>
+</div>
+<footer class="footer">
+  <div class="Since">
+      &copy;
+    <span itemprop="copyrightYear">2018 - 2019</span>
+    <span>| Shadow Zhang</span>
+  </div>
+
+  <div class="Powered">
+    <span><span>Powered by Hugo</span></span>
+  </div>
+
+  <div class="footer_slogan">
+    <span>功不唐捐  玉汝于成</span>
+  </div>
+</footer>
+
+
+
+<script src="https://Shadowmaple.github.io/js/jquery-3.3.1.min.js"></script>
+<script src="https://Shadowmaple.github.io/js/zozo.js"></script>
+
+<script src="/js/highlight.pack.js"></script>
+
+<link rel="stylesheet" href="/js/styles/github-gist.css">
+
+<script src="https://Shadowmaple.github.io/js/fancybox.min.js"></script>
+
+<script>hljs.initHighlightingOnLoad()</script>
+
+
+  <script type="text/javascript" async src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$'], ['\[\[','\]\]']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+});
+
+MathJax.Hub.Queue(function() {
+    
+    
+    
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<style>
+code.has-jax {
+    font: inherit;
+    font-size: 100%;
+    background: inherit;
+    border: inherit;
+    color: #515151;
+}
+</style>
+
+
+
+
+
+
+</body>
+</html>
