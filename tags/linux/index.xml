@@ -6,10 +6,19 @@
     <description>Recent content in linux on Shadow</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Thu, 22 Aug 2019 11:27:58 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 13 Sep 2019 16:32:42 +0800</lastBuildDate>
     
 	<atom:link href="https://Shadowmaple.github.io/tags/linux/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Su与sudo</title>
+      <link>https://Shadowmaple.github.io/posts/su_sudo/</link>
+      <pubDate>Fri, 13 Sep 2019 16:32:42 +0800</pubDate>
+      
+      <guid>https://Shadowmaple.github.io/posts/su_sudo/</guid>
+      <description>su与sudo的使用</description>
+    </item>
     
     <item>
       <title>系统重装日记</title>
