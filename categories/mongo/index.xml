@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Mongo on Shadow</title>
+    <title>Mongo on Mannix&#39;s blog</title>
     <link>https://Shadowmaple.github.io/categories/mongo/</link>
-    <description>Recent content in Mongo on Shadow</description>
+    <description>Recent content in Mongo on Mannix&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <lastBuildDate>Tue, 13 Aug 2019 15:46:15 +0800</lastBuildDate>
