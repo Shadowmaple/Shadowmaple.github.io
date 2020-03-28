@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Mannix&#39;s blog</title>
@@ -6,7 +6,7 @@
     <description>Recent content on Mannix&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Wed, 25 Mar 2020 18:14:40 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 22 Aug 2019 14:59:02 +0800</lastBuildDate>
     
 	<atom:link href="https://Shadowmaple.github.io/index.xml" rel="self" type="application/rss+xml" />
     
@@ -35,7 +35,7 @@
       <pubDate>Thu, 22 Aug 2019 14:59:02 +0800</pubDate>
       
       <guid>https://Shadowmaple.github.io/about/</guid>
-      <description>A backend coder. 这个人很懒哦。。 联系方式：1142319190@qq.com</description>
+      <description>现役在校后端dog (=_=) 目前这个博客还很烂，代码高亮都还没弄好，很不满意，但是前端的东西现在看的头疼，嘛，之后再好好折腾一下，（卑微后端） 这个人很懒哦。。 我的联系方式：1142319190@qq.com</description>
     </item>
     
     <item>

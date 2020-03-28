@@ -103,10 +103,7 @@
           <h2><a href='/posts/linux-compress/'> Linux的压缩命令</a></h2>
           <span class="date">2019.07.31</span>
         </div>
-        <div class="post_content markdown">
-
-<h1 id="常见的压缩命令">常见的压缩命令</h1>
-
+        <div class="post_content markdown"><h1 id="常见的压缩命令">常见的压缩命令</h1>
 <table>
 <thead>
 <tr>
@@ -114,66 +111,51 @@
 <th align="left">压缩软件</th>
 </tr>
 </thead>
-
 <tbody>
 <tr>
 <td align="left">*.Z</td>
 <td align="left">compress 软件</td>
 </tr>
-
 <tr>
 <td align="left">*.zip</td>
 <td align="left">zip程序</td>
 </tr>
-
 <tr>
 <td align="left">*.gz</td>
 <td align="left">gzip程序</td>
 </tr>
-
 <tr>
 <td align="left">*.bz2</td>
 <td align="left">bzip2程序</td>
 </tr>
-
 <tr>
 <td align="left">*.xz</td>
 <td align="left">xz 程序</td>
 </tr>
-
 <tr>
 <td align="left">*.tar</td>
 <td align="left">tar程序打包的文件，未压缩</td>
 </tr>
-
 <tr>
 <td align="left">*.tar.gz</td>
 <td align="left">tar程序打包，并经过gzip压缩</td>
 </tr>
-
 <tr>
 <td align="left">*.tar.bz2</td>
 <td align="left">tar程序打包，并经过bzip2压缩</td>
 </tr>
-
 <tr>
 <td align="left">*.tar.xz</td>
 <td align="left">tar程序打包，并经过xz压缩</td>
 </tr>
 </tbody>
 </table>
-
 <p>其中 compress 已基本弃用，而zip是为了支持windows而出现的，在linux中使用的也就之后的几个压缩命令。</p>
-
 <h1 id="文件压缩">文件压缩</h1>
-
 <p>在现在的linux中，常用的单个文件压缩软件有gzip，bzip2和xz，就压缩比而言，gzip &lt; bzip2 &lt; xz，但相对的，压缩时间 gzip &lt; bzip2 &lt; xz。</p>
-
 <h2 id="gzip">gzip</h2>
-
 <p>gzip 是一种使用较为广泛的压缩命令，它可以解开 compress、zip和gzip等软件所压缩的文件，其压缩后的文件名为 *.gz</p>
-
-<pre><code class="language-shell">$ gzip [option] {filename}
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ gzip <span style="color:#f92672">[</span>option<span style="color:#f92672">]</span> <span style="color:#f92672">{</span>filename<span style="color:#f92672">}</span>
 
 选项和参数：
 -c	: 将压缩数据输出到屏幕上
@@ -183,40 +165,31 @@
 -n	: 1-9的数字，代表压缩等级，1最差，9最好，默认为6
 -l	: 列出压缩文件的相关信息
 
-# 压缩文件
-# 这样之后压缩的文件会覆盖原始文件
+<span style="color:#75715e"># 压缩文件</span>
+<span style="color:#75715e"># 这样之后压缩的文件会覆盖原始文件</span>
 $ gzip example.md
 
-# 压缩文件，显示压缩信息，并保留源文件
-# 第一种方法
+<span style="color:#75715e"># 压缩文件，显示压缩信息，并保留源文件</span>
+<span style="color:#75715e"># 第一种方法</span>
 $ gzip -kv example.md
-# 第二种方法，使用数据流重定向
+<span style="color:#75715e"># 第二种方法，使用数据流重定向</span>
 $ gzip -cv example.md &gt; example.md.gz
 
-# 解压缩文件
+<span style="color:#75715e"># 解压缩文件</span>
 $ gzip -dv example.md.gz
 
-# 使用9级压缩
+<span style="color:#75715e"># 使用9级压缩</span>
 $ gzip -9v example.md
 
-# 显示压缩文件的信息
+<span style="color:#75715e"># 显示压缩文件的信息</span>
 $ gzip -l example.gz
-</code></pre>
-
-<p>一般来说无论压缩还是解压缩，默认都是替换原有文件，要想保留原始文件就必须另加选项或参数。</p>
-
+</code></pre></div><p>一般来说无论压缩还是解压缩，默认都是替换原有文件，要想保留原始文件就必须另加选项或参数。</p>
 <p>至于压缩等级，虽然9级压缩率最好，但是时间成本会比较高，酌情使用。</p>
-
 <p>使用 zcat, zmore, zless 可以读取被压缩后的压缩文件的纯文本内容。使用 zgrep 可以在压缩文件中查找纯文本内的关键字。</p>
-
-<pre><code class="language-shell">$ zgrep &quot;vim&quot; example.md.gz
-</code></pre>
-
-<h2 id="bzip2">bzip2</h2>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ zgrep <span style="color:#e6db74">&#34;vim&#34;</span> example.md.gz
+</code></pre></div><h2 id="bzip2">bzip2</h2>
 <p>bzip2 是比 gzip 更好的压缩命令，其提供的压缩比更好，但相对的，它所花的压缩时间也会更久。bzip2 的用法与gzip基本相同，压缩后的文件名为 *.bz2</p>
-
-<pre><code class="language-shell">$ bzip2 [option] [filename]
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ bzip2 <span style="color:#f92672">[</span>option<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>filename<span style="color:#f92672">]</span>
 
 选项和参数：
 -c	: 将压缩数据输出到屏幕上
@@ -226,20 +199,15 @@ $ gzip -l example.gz
 -n	: 1-9的数字，代表压缩等级，1最差，9最好，默认为6
 -l	: 列出压缩文件的相关信息
 
-# 压缩文件，并保留原始文件
+<span style="color:#75715e"># 压缩文件，并保留原始文件</span>
 $ bzip2 -kv example.md
 
-# 解压缩
+<span style="color:#75715e"># 解压缩</span>
 $ bzip2 -dv example.md.bz2
-</code></pre>
-
-<p>同样的，bzip2 也有 bzat，bzmore，bzless 和 bzgrep 使用。</p>
-
+</code></pre></div><p>同样的，bzip2 也有 bzat，bzmore，bzless 和 bzgrep 使用。</p>
 <h2 id="xz">xz</h2>
-
 <p>xz 是比 bzip2 更棒的一个压缩命令，同样的，压缩的时间成本也更高。其压缩文件为 *.xz，其用法与前两者基本相同，所以就不显示示例了。</p>
-
-<pre><code class="language-shell">$ xz [option] [filename]
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ xz <span style="color:#f92672">[</span>option<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>filename<span style="color:#f92672">]</span>
 
 选项和参数：
 -c	: 将压缩数据输出到屏幕上
@@ -248,20 +216,15 @@ $ bzip2 -dv example.md.bz2
 -v	: 显示压缩信息
 -n	: 1-9的数字，代表压缩等级，1最差，9最好，默认为6
 -l	: 列出压缩文件的相关信息
-</code></pre>
-
-<p>同样的，xz 也有 xzcat，xzmore，xzless和xzgrep。</p>
-
+</code></pre></div><p>同样的，xz 也有 xzcat，xzmore，xzless和xzgrep。</p>
 <h1 id="打包压缩">打包压缩</h1>
-
 <p>gzip，bzip2和xz只是针对单个文件进行压缩，一般情况下不能针对一个目录。但是通过 tar 对一个目录进行打包就可以进行压缩。可以用 ta r打包再 用 gzip 等进行压缩，也可以将这两个步骤合并使用。</p>
-
-<pre><code class="language-shell"># 打包与压缩
-$ tar [-z|-j|-J] [-cv] [-f 目标文件名] 被压缩文件名
-# 查看打包文件
-$ tar [-z|-j|-J] [-tv] [-f 文件名]
-# 解压缩
-$ tar [-z|-j|-J] [-xv] [-f 文件名] [-C 目录]
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># 打包与压缩</span>
+$ tar <span style="color:#f92672">[</span>-z|-j|-J<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>-cv<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>-f 目标文件名<span style="color:#f92672">]</span> 被压缩文件名
+<span style="color:#75715e"># 查看打包文件</span>
+$ tar <span style="color:#f92672">[</span>-z|-j|-J<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>-tv<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>-f 文件名<span style="color:#f92672">]</span>
+<span style="color:#75715e"># 解压缩</span>
+$ tar <span style="color:#f92672">[</span>-z|-j|-J<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>-xv<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>-f 文件名<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>-C 目录<span style="color:#f92672">]</span>
 
 选项与参数：
 -c	: 建立打包文件
@@ -278,25 +241,24 @@ $ tar [-z|-j|-J] [-xv] [-f 文件名] [-C 目录]
 ----------------------------------------
 -p	: 保留数据原有权限和属性
 -P	: 保留绝对路径
---exclude=FILE	: 在压缩过程中，忽略该文件
+--exclude<span style="color:#f92672">=</span>FILE	: 在压缩过程中，忽略该文件
 
 
-# 示例
-# 打包
-# 若在开头加上 time 会显示程序运行时间
+<span style="color:#75715e"># 示例</span>
+<span style="color:#75715e"># 打包</span>
+<span style="color:#75715e"># 若在开头加上 time 会显示程序运行时间</span>
 $ tar -cv -f example.tar example
 
-# 打包并用gzip压缩
+<span style="color:#75715e"># 打包并用gzip压缩</span>
 $ tar -zcvf example.tar.gz example
 
-# 查看打包文件中所含文件
-# 若加上-v 则会显示文件完整（属性）信息
+<span style="color:#75715e"># 查看打包文件中所含文件</span>
+<span style="color:#75715e"># 若加上-v 则会显示文件完整（属性）信息</span>
 $ tar -ztf example.tar.gz
 
-# 解压缩至当前目录
+<span style="color:#75715e"># 解压缩至当前目录</span>
 $ tar -zxvf example.tar.gz -C .
-</code></pre>
-</div>
+</code></pre></div></div>
         <div class="post_footer">
           
           <div class="meta">

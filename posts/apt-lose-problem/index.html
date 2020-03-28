@@ -103,101 +103,53 @@
           <h2><a href='/posts/apt-lose-problem/'>apt not found —— 寻踪记</a></h2>
           <span class="date">2019.08.19</span>
         </div>
-        <div class="post_content markdown">
-
-<h1 id="迷雾">迷雾</h1>
-
+        <div class="post_content markdown"><h1 id="迷雾">迷雾</h1>
 <p>在安装Docker的时候，用apt安装输入<code>sudo apt-get install apt-transport-https</code>，安装成功<code>apt-transport-https</code>后执行下一步才惊觉—— apt 没了！怎么回事？！</p>
-
 <p>查看 apt 的 log 文件，才发现竟然在<code>apt-transport-https</code>的安装过程中，把 apt 给移除了！并且还有apt的一些相关依赖，以及 vscode —— 这什么鬼？</p>
-
-<pre><code class="language-verilog">Start-Date: 2019-08-19  14:09:20
-Commandline: apt-get install apt-transport-https ca-certificates curl software-properties-common
-Requested-By: lawler (1000)
-Install: apt-transport-https:amd64 (1.2.32)
-Remove: update-notifier-common:amd64 (3.192.1.5), apt:amd64 (1.6.10), update-manager:amd64 (1:18.04.11.9), ubuntu-desktop:amd64 (1.417), flashplugin-installer:amd64 (32.0.0.223ubuntu0.16.04.1), ttf-mscorefonts-installer:amd64 (3.6ubuntu2), ubuntu-minimal:amd64 (1.417), apt-utils:amd64 (1.6.10), code:amd64 (1.37.0-1565227985), ubuntu-release-upgrader-gtk:amd64 (1:18.04.30), update-notifier:amd64 (3.192.1.5)
-End-Date: 2019-08-19  14:10:11
-</code></pre>
-
-<p>有点心态爆炸，难怪无论怎么查找，都找不到 apt 的 可执行文件，所幸一些配置文件、log文件等都还有保留。既然知道了问题所在，那么就要想办法解决——把 apt 给装回来喽！还好，apt 还是能装回来的，否则只能重装系统了。。。</p>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-verilog" data-lang="verilog">Start<span style="color:#f92672">-</span>Date: <span style="color:#ae81ff">2019</span><span style="color:#f92672">-</span><span style="color:#ae81ff">08</span><span style="color:#f92672">-</span><span style="color:#ae81ff">19</span>  <span style="color:#ae81ff">14</span><span style="color:#f92672">:</span><span style="color:#ae81ff">09</span><span style="color:#f92672">:</span><span style="color:#ae81ff">20</span>
+Commandline: apt<span style="color:#f92672">-</span>get install apt<span style="color:#f92672">-</span>transport<span style="color:#f92672">-</span>https ca<span style="color:#f92672">-</span>certificates curl software<span style="color:#f92672">-</span>properties<span style="color:#f92672">-</span>common
+Requested<span style="color:#f92672">-</span>By: lawler (<span style="color:#ae81ff">1000</span>)
+Install: apt<span style="color:#f92672">-</span>transport<span style="color:#f92672">-</span>https:amd64 (<span style="color:#ae81ff">1.2.32</span>)
+Remove: update<span style="color:#f92672">-</span>notifier<span style="color:#f92672">-</span>common:amd64 (<span style="color:#ae81ff">3.192.1.5</span>), apt:amd64 (<span style="color:#ae81ff">1.6.10</span>), update<span style="color:#f92672">-</span>manager:amd64 (<span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">18.04.11.9</span>), ubuntu<span style="color:#f92672">-</span>desktop:amd64 (<span style="color:#ae81ff">1.417</span>), flashplugin<span style="color:#f92672">-</span>installer:amd64 (<span style="color:#ae81ff">32.0.0.223</span>ubuntu0<span style="color:#ae81ff">.16.04.1</span>), ttf<span style="color:#f92672">-</span>mscorefonts<span style="color:#f92672">-</span>installer:amd64 (<span style="color:#ae81ff">3.6</span>ubuntu2), ubuntu<span style="color:#f92672">-</span>minimal:amd64 (<span style="color:#ae81ff">1.417</span>), apt<span style="color:#f92672">-</span>utils:amd64 (<span style="color:#ae81ff">1.6.10</span>), code:amd64 (<span style="color:#ae81ff">1.37.0</span><span style="color:#f92672">-</span><span style="color:#ae81ff">1565227985</span>), ubuntu<span style="color:#f92672">-</span><span style="color:#66d9ef">release</span><span style="color:#f92672">-</span>upgrader<span style="color:#f92672">-</span>gtk:amd64 (<span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">18.04.30</span>), update<span style="color:#f92672">-</span>notifier:amd64 (<span style="color:#ae81ff">3.192.1.5</span>)
+End<span style="color:#f92672">-</span>Date: <span style="color:#ae81ff">2019</span><span style="color:#f92672">-</span><span style="color:#ae81ff">08</span><span style="color:#f92672">-</span><span style="color:#ae81ff">19</span>  <span style="color:#ae81ff">14</span><span style="color:#f92672">:</span><span style="color:#ae81ff">10</span><span style="color:#f92672">:</span><span style="color:#ae81ff">11</span>
+</code></pre></div><p>有点心态爆炸，难怪无论怎么查找，都找不到 apt 的 可执行文件，所幸一些配置文件、log文件等都还有保留。既然知道了问题所在，那么就要想办法解决——把 apt 给装回来喽！还好，apt 还是能装回来的，否则只能重装系统了。。。</p>
 <h1 id="出路">出路</h1>
-
 <h2 id="获取镜像">获取镜像</h2>
-
 <p>进入<a href="https://opsx.alibaba.com/mirror/search?q=apt&amp;lang=zh-CN">阿里开源镜像网站</a>，根据当前系统版本和架构选择合适的 apt 镜像文件（格式为：apt_xxx_xxx.deb），我的计算机是ubuntu 18.04，x86架构，因而选择 ubuntu bionic 的<code>apt_1.6.1_amd64.deb</code>的镜像文件下载。</p>
-
 <p>使用如下命令可以查看当前 Linux 系统的版本信息</p>
-
-<pre><code class="language-shell">$ cat /etc/os-release
-</code></pre>
-
-<p>不过 1.6 版本的 apt 算是比较老的了，阿里上面没有更新的版本，可以去网易或搜狐上面找，根据系统的不同将网址更改下即可。</p>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ cat /etc/os-release
+</code></pre></div><p>不过 1.6 版本的 apt 算是比较老的了，阿里上面没有更新的版本，可以去网易或搜狐上面找，根据系统的不同将网址更改下即可。</p>
 <blockquote>
-<p>网易开源镜像：<a href="http://mirrors.163.com/ubuntu/pool/main/a/apt/">http://mirrors.163.com/ubuntu/pool/main/a/apt/</a></p>
-
-<p>搜狐开源镜像：<a href="http://mirrors.sohu.com/ubuntu/pool/main/a/apt/">http://mirrors.sohu.com/ubuntu/pool/main/a/apt/</a></p>
+<p>网易开源镜像：http://mirrors.163.com/ubuntu/pool/main/a/apt/</p>
+<p>搜狐开源镜像：http://mirrors.sohu.com/ubuntu/pool/main/a/apt/</p>
 </blockquote>
-
 <p>不过要注意，不是下载的镜像越新越好，因为 apt 的安装运行也是有很多依赖的，版本的差异会导致一些比较大的问题。就比如下载了一个很新1.9.0 的 apt 版本，但在安装的时候会报错。</p>
-
 <h2 id="安装">安装</h2>
-
 <p>使用 dpkg 进行安装，一定要用 root 权限。</p>
-
-<pre><code class="language-shell">$ sudo dpkg -i apt_1.6.1_amd64.deb
-</code></pre>
-
-<p>如果没什么问题，就表示 apt 重新归来了。可以 dpkg 查看下</p>
-
-<pre><code class="language-shell">$ dpkg -l apt
-</code></pre>
-
-<h2 id="重装-apt-transport-https">重装 apt-transport-https</h2>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ sudo dpkg -i apt_1.6.1_amd64.deb
+</code></pre></div><p>如果没什么问题，就表示 apt 重新归来了。可以 dpkg 查看下</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ dpkg -l apt
+</code></pre></div><h2 id="重装-apt-transport-https">重装 apt-transport-https</h2>
 <p>之前为了合 apt 的版本，将 <code>apt-transport-https</code>给卸载了，现在我要重新安装。</p>
-
 <p>还是之前的操作：</p>
-
-<pre><code class="language-shell">$ sudo apt-get install apt-transport-https
-</code></pre>
-
-<p>发现原来安装的时候已经有提示了……不看安装说明真不是一个好习惯，尤其是让你输入什么确认的时候……</p>
-
-<p><img src="https://raw.githubusercontent.com/Shadowmaple/mydocuments/master/images/Screenshot/001.png" alt="" /></p>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ sudo apt-get install apt-transport-https
+</code></pre></div><p>发现原来安装的时候已经有提示了……不看安装说明真不是一个好习惯，尤其是让你输入什么确认的时候……</p>
+<p><img src="https://raw.githubusercontent.com/Shadowmaple/mydocuments/master/images/Screenshot/001.png" alt=""></p>
 <p>既然这样用 apt 安装<code>apt-transport-https</code>会把 apt 给移除掉，那么该如何安装 呢？apt 怎么安装，它就怎么安装。在之前的镜像网站中也可以看到有 <code>apt-transport-https</code> 的镜像文件，选择合适的下载下来即可，dpkg 安装</p>
-
-<pre><code class="language-shell">$ sudo dpkg -i apt-transport-https_1.8.3_all.deb
-</code></pre>
-
-<p>如果有什么问题，比如版本的问题，那就再下载其它版本的试试。年轻人就要多折腾～</p>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ sudo dpkg -i apt-transport-https_1.8.3_all.deb
+</code></pre></div><p>如果有什么问题，比如版本的问题，那就再下载其它版本的试试。年轻人就要多折腾～</p>
 <h2 id="apt-相关软件包">apt 相关软件包</h2>
-
 <p>虽然 apt已经重新安装好了，但是并不代表它是完整的，从之前的log文件中可以看到随 apt 移除的还有 <code>update-manager</code>，<code>flashplugin-installer</code> 等等，这些东西的缺失会使你在安装其它一些软件的时候受到阻碍，那么该如何恢复？现在就不用从镜像网站一个个下载了，直接一条指令便足以解决：</p>
-
-<pre><code class="language-shell">$ sudo apt --fix-broken install
-</code></pre>
-
-<p><img src="https://raw.githubusercontent.com/Shadowmaple/mydocuments/master/images/Screenshot/003.png" alt="" /></p>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ sudo apt --fix-broken install
+</code></pre></div><p><img src="https://raw.githubusercontent.com/Shadowmaple/mydocuments/master/images/Screenshot/003.png" alt=""></p>
 <p>还有之前也同样被移除的 vscode ，就要自己去官网下重新下载了</p>
-
 <p>这样 apt 完全修复了</p>
-
 <h1 id="寻踪启示">寻踪启示</h1>
-
 <p>引以为鉴，在安装什么东西的时候稍微看下安装的说明，尤其是要确认什么的时候</p>
-
 <p>附上一些有用的参考链接：</p>
-
 <blockquote>
 <p><a href="https://bbs.aliyun.com/simple/t345645.html">中国Linux开源镜像站大全</a></p>
-
 <p><a href="https://www.bbsmax.com/A/gVdnYx2X5W/">https://www.bbsmax.com/A/gVdnYx2X5W/</a></p>
-
 <p><a href="https://blog.csdn.net/qq_38417808/article/details/85602476">https://blog.csdn.net/qq_38417808/article/details/85602476</a></p>
 </blockquote>
 </div>

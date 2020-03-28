@@ -103,37 +103,28 @@
           <h2><a href='/posts/vim-command/'>Vim操作命令</a></h2>
           <span class="date">2018.12.15</span>
         </div>
-        <div class="post_content markdown">
-
-<h1 id="前言">前言</h1>
-
+        <div class="post_content markdown"><h1 id="前言">前言</h1>
 <p>简单记录一些在使用vim过程中会用到的操作</p>
-
 <h1 id="模式">模式</h1>
-
 <p>vim有三个模式，分别是：</p>
-
 <ul>
 <li>命令模式</li>
 <li>编辑模式
-
 <ul>
 <li>进入：<code>[i, I, o, O, a, A, r, R]</code></li>
 <li>退出：Esc键</li>
-</ul></li>
+</ul>
+</li>
 <li>命令行模式
-
 <ul>
 <li>进入：<code>[:, /, ?]</code></li>
 <li>退出：Esc键</li>
 <li>作用：查找数据，读取、保存、批量替换字符、退出、显示行号等操作</li>
-</ul></li>
 </ul>
-
+</li>
+</ul>
 <h1 id="基本操作">基本操作</h1>
-
-<h2 id="退出-保存">退出&amp;保存</h2>
-
+<h2 id="退出保存">退出&amp;保存</h2>
 <table>
 <thead>
 <tr>
@@ -141,37 +132,30 @@
 <th align="center">效果</th>
 </tr>
 </thead>
-
 <tbody>
 <tr>
 <td align="center">:q</td>
 <td align="center">退出</td>
 </tr>
-
 <tr>
 <td align="center">:q!</td>
 <td align="center">强制退出，不保存修改</td>
 </tr>
-
 <tr>
 <td align="center">:w</td>
 <td align="center">保存修改</td>
 </tr>
-
 <tr>
 <td align="center">:wq</td>
 <td align="center">保存并退出</td>
 </tr>
-
 <tr>
 <td align="center">ZZ</td>
 <td align="center">保存并退出</td>
 </tr>
 </tbody>
 </table>
-
 <h2 id="移动光标">移动光标</h2>
-
 <table>
 <thead>
 <tr>
@@ -179,92 +163,74 @@
 <th align="center">效果</th>
 </tr>
 </thead>
-
 <tbody>
 <tr>
 <td align="center"><code>n&lt;space&gt;</code></td>
 <td align="center">向右移动n个字符</td>
 </tr>
-
 <tr>
 <td align="center"><code>n&lt;Enter&gt;</code></td>
 <td align="center">向下移动n行</td>
 </tr>
-
 <tr>
 <td align="center">+</td>
 <td align="center">移动到非空格符的下一行</td>
 </tr>
-
 <tr>
 <td align="center">-</td>
 <td align="center">移动到非空格符的上一行</td>
 </tr>
-
 <tr>
 <td align="center">[ctrl]+f</td>
 <td align="center">向下移动一页</td>
 </tr>
-
 <tr>
 <td align="center">[ctrl]+b</td>
 <td align="center">向上移动一页</td>
 </tr>
-
 <tr>
 <td align="center">[ctrl]+d</td>
 <td align="center">向下移动半页</td>
 </tr>
-
 <tr>
 <td align="center">[ctrl]+u</td>
 <td align="center">向上移动半页</td>
 </tr>
-
 <tr>
 <td align="center">0</td>
 <td align="center">移动到最前面的字符处</td>
 </tr>
-
 <tr>
 <td align="center">$</td>
 <td align="center">移动到最后的字符</td>
 </tr>
-
 <tr>
 <td align="center">H</td>
 <td align="center">移动到此屏幕最上方一行的第一个字符</td>
 </tr>
-
 <tr>
 <td align="center">M</td>
 <td align="center">到屏幕中间一行的第一个字符</td>
 </tr>
-
 <tr>
 <td align="center">L</td>
 <td align="center">到屏幕最后一行的第一个字符</td>
 </tr>
-
 <tr>
 <td align="center">G</td>
 <td align="center">移动到此文件的最后一行</td>
 </tr>
-
 <tr>
 <td align="center">nG</td>
 <td align="center">移动到第n行</td>
 </tr>
-
 <tr>
 <td align="center">gg</td>
 <td align="center">移动到此文件的第一行</td>
 </tr>
 </tbody>
 </table>
-
 <h2 id="查找和替换">查找和替换</h2>
-
 <table>
 <thead>
 <tr>
@@ -272,54 +238,43 @@
 <th align="center">效果</th>
 </tr>
 </thead>
-
 <tbody>
 <tr>
 <td align="center">/word</td>
 <td align="center">向光标之下查找一个字符串</td>
 </tr>
-
 <tr>
 <td align="center">?word</td>
 <td align="center">向光标之上查找一个字符串</td>
 </tr>
-
 <tr>
 <td align="center">n</td>
 <td align="center">重复前一个查找操作</td>
 </tr>
-
 <tr>
 <td align="center">N</td>
 <td align="center">反向进行前一个查找操作</td>
 </tr>
-
 <tr>
 <td align="center"><code>:n1,n2s/word1/word2/g</code></td>
 <td align="center">在第n1和n2行之间寻找word1字符串，并将其替换为word2</td>
 </tr>
-
 <tr>
 <td align="center"><code>:1,$s/word1/word2/g</code></td>
 <td align="center">从第一行到最后一行寻找word1字符串，并将其替换为word2</td>
 </tr>
-
 <tr>
 <td align="center"><code>:1,$s/word1/word2/gc</code></td>
 <td align="center">从第一行到最后一行寻找word1字符串，并将其替换为word2，且在替换前显示提示字符给用户确认是否替换</td>
 </tr>
-
 <tr>
 <td align="center">:nohl</td>
 <td align="center">取消反白</td>
 </tr>
 </tbody>
 </table>
-
-<h2 id="删除-复制和粘贴">删除、复制和粘贴</h2>
-
+<h2 id="删除复制和粘贴">删除、复制和粘贴</h2>
 <h3 id="删除">删除</h3>
-
 <table>
 <thead>
 <tr>
@@ -327,47 +282,38 @@
 <th align="center">效果</th>
 </tr>
 </thead>
-
 <tbody>
 <tr>
 <td align="center">nx</td>
 <td align="center">连续向后删除n个字符</td>
 </tr>
-
 <tr>
 <td align="center">ndd</td>
 <td align="center">剪切（删除）光标所在的向下n行</td>
 </tr>
-
 <tr>
 <td align="center">dd</td>
 <td align="center">剪切该行</td>
 </tr>
-
 <tr>
 <td align="center">d1G</td>
 <td align="center">剪切光标所在到第一行的所有数据</td>
 </tr>
-
 <tr>
 <td align="center">d$</td>
 <td align="center">剪切光标所在到最后一行的所有数据</td>
 </tr>
-
 <tr>
 <td align="center">d0</td>
 <td align="center">剪切光标所在处，到该行的最前面的一个字符</td>
 </tr>
-
 <tr>
 <td align="center">[n]c[k]</td>
 <td align="center">重复删除多个数据，k为方向按键，如5cj为向下删除5，5cl为向右删除5个字符</td>
 </tr>
 </tbody>
 </table>
-
 <h3 id="复制与粘贴">复制与粘贴</h3>
-
 <table>
 <thead>
 <tr>
@@ -375,57 +321,46 @@
 <th align="center">效果</th>
 </tr>
 </thead>
-
 <tbody>
 <tr>
 <td align="center">yy</td>
 <td align="center">复制所在一行</td>
 </tr>
-
 <tr>
 <td align="center">nyy</td>
 <td align="center">复制n行</td>
 </tr>
-
 <tr>
 <td align="center">yn</td>
 <td align="center">复制n+1行</td>
 </tr>
-
 <tr>
 <td align="center">y1G</td>
 <td align="center">复制所在行到第一行的数据</td>
 </tr>
-
 <tr>
 <td align="center">yG</td>
 <td align="center">复制所在行到最后一行的数据</td>
 </tr>
-
 <tr>
 <td align="center">y0</td>
 <td align="center">复制所在的字符到该行行首的数据</td>
 </tr>
-
 <tr>
 <td align="center">y$</td>
 <td align="center">复制所在的字符到该行行尾的数据</td>
 </tr>
-
 <tr>
 <td align="center">p</td>
 <td align="center">在下一行粘贴</td>
 </tr>
-
 <tr>
 <td align="center">P</td>
 <td align="center">在上一行粘贴</td>
 </tr>
 </tbody>
 </table>
-
 <h3 id="其他">其他</h3>
-
 <table>
 <thead>
 <tr>
@@ -433,47 +368,38 @@
 <th align="center">效果</th>
 </tr>
 </thead>
-
 <tbody>
 <tr>
 <td align="center">u</td>
 <td align="center">恢复前一个操作，撤销</td>
 </tr>
-
 <tr>
 <td align="center">ctrl+r</td>
 <td align="center">重做上一个操作，对撤销操作而言的撤销</td>
 </tr>
-
 <tr>
-<td align="center">&gt;&gt;</td>
+<td align="center">&raquo;</td>
 <td align="center">该行向右缩进</td>
 </tr>
-
 <tr>
-<td align="center">&lt;&lt;</td>
+<td align="center">&laquo;</td>
 <td align="center">该行向左缩进</td>
 </tr>
-
 <tr>
 <td align="center">&gt;[n]</td>
 <td align="center">n行向右缩进</td>
 </tr>
-
 <tr>
 <td align="center">&lt;[n]</td>
 <td align="center">n行向左缩进</td>
 </tr>
-
 <tr>
 <td align="center">.</td>
 <td align="center">重复上一次的操作</td>
 </tr>
 </tbody>
 </table>
-
 <h2 id="命令模式切换到编辑模式">命令模式切换到编辑模式</h2>
-
 <table>
 <thead>
 <tr>
@@ -481,32 +407,26 @@
 <th align="center">效果</th>
 </tr>
 </thead>
-
 <tbody>
 <tr>
 <td align="center">i与I</td>
 <td align="center">i 为从目标光标所在处插入，I 为在目前所在行的第一个非空格符处开始插入</td>
 </tr>
-
 <tr>
 <td align="center">a与A</td>
 <td align="center">a 为从所在的下一个字符处开始插入，A 为从所在行的最后一个字符处开始插入</td>
 </tr>
-
 <tr>
 <td align="center">o与O</td>
 <td align="center">o 为在所在的下一行处插入新的一行，O 为在目前所在处的上一行插入新的一行</td>
 </tr>
-
 <tr>
 <td align="center">r与R</td>
 <td align="center">r 只会替换光标所在的那个字符一次；R 会一直替换光标所在的文字，直到按下Esc为止</td>
 </tr>
 </tbody>
 </table>
-
 <h2 id="命令行模式的其它操作">命令行模式的其它操作</h2>
-
 <table>
 <thead>
 <tr>
@@ -514,32 +434,26 @@
 <th align="center">效果</th>
 </tr>
 </thead>
-
 <tbody>
 <tr>
 <td align="center"><code>:! [command]</code></td>
 <td align="center">暂时退出vi到shell执行command的显示结果，如<code>:! ls ~</code></td>
 </tr>
-
 <tr>
 <td align="center"><code>:w [file]</code></td>
 <td align="center">将编辑的数据保存成另一个文件</td>
 </tr>
-
 <tr>
 <td align="center"><code>:f [file]</code></td>
 <td align="center">在编辑的数据中，读入另一个文件的数据，即将此文件内容添加到光标所在行之后</td>
 </tr>
-
 <tr>
 <td align="center"><code>:n1,n2 w [file]</code></td>
 <td align="center">将n1到n2的内容保存到file文件</td>
 </tr>
 </tbody>
 </table>
-
 <h1 id="可视区块">可视区块</h1>
-
 <table>
 <thead>
 <tr>
@@ -547,85 +461,65 @@
 <th align="center">效果</th>
 </tr>
 </thead>
-
 <tbody>
 <tr>
 <td align="center">v</td>
 <td align="center">字符选择，会将光标经过的地方反白选择</td>
 </tr>
-
 <tr>
 <td align="center">V</td>
 <td align="center">行选择， 会将光标经过的行反白选择</td>
 </tr>
-
 <tr>
 <td align="center">[ctrl]+v</td>
 <td align="center">可视区块，可以用矩形的方式选择数据</td>
 </tr>
-
 <tr>
 <td align="center">y</td>
 <td align="center">复制反白的地方</td>
 </tr>
-
 <tr>
 <td align="center">d</td>
 <td align="center">删除</td>
 </tr>
-
 <tr>
 <td align="center">p</td>
 <td align="center">将复制的区块，在光标所在处粘贴</td>
 </tr>
-
 <tr>
 <td align="center">[Esc]</td>
 <td align="center">退出</td>
 </tr>
 </tbody>
 </table>
-
 <h1 id="多文件编辑">多文件编辑</h1>
-
-<pre><code class="language-vim">:r filename     # 在光标处，读取（写入）某个文件的全部内容，
-</code></pre>
-
-<p>多文件编辑</p>
-
-<pre><code class="language-shell">$ vi file1 file2    # 同时打开两个文件
-</code></pre>
-
-<table>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vim" data-lang="vim">:<span style="color:#a6e22e">r</span> <span style="color:#a6e22e">filename</span>     # <span style="color:#a6e22e">在光标处</span>，<span style="color:#a6e22e">读取</span>（<span style="color:#a6e22e">写入</span>）<span style="color:#a6e22e">某个文件的全部内容</span>，<span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><p>多文件编辑</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ vi file1 file2    <span style="color:#75715e"># 同时打开两个文件</span>
+</code></pre></div><table>
 <thead>
 <tr>
 <th align="center">command</th>
 <th align="center">作用</th>
 </tr>
 </thead>
-
 <tbody>
 <tr>
 <td align="center">:n</td>
 <td align="center">编辑下一个文件</td>
 </tr>
-
 <tr>
 <td align="center">:N</td>
 <td align="center">编辑上一个文件</td>
 </tr>
-
 <tr>
 <td align="center">:files</td>
 <td align="center">列出目前这个vim开启的所有文件</td>
 </tr>
 </tbody>
 </table>
-
 <h1 id="多窗口功能">多窗口功能</h1>
-
 <p>多窗口同步显示：修改同步，光标移动不同步</p>
-
 <table>
 <thead>
 <tr>
@@ -633,34 +527,27 @@
 <th align="center">作用</th>
 </tr>
 </thead>
-
 <tbody>
 <tr>
 <td align="center"><code>:sp [filename]</code></td>
 <td align="center">打开一个新窗口， 若有加filename，则表示在新窗口创建一个新文件，否则表示两个窗口为一个文件内容（同步显示）</td>
 </tr>
-
 <tr>
 <td align="center"><code>[ctrl]+ w + j</code></td>
 <td align="center">光标移动到下方的窗口</td>
 </tr>
-
 <tr>
 <td align="center"><code>[ctrl]+ w + k</code></td>
 <td align="center">光标移动到上方的窗口</td>
 </tr>
-
 <tr>
 <td align="center"><code>[ctrl]+ w + q</code></td>
 <td align="center">退出，也可用<code>:q</code>或<code>:close</code></td>
 </tr>
 </tbody>
 </table>
-
 <h1 id="关键字补全">关键字补全</h1>
-
 <p>组合键，要在编辑模式下使用</p>
-
 <table>
 <thead>
 <tr>
@@ -668,18 +555,15 @@
 <th align="center">作用</th>
 </tr>
 </thead>
-
 <tbody>
 <tr>
 <td align="center">ctrl+x -&gt; ctrl+n</td>
 <td align="center">通过目前正在编辑的这个【文件的内容文字】作为关键字，予以补全</td>
 </tr>
-
 <tr>
 <td align="center">ctrl+x -&gt; ctrl+f</td>
 <td align="center">以当前目录内的【文件名】作为关键词，予以补全</td>
 </tr>
-
 <tr>
 <td align="center">ctrl+x -&gt; ctrl+o</td>
 <td align="center">以扩展名作为语法补充，以vim内置的关键词，予以补全</td>

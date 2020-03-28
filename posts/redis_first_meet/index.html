@@ -103,22 +103,17 @@
           <h2><a href='/posts/redis_first_meet/'>Redis初识</a></h2>
           <span class="date">2019.07.03</span>
         </div>
-        <div class="post_content markdown">
-
-<h1 id="认识">认识</h1>
-
+        <div class="post_content markdown"><h1 id="认识">认识</h1>
 <p>redis是基于键值对的非关系型数据库</p>
-
 <h2 id="特性">特性</h2>
-
 <ol>
 <li>高性能
-
 <ul>
 <li>纯内存存储，数据存放于内存中</li>
 <li>单线程架构，避免竞态和线程转换</li>
 <li>I/O多路复用技术</li>
-</ul></li>
+</ul>
+</li>
 <li>基于键值对的数据结构服务器</li>
 <li>功能丰富</li>
 <li>简单稳定</li>
@@ -127,9 +122,7 @@
 <li>主从复制</li>
 <li>支持高可用和分布式</li>
 </ol>
-
 <h2 id="redis可执行文件">redis可执行文件</h2>
-
 <table>
 <thead>
 <tr>
@@ -137,65 +130,50 @@
 <th align="center">作用</th>
 </tr>
 </thead>
-
 <tbody>
 <tr>
 <td align="center">redis-server</td>
 <td align="center">启动redis</td>
 </tr>
-
 <tr>
 <td align="center">redis-cli</td>
 <td align="center">redis命令行客户端</td>
 </tr>
-
 <tr>
 <td align="center">redis-benchmark</td>
 <td align="center">redis基准测试工具</td>
 </tr>
-
 <tr>
 <td align="center">redis-check-aof</td>
 <td align="center">redis AOF持久化文件检测和修复工具</td>
 </tr>
-
 <tr>
 <td align="center">redis-check-dump</td>
 <td align="center">redis RDB持久化文件检测和修复工具</td>
 </tr>
-
 <tr>
 <td align="center">redis-sentinel</td>
 <td align="center">启动redis sentinel</td>
 </tr>
 </tbody>
 </table>
-
 <h1 id="运行">运行</h1>
-
 <p>三种方法启动Redis：默认配置、运行配置、配置文件启动</p>
-
-<pre><code class="language-shell"># 关闭、启动、重启服务
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># 关闭、启动、重启服务</span>
 redis-cli shutdown
 /etc/init.d/redis-server stop
 /etc/init.d/redis-server start
 /etc/init.d/redis-server restart
-</code></pre>
-
-<pre><code class="language-shell"># 查看版本
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># 查看版本</span>
 ~$ redis-cli -v
 
-# 启动客户端
+<span style="color:#75715e"># 启动客户端</span>
 ~$ redis-cli
 127.0.0.1:6379&gt;
-# 退出
+<span style="color:#75715e"># 退出</span>
 127.0.0.1:6379&gt; exit
-</code></pre>
-
-<h1 id="操作命令">操作命令</h1>
-
+</code></pre></div><h1 id="操作命令">操作命令</h1>
 <h2 id="常用命令">常用命令</h2>
-
 <pre><code>set / mset      # (批量)设置键值对
 keys *          # 查看所有键
 dbsize          # 数据库内键值对个数
@@ -207,11 +185,8 @@ type            # 键值对类型
 strlen          # 值长度/元素个数
 get / mget / getnx / getex      # 获取键的值
 incr / decr / incrby / decrby / incrbyfloat     # 值自增（整数/浮点数）
-</code></pre>
-
-<h2 id="简单示例">简单示例</h2>
-
-<pre><code class="language-redis"># 插入键值对
+</code></pre><h2 id="简单示例">简单示例</h2>
+<pre><code class="language-redis" data-lang="redis"># 插入键值对
 127.0.0.1:6379&gt; set python hello
 OK
 # 查看所有键
@@ -234,10 +209,7 @@ OK
 # 查看键总数
 127.0.0.1:6379&gt; dbsize
 (integer) 4
-</code></pre>
-
-<h2 id="其他命令">其他命令</h2>
-
+</code></pre><h2 id="其他命令">其他命令</h2>
 <pre><code>append          # 字符串附加
 rename          # 重命名
 randomkey       # 随机抽取键
@@ -247,32 +219,20 @@ randomkey       # 随机抽取键
 select          # 选取数据库
 migrate         # 数据库迁移
 flushdb / flushall  # 删除(所有)数据库
-</code></pre>
-
-<h1 id="数据结构">数据结构</h1>
-
+</code></pre><h1 id="数据结构">数据结构</h1>
 <h2 id="字符串">字符串</h2>
-
 <p>字符串是redis中最基础的数据结构，键都是字符串类型。</p>
-
 <p>字符串类型的值实际可以是字符串(简单的字符串、复杂的字符串(例如JSON、XML))、数字(整数、浮点数),甚至是二进制(图片、音频、视频),但值最大不能超过512MB</p>
-
 <h3 id="内部编码">内部编码</h3>
-
 <ol>
 <li><strong>int</strong> ：8个字节的长整型。</li>
 <li><strong>embstr</strong> ：小于等于39个字节的字符串。</li>
 <li><strong>raw</strong> ：大于39个字节的字符串。</li>
 </ol>
-
 <h2 id="哈希">哈希</h2>
-
 <p>在Redis中,哈希类型是指键值本身又是一个键值对结构,哈希中的映射关系叫作field-value</p>
-
 <h3 id="命令">命令</h3>
-
 <p>哈希的全局命令基本与字符串的相同，只是在细节上以及内部实现上有一些区别</p>
-
 <pre><code>hset / hmset    # 设置键值对
 hget / hmget    # 获取
 hdel            # 删除
@@ -282,10 +242,7 @@ hkeys           # 获取所有field
 hvals           # 获取所有value
 hgetall         # 获取所有的field-value
 hstrlen         # 计算value的字符串长度
-</code></pre>
-
-<h3 id="内部编码-1">内部编码</h3>
-
+</code></pre><h3 id="内部编码-1">内部编码</h3>
 <ol>
 <li><strong>ziplist(压缩列表)</strong>：当哈希类型元素个数小于hash-max-ziplist-entries
 配置(默认512个)、同时所有值都小于hash-max-ziplist-value配置(默认64
@@ -295,16 +252,11 @@ hstrlen         # 计算value的字符串长度
 用hashtable作为哈希的内部实现,因为此时ziplist的读写效率会下降,而
 hashtable的读写时间复杂度为O(1)</li>
 </ol>
-
 <h2 id="列表">列表</h2>
-
 <p>列表中的每个字符串称为元素(element),一个列表最多可以存储 2^32-1 个元素</p>
-
 <p>特点:
 有序，支持索引，支持元素重复</p>
-
 <h3 id="命令-1">命令</h3>
-
 <table>
 <thead>
 <tr>
@@ -312,37 +264,30 @@ hashtable的读写时间复杂度为O(1)</li>
 <th align="center">操作</th>
 </tr>
 </thead>
-
 <tbody>
 <tr>
 <td align="center">添加</td>
 <td align="center">lpush rpush linsert</td>
 </tr>
-
 <tr>
 <td align="center">删除</td>
 <td align="center">lpop rpop lrem ltrim</td>
 </tr>
-
 <tr>
 <td align="center">查</td>
 <td align="center">lrange lindex llen</td>
 </tr>
-
 <tr>
 <td align="center">更改</td>
 <td align="center">lset</td>
 </tr>
-
 <tr>
 <td align="center">阻塞操作</td>
 <td align="center">blpop brpop</td>
 </tr>
 </tbody>
 </table>
-
 <h3 id="内部编码-2">内部编码</h3>
-
 <ol>
 <li><strong>ziplist(压缩列表)</strong>:当列表的元素个数小于list-max-ziplist-entries配置
 (默认512个),同时列表中每个元素的值都小于list-max-ziplist-value配置时
@@ -352,16 +297,11 @@ hashtable的读写时间复杂度为O(1)</li>
 linkedlist作为列表的内部实现</li>
 <li>quicklist: 以一个ziplist为节点的linkedlist</li>
 </ol>
-
 <h2 id="集合">集合</h2>
-
 <p>特点：
 无序，去重</p>
-
 <h3 id="命令-2">命令</h3>
-
 <p>集合内部</p>
-
 <pre><code>sadd        # 添加
 srem        # 删除
 scard       # 计算元素个数
@@ -369,20 +309,14 @@ sismember   # 判断元素是否在集合中
 srandmember # 随机返回指定个数的元素
 spop        # 随机弹出元素
 smembers    # 获取所有元素
-</code></pre>
-
-<p>集合间</p>
-
+</code></pre><p>集合间</p>
 <pre><code>sinter      # 交集
 sunion      # 并集
 sdiff       # 差集
 sinterstore # 求交集，并将结果保存，下同
 sunionstore
 sdiffstore
-</code></pre>
-
-<h3 id="内部编码-3">内部编码</h3>
-
+</code></pre><h3 id="内部编码-3">内部编码</h3>
 <ol>
 <li><strong>intset(整数集合)</strong>:当集合中的元素都是整数且元素个数小于set-max-
 intset-entries配置(默认512个)时,Redis会选用intset来作为集合的内部实
@@ -390,19 +324,12 @@ intset-entries配置(默认512个)时,Redis会选用intset来作为集合的内�
 <li><strong>hashtable(哈希表)</strong>:当集合类型无法满足intset的条件时,Redis会使
 用hashtable作为集合的内部实现</li>
 </ol>
-
 <h2 id="有序集合">有序集合</h2>
-
 <h3 id="特点">特点</h3>
-
 <p>有序，去重，通过分值实现有序，分值可重</p>
-
 <h3 id="操作命令-1">操作命令</h3>
-
 <p>有序集合的全局命令基本与集合相同，但还是有一些变化</p>
-
 <p>集合内部</p>
-
 <pre><code>zadd
 zrem
 zcard
@@ -414,16 +341,10 @@ zrangebyscore / ...
 zcount                  # 返回指定分数范围成员个数
 zremrangebyrank         # 删除指定排名内的升序元素
 zremrangebyscore
-</code></pre>
-
-<p>集合间</p>
-
+</code></pre><p>集合间</p>
 <pre><code>zinterstore     # 交集
 zunionstore     # 并集
-</code></pre>
-
-<h3 id="内部编码-4">内部编码</h3>
-
+</code></pre><h3 id="内部编码-4">内部编码</h3>
 <ol>
 <li><strong>ziplist(压缩列表)</strong>:当有序集合的元素个数小于zset-max-ziplist-
 entries配置(默认128个),同时每个元素的值都小于zset-max-ziplist-value配
@@ -432,79 +353,57 @@ entries配置(默认128个),同时每个元素的值都小于zset-max-ziplist-va
 <li><strong>skiplist(跳跃表)</strong>:当ziplist条件不满足时,有序集合会使用skiplist作
 为内部实现,因为此时ziplist的读写效率会下降</li>
 </ol>
-
 <h1 id="python中的redis">python中的redis</h1>
-
 <p>redis提供了很多的python语言的客户端，但最被广泛认可的是redis-py，本次便以redis-py 和 python3为例</p>
-
 <h2 id="准备">准备</h2>
-
 <p>首先要安装redis-py库</p>
-
-<pre><code class="language-python">$ pip3 install redis
-</code></pre>
-
-<p>其次还要将 redis 服务器开启，开启方式可以不一样</p>
-
-<pre><code class="language-shell">/etc/init.d/redis-server start
-</code></pre>
-
-<blockquote>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#960050;background-color:#1e0010">$</span> pip3 install redis
+</code></pre></div><p>其次还要将 redis 服务器开启，开启方式可以不一样</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">/etc/init.d/redis-server start
+</code></pre></div><blockquote>
 <p>redis 提供 Redis 和 StrictRedis两个类，StrictRedis用于实现大部分官方的命令，并使用官方的语法和命令，Redis是StrictRedis的子类，用于向后兼容旧版本的redis-py。官方推荐使用<code>StrictRedis</code>类。</p>
 </blockquote>
-
 <h2 id="redis连接">redis连接</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> redis
 
-<pre><code class="language-python">import redis
+<span style="color:#75715e"># 连接本地的redis客户端，6479端口，默认为第一个数据库(0)，密码可设置</span>
+r <span style="color:#f92672">=</span> redis<span style="color:#f92672">.</span>StrictRedis(host <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;localhost&#39;</span>, port <span style="color:#f92672">=</span> <span style="color:#ae81ff">6379</span>, db <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>, password <span style="color:#f92672">=</span> None)
+r<span style="color:#f92672">.</span>set(<span style="color:#e6db74">&#39;python&#39;</span>, <span style="color:#e6db74">&#39;hello&#39;</span>)
+<span style="color:#66d9ef">print</span>(r<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#39;python&#39;</span>))
 
-# 连接本地的redis客户端，6479端口，默认为第一个数据库(0)，密码可设置
-r = redis.StrictRedis(host = 'localhost', port = 6379, db = 0, password = None)
-r.set('python', 'hello')
-print(r.get('python'))
-
-# 显示结果为 b'hello'
-</code></pre>
-
-<p>还可以用连接池 connection_pool</p>
-
+<span style="color:#75715e"># 显示结果为 b&#39;hello&#39;</span>
+</code></pre></div><p>还可以用连接池 connection_pool</p>
 <blockquote>
 <p>redis-py使用connection pool来管理对一个redis server的所有连接，避免每次建立、释放连接的开销。默认，每个Redis实例都会维护一个自己的连接池。
 可以直接建立一个连接池，然后作为参数Redis，这样就可以实现多个Redis实例共享一个连接池</p>
 </blockquote>
-
-<pre><code class="language-python">&gt;&gt;&gt; import redis
-&gt;&gt;&gt;
-&gt;&gt;&gt; pool = redis.ConnectionPool(host='localhost', port=6379)
-&gt;&gt;&gt; r = redis.Redis(connetion_pool = pool)
-&gt;&gt;&gt; r = redis.StrictRedis(connection_pool = pool)
-&gt;&gt;&gt; r.set('c#', 'bu')
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> <span style="color:#f92672">import</span> redis
+<span style="color:#f92672">&gt;&gt;&gt;</span>
+<span style="color:#f92672">&gt;&gt;&gt;</span> pool <span style="color:#f92672">=</span> redis<span style="color:#f92672">.</span>ConnectionPool(host<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;localhost&#39;</span>, port<span style="color:#f92672">=</span><span style="color:#ae81ff">6379</span>)
+<span style="color:#f92672">&gt;&gt;&gt;</span> r <span style="color:#f92672">=</span> redis<span style="color:#f92672">.</span>Redis(connetion_pool <span style="color:#f92672">=</span> pool)
+<span style="color:#f92672">&gt;&gt;&gt;</span> r <span style="color:#f92672">=</span> redis<span style="color:#f92672">.</span>StrictRedis(connection_pool <span style="color:#f92672">=</span> pool)
+<span style="color:#f92672">&gt;&gt;&gt;</span> r<span style="color:#f92672">.</span>set(<span style="color:#e6db74">&#39;c#&#39;</span>, <span style="color:#e6db74">&#39;bu&#39;</span>)
 True
-&gt;&gt;&gt; r.get('c#')
-b'bu'
-</code></pre>
-
-<p>在python中 redis 的应用方法基本就是一般的redis应用方式，照着用就是了</p>
-
+<span style="color:#f92672">&gt;&gt;&gt;</span> r<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#39;c#&#39;</span>)
+<span style="color:#e6db74">b</span><span style="color:#e6db74">&#39;bu&#39;</span>
+</code></pre></div><p>在python中 redis 的应用方法基本就是一般的redis应用方式，照着用就是了</p>
 <h2 id="使用pipeline">使用pipeline</h2>
-
 <p>pipeline(流水线)实际上是对一组命令进行批量操作（相当于mset,mget），即将n次客户端与redis服务端之间的往返次数（RTT）合并为一次来回，有效节约在命令传输中所损耗的时间（如网络消耗）。</p>
-
-<pre><code class="language-python">&gt;&gt;&gt; import redis
-&gt;&gt;&gt;
-&gt;&gt;&gt; r = redis.StrictRedis(host='localhost',port=6379)
-&gt;&gt;&gt; pipeline = r.pipeline()
-&gt;&gt;&gt; pipeline.set('vc', 2)       # 该设置并不会执行该命令，仅相当于存在一个缓冲区
-Pipeline&lt;ConnectionPool&lt;Connection&lt;host=localhost,port=6379,db=0&gt;&gt;&gt;
-&gt;&gt;&gt; pipeline.incr('vc')         # 再将vc的值加一
-Pipeline&lt;ConnectionPool&lt;Connection&lt;host=localhost,port=6379,db=0&gt;&gt;&gt;
-&gt;&gt;&gt;
-&gt;&gt;&gt; pipeline.execute()      # 执行execute后客户端才会将一组预先设定的命令传送到服务器中执行
-[True, 3]
-&gt;&gt;&gt;
-&gt;&gt;&gt; r.get('vc')     # 现在可以从服务器中得到vc的值
-b'3'
-</code></pre>
-</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> <span style="color:#f92672">import</span> redis
+<span style="color:#f92672">&gt;&gt;&gt;</span>
+<span style="color:#f92672">&gt;&gt;&gt;</span> r <span style="color:#f92672">=</span> redis<span style="color:#f92672">.</span>StrictRedis(host<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;localhost&#39;</span>,port<span style="color:#f92672">=</span><span style="color:#ae81ff">6379</span>)
+<span style="color:#f92672">&gt;&gt;&gt;</span> pipeline <span style="color:#f92672">=</span> r<span style="color:#f92672">.</span>pipeline()
+<span style="color:#f92672">&gt;&gt;&gt;</span> pipeline<span style="color:#f92672">.</span>set(<span style="color:#e6db74">&#39;vc&#39;</span>, <span style="color:#ae81ff">2</span>)       <span style="color:#75715e"># 该设置并不会执行该命令，仅相当于存在一个缓冲区</span>
+Pipeline<span style="color:#f92672">&lt;</span>ConnectionPool<span style="color:#f92672">&lt;</span>Connection<span style="color:#f92672">&lt;</span>host<span style="color:#f92672">=</span>localhost,port<span style="color:#f92672">=</span><span style="color:#ae81ff">6379</span>,db<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span><span style="color:#f92672">&gt;&gt;&gt;</span>
+<span style="color:#f92672">&gt;&gt;&gt;</span> pipeline<span style="color:#f92672">.</span>incr(<span style="color:#e6db74">&#39;vc&#39;</span>)         <span style="color:#75715e"># 再将vc的值加一</span>
+Pipeline<span style="color:#f92672">&lt;</span>ConnectionPool<span style="color:#f92672">&lt;</span>Connection<span style="color:#f92672">&lt;</span>host<span style="color:#f92672">=</span>localhost,port<span style="color:#f92672">=</span><span style="color:#ae81ff">6379</span>,db<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span><span style="color:#f92672">&gt;&gt;&gt;</span>
+<span style="color:#f92672">&gt;&gt;&gt;</span>
+<span style="color:#f92672">&gt;&gt;&gt;</span> pipeline<span style="color:#f92672">.</span>execute()      <span style="color:#75715e"># 执行execute后客户端才会将一组预先设定的命令传送到服务器中执行</span>
+[True, <span style="color:#ae81ff">3</span>]
+<span style="color:#f92672">&gt;&gt;&gt;</span>
+<span style="color:#f92672">&gt;&gt;&gt;</span> r<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#39;vc&#39;</span>)     <span style="color:#75715e"># 现在可以从服务器中得到vc的值</span>
+<span style="color:#e6db74">b</span><span style="color:#e6db74">&#39;3&#39;</span>
+</code></pre></div></div>
         <div class="post_footer">
           
           <div class="meta">

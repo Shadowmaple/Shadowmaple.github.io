@@ -103,218 +103,157 @@
           <h2><a href='/posts/python-decorator/'>Python装饰器</a></h2>
           <span class="date">2019.04.13</span>
         </div>
-        <div class="post_content markdown">
-
-<h1 id="为什么要用装饰器">为什么要用装饰器？</h1>
-
+        <div class="post_content markdown"><h1 id="为什么要用装饰器">为什么要用装饰器？</h1>
 <p>先看一个简单的例子</p>
-
-<pre><code class="language-Python">def foo():
-    print(&quot;I'm foo.&quot;)
-
-foo()
-</code></pre>
-
-<p>之后有了一个新需求，想要在其中添加时间，你可以这样直接添加：</p>
-
-<pre><code class="language-Python">import time
-
-def foo():
-    t = time.strftime('%H:%M:%S', time.localtime())
-    print('It\'s {} now.'.format(t))
-    print(&quot;I am foo.&quot;)
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Python" data-lang="Python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">foo</span>():
+    <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;I&#39;m foo.&#34;</span>)
 
 foo()
-</code></pre>
+</code></pre></div><p>之后有了一个新需求，想要在其中添加时间，你可以这样直接添加：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Python" data-lang="Python"><span style="color:#f92672">import</span> time
 
-<p>先来看下效果</p>
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">foo</span>():
+    t <span style="color:#f92672">=</span> time<span style="color:#f92672">.</span>strftime(<span style="color:#e6db74">&#39;%H:%M:%S&#39;</span>, time<span style="color:#f92672">.</span>localtime())
+    <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#39;It</span><span style="color:#ae81ff">\&#39;</span><span style="color:#e6db74">s {} now.&#39;</span><span style="color:#f92672">.</span>format(t))
+    <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;I am foo.&#34;</span>)
 
+foo()
+</code></pre></div><p>先来看下效果</p>
 <pre><code>It's 15:15:15 now.
 I am foo.
-</code></pre>
-
-<p>成功达成目的，但是这样的话，我们每次都要修改函数代码，如果有多个函数的话，效率极为低下。那么这种方式呢？</p>
-
-<pre><code class="language-python">import time
-def get_time(func):
-    t = time.strftime('%H:%M:%S', time.localtime())
-    print('It\'s {} now.'.format(t))
+</code></pre><p>成功达成目的，但是这样的话，我们每次都要修改函数代码，如果有多个函数的话，效率极为低下。那么这种方式呢？</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> time
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">get_time</span>(func):
+    t <span style="color:#f92672">=</span> time<span style="color:#f92672">.</span>strftime(<span style="color:#e6db74">&#39;%H:%M:%S&#39;</span>, time<span style="color:#f92672">.</span>localtime())
+    <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#39;It</span><span style="color:#ae81ff">\&#39;</span><span style="color:#e6db74">s {} now.&#39;</span><span style="color:#f92672">.</span>format(t))
     func()
 
-def foo():
-    print(&quot;I am foo.&quot;)
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">foo</span>():
+    <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;I am foo.&#34;</span>)
 
 get_time(foo)
-</code></pre>
-
-<p>当然可以。但是这种代码已经破坏了原有的代码逻辑，执行方式改变了，之前是执行运行foo()，而现在却只能运行get_time(foo)。那么有没有更好的方式呢？答案是装饰器。</p>
-
+</code></pre></div><p>当然可以。但是这种代码已经破坏了原有的代码逻辑，执行方式改变了，之前是执行运行foo()，而现在却只能运行get_time(foo)。那么有没有更好的方式呢？答案是装饰器。</p>
 <h1 id="什么是装饰器">什么是装饰器？</h1>
-
 <p>简单来讲，装饰器就是一个在不破坏原有代码逻辑、结构的情况下对既有函数方法进行附加功能的函数或类。它的本质就是函数或类。</p>
-
 <h2 id="简单的装饰器">简单的装饰器</h2>
-
 <p>首先要认识到在python中函数是一等公民，即函数也是对象，也是可以作为参数进行传递</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">get_time</span>(func):
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">wrapper</span>():
+        t <span style="color:#f92672">=</span> time<span style="color:#f92672">.</span>strftime(<span style="color:#e6db74">&#39;%H:%M:%S&#39;</span>, time<span style="color:#f92672">.</span>localtime())
+        <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#39;It</span><span style="color:#ae81ff">\&#39;</span><span style="color:#e6db74">s {} now.&#39;</span><span style="color:#f92672">.</span>format(t))
+        <span style="color:#66d9ef">return</span> foo()
+    <span style="color:#66d9ef">return</span> wrapper
 
-<pre><code class="language-python">def get_time(func):
-    def wrapper():
-        t = time.strftime('%H:%M:%S', time.localtime())
-        print('It\'s {} now.'.format(t))
-        return foo()
-    return wrapper
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">foo</span>():
+    <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;I am foo.&#34;</span>)
 
-def foo():
-    print(&quot;I am foo.&quot;)
-
-foo = get_time(foo)
+foo <span style="color:#f92672">=</span> get_time(foo)
 foo()
-</code></pre>
-
-<p>函数<code>get_time</code>就是装饰器，它把执行真正业务方法的func包裹在函数里面，看起来像foo被<code>get_time</code>装饰了。</p>
-
+</code></pre></div><p>函数<code>get_time</code>就是装饰器，它把执行真正业务方法的func包裹在函数里面，看起来像foo被<code>get_time</code>装饰了。</p>
 <h2 id="语法糖">语法糖</h2>
-
 <p>@符号是装饰器的语法糖，在定义函数的时候使用，避免再一次赋值操作</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">get_time</span>(func):
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">wrapper</span>():
+        t <span style="color:#f92672">=</span> time<span style="color:#f92672">.</span>strftime(<span style="color:#e6db74">&#39;%H:%M:%S&#39;</span>, time<span style="color:#f92672">.</span>localtime())
+        <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#39;It</span><span style="color:#ae81ff">\&#39;</span><span style="color:#e6db74">s {} now.&#39;</span><span style="color:#f92672">.</span>format(t))
+        <span style="color:#66d9ef">return</span> foo()
+    <span style="color:#66d9ef">return</span> wrapper
 
-<pre><code class="language-python">def get_time(func):
-    def wrapper():
-        t = time.strftime('%H:%M:%S', time.localtime())
-        print('It\'s {} now.'.format(t))
-        return foo()
-    return wrapper
-
-@get_time               #加上语法糖，=&gt; foo = get_time(foo)
-def foo():
-    print(&quot;I am foo.&quot;)
-</code></pre>
-
-<h2 id="装饰器的调用顺序">装饰器的调用顺序</h2>
-
-<pre><code class="language-python">@a
-@b
-@c
-def foo():
-    pass
-</code></pre>
-
-<p>装饰器的调用顺序是从下到上的，即<code>foo = a(b(c(foo)))</code></p>
-
+<span style="color:#a6e22e">@get_time</span>               <span style="color:#75715e">#加上语法糖，=&gt; foo = get_time(foo)</span>
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">foo</span>():
+    <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;I am foo.&#34;</span>)
+</code></pre></div><h2 id="装饰器的调用顺序">装饰器的调用顺序</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#a6e22e">@a</span>
+<span style="color:#a6e22e">@b</span>
+<span style="color:#a6e22e">@c</span>
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">foo</span>():
+    <span style="color:#66d9ef">pass</span>
+</code></pre></div><p>装饰器的调用顺序是从下到上的，即<code>foo = a(b(c(foo)))</code></p>
 <h1 id="带参数的装饰器">带参数的装饰器</h1>
-
 <p>装饰器的语法允许我们在调用时，提供其它参数。这样，就为装饰器的编写和使用提供了更大的灵活性。</p>
-
-<h2 id="关于-args-kwargs">关于*args, **kwargs</h2>
-
+<h2 id="关于args-kwargs">关于*args, **kwargs</h2>
 <p>我们所要装饰的函数有很多是需要参数的，所以说我们可能会想到在wrapper()直接添加参数，但是如果函数所需要的参数个数是不确定的，那如果每次都修改所定义的装饰器，那么装饰器便失去了其普适性。所以引入了<code>*args</code> 和<code>**kwargs</code>支持接受动态参数。</p>
-
 <ul>
 <li><code>*args</code>表示任何多个无名参数，它是一个tuple</li>
-
-<li><p><code>**kwargs</code>表示关键字参数，它是一个dict.</p>
-
-<pre><code class="language-python">def get_time(name):
-def decorator(func):
-    def wrapper(*args, **kwargs):
-        t = time.strftime('%H:%M:%S', time.localtime())
-        print('It\'s {} now.'.format(t))
-        print('I am {}.'.format(name))
-        return func(*args, **kwargs)
-    return wrapper
-return decorator
-
-@get_time(name='Shadow')
-def foo(name='Nick'):
-print(&quot;Hello, I'm %s.&quot; %name)
-
-foo('Mark')
-</code></pre></li>
+<li><code>**kwargs</code>表示关键字参数，它是一个dict.</li>
 </ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">get_time</span>(name):
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">decorator</span>(func):
+        <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">wrapper</span>(<span style="color:#f92672">*</span>args, <span style="color:#f92672">**</span>kwargs):
+            t <span style="color:#f92672">=</span> time<span style="color:#f92672">.</span>strftime(<span style="color:#e6db74">&#39;%H:%M:%S&#39;</span>, time<span style="color:#f92672">.</span>localtime())
+            <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#39;It</span><span style="color:#ae81ff">\&#39;</span><span style="color:#e6db74">s {} now.&#39;</span><span style="color:#f92672">.</span>format(t))
+            <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#39;I am {}.&#39;</span><span style="color:#f92672">.</span>format(name))
+            <span style="color:#66d9ef">return</span> func(<span style="color:#f92672">*</span>args, <span style="color:#f92672">**</span>kwargs)
+        <span style="color:#66d9ef">return</span> wrapper
+    <span style="color:#66d9ef">return</span> decorator
 
-<h1 id="类装饰器">类装饰器</h1>
+<span style="color:#a6e22e">@get_time</span>(name<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Shadow&#39;</span>)
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">foo</span>(name<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Nick&#39;</span>):
+    <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;Hello, I&#39;m </span><span style="color:#e6db74">%s</span><span style="color:#e6db74">.&#34;</span> <span style="color:#f92672">%</span>name)
 
+foo(<span style="color:#e6db74">&#39;Mark&#39;</span>)
+</code></pre></div><h1 id="类装饰器">类装饰器</h1>
 <p>相比函数装饰器，类装饰器具有灵活度大、高内聚、封装性等优点。使用类装饰器主要依靠类的<code>__call__</code>方法，当使用@形式将装饰器附加到函数上时，就会调用此方法。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Foo</span>(object):
+    <span style="color:#66d9ef">def</span> __init__(self, func):
+        self<span style="color:#f92672">.</span>_func <span style="color:#f92672">=</span> func
 
-<pre><code class="language-python">class Foo(object):
-    def __init__(self, func):
-        self._func = func
+    <span style="color:#66d9ef">def</span> __call__(self):
+        <span style="color:#66d9ef">print</span> (<span style="color:#e6db74">&#39;class decorator runing&#39;</span>)
+        self<span style="color:#f92672">.</span>_func()
+        <span style="color:#66d9ef">print</span> (<span style="color:#e6db74">&#39;class decorator ending&#39;</span>)
 
-    def __call__(self):
-        print ('class decorator runing')
-        self._func()
-        print ('class decorator ending')
-
-@Foo
-def bar():
-    print ('bar')
+<span style="color:#a6e22e">@Foo</span>
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">bar</span>():
+    <span style="color:#66d9ef">print</span> (<span style="color:#e6db74">&#39;bar&#39;</span>)
 
 bar()
-</code></pre>
-
-<h1 id="装饰器的弊端">装饰器的弊端</h1>
-
+</code></pre></div><h1 id="装饰器的弊端">装饰器的弊端</h1>
 <p>虽然装饰器实现了我们的功能，但是借助这个<a href="http://www.pythontutor.com/visualize.html#mode=edit">网站</a>来观察返回的函数foo，我们会发现其名称将不会再是原函数的名称,即它的原信息发生了改变，这说明装饰器对原函数造成了影响，这是我们不愿意见到的。所以我们使用python的<code>functools</code>包中一个装饰器<code>wraps</code>来消除这个副作用。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> functools <span style="color:#f92672">import</span> wraps
+<span style="color:#f92672">import</span> time
 
-<pre><code class="language-python">from functools import wraps
-import time
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">get_time</span>(name):
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">decorator</span>(func):
+        <span style="color:#a6e22e">@wraps</span>(func)
+        <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">wrapper</span>(<span style="color:#f92672">*</span>args, <span style="color:#f92672">**</span>kwargs):
+            t <span style="color:#f92672">=</span> time<span style="color:#f92672">.</span>strftime(<span style="color:#e6db74">&#39;%H:%M:%S&#39;</span>, time<span style="color:#f92672">.</span>localtime())
+            <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#39;It</span><span style="color:#ae81ff">\&#39;</span><span style="color:#e6db74">s {} now.&#39;</span><span style="color:#f92672">.</span>format(t))
+            <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#39;I am {}.&#39;</span><span style="color:#f92672">.</span>format(name))
+            <span style="color:#66d9ef">return</span> func(<span style="color:#f92672">*</span>args, <span style="color:#f92672">**</span>kwargs)
+        <span style="color:#66d9ef">return</span> wrapper
+    <span style="color:#66d9ef">return</span> decorator
 
-def get_time(name):
-    def decorator(func):
-        @wraps(func)
-        def wrapper(*args, **kwargs):
-            t = time.strftime('%H:%M:%S', time.localtime())
-            print('It\'s {} now.'.format(t))
-            print('I am {}.'.format(name))
-            return func(*args, **kwargs)
-        return wrapper
-    return decorator
+<span style="color:#a6e22e">@get_time</span>(name<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Shadow&#39;</span>)
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">foo</span>(name<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Nick&#39;</span>):
+    <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;Hello, I&#39;m </span><span style="color:#e6db74">%s</span><span style="color:#e6db74">.&#34;</span> <span style="color:#f92672">%</span>name)
 
-@get_time(name='Shadow')
-def foo(name='Nick'):
-    print(&quot;Hello, I'm %s.&quot; %name)
-
-foo('Mark')
-</code></pre>
-
-<h1 id="装饰器的执行顺序">装饰器的执行顺序</h1>
-
+foo(<span style="color:#e6db74">&#39;Mark&#39;</span>)
+</code></pre></div><h1 id="装饰器的执行顺序">装饰器的执行顺序</h1>
 <p>装饰器的一个关键特性是，它们在被装饰的函数定义之后立即运行。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">decorator</span>(func):
+    <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;running decorator&#34;</span>)
+    <span style="color:#66d9ef">return</span> func
 
-<pre><code class="language-python">def decorator(func):
-    print(&quot;running decorator&quot;)
-    return func
-
-@decorator
-def foo():
-    print(&quot;running foo&quot;)
+<span style="color:#a6e22e">@decorator</span>
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">foo</span>():
+    <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;running foo&#34;</span>)
 
 foo()
-</code></pre>
-
-<p>这就有运行和导入之分。导入时：</p>
-
+</code></pre></div><p>这就有运行和导入之分。导入时：</p>
 <pre><code>&gt;&gt;&gt; import decorator
 running decorator
-</code></pre>
-
-<p><code>foo()</code>只有在运行时才会运行</p>
-
+</code></pre><p><code>foo()</code>只有在运行时才会运行</p>
 <h1 id="闭包">闭包</h1>
-
 <p>明确三个变量：全局变量，局部变量和自由变量。</p>
-
 <p>自由变量，指未在本地作用域中绑定的变量</p>
-
-<pre><code class="language-python">def decorator(func):
-    lt = ['abc']
-    def wrapper():
-        print(lt)
-        return func
-    return wrapper
-</code></pre>
-
-<p>在上述代码中，在<code>wrapper</code>中<code>lt</code>即是自由变量。从<code>lt = ['abc']</code>到<code>return func</code>之间（包括）即是闭包。</p>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">decorator</span>(func):
+    lt <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#39;abc&#39;</span>]
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">wrapper</span>():
+        <span style="color:#66d9ef">print</span>(lt)
+        <span style="color:#66d9ef">return</span> func
+    <span style="color:#66d9ef">return</span> wrapper
+</code></pre></div><p>在上述代码中，在<code>wrapper</code>中<code>lt</code>即是自由变量。从<code>lt = ['abc']</code>到<code>return func</code>之间（包括）即是闭包。</p>
 <p>闭包是一种函数，它会保留定义函数时存在的自由变量的绑定，这样调用函数时，虽然定义作用域不可用了，但是仍能使用那些绑定。但是只有嵌套在其他函数中的函数才可能需要处理不在全局作用域中的外部变量。</p>
 </div>
         <div class="post_footer">
