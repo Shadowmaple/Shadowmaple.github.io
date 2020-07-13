@@ -4,16 +4,36 @@
   
   <url>
     <loc>https://Shadowmaple.github.io/categories/</loc>
-    <lastmod>2020-03-25T18:14:40+08:00</lastmod>
+    <lastmod>2020-04-04T15:46:15+08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://Shadowmaple.github.io/categories/life/</loc>
-    <lastmod>2020-03-25T18:14:40+08:00</lastmod>
+    <loc>https://Shadowmaple.github.io/tags/micro/</loc>
+    <lastmod>2020-04-04T15:46:15+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://Shadowmaple.github.io/categories/micro/</loc>
+    <lastmod>2020-04-04T15:46:15+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://Shadowmaple.github.io/posts/</loc>
+    <lastmod>2020-04-04T15:46:15+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://Shadowmaple.github.io/tags/</loc>
+    <lastmod>2020-04-04T15:46:15+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://Shadowmaple.github.io/posts/micro-service/</loc>
+    <lastmod>2020-04-04T15:46:15+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://Shadowmaple.github.io/categories/life/</loc>
     <lastmod>2020-03-25T18:14:40+08:00</lastmod>
   </url>
   
@@ -49,11 +69,6 @@
   
   <url>
     <loc>https://Shadowmaple.github.io/posts/su_sudo/</loc>
-    <lastmod>2019-09-13T16:32:42+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://Shadowmaple.github.io/tags/</loc>
     <lastmod>2019-09-13T16:32:42+08:00</lastmod>
   </url>
   

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>micro on Mannix&#39;s blog</title>
+    <link>https://Shadowmaple.github.io/categories/micro/</link>
+    <description>Recent content in micro on Mannix&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sat, 04 Apr 2020 15:46:15 +0800</lastBuildDate>
+    
+	<atom:link href="https://Shadowmaple.github.io/categories/micro/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>微服务简介</title>
+      <link>https://Shadowmaple.github.io/posts/micro-service/</link>
+      <pubDate>Sat, 04 Apr 2020 15:46:15 +0800</pubDate>
+      
+      <guid>https://Shadowmaple.github.io/posts/micro-service/</guid>
+      <description>单体架构 为了更好的说明微服务，先来说下单体架构。 单体架构就是传统的开发模式，即将应用写在同一个目录下，一次部署。如图： 固然这种开发方式是最快最方便的，但随着开发层次的深入、应用的逐次迭代，代码也不可避</description>
+    </item>
+    
+  </channel>
+</rss>
